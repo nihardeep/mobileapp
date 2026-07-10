@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #eee; }
+  .wrapper { position: relative; width: 400px; height: 250px; perspective: 1500px; }
+  .card { 
+    width: 100%; height: 100%; background: #0f172a; color: white; 
+    transition: all 0.7s; transform-origin: left center; z-index: 2; position: relative;
+    display: flex; justify-content: space-between; align-items: center; padding: 20px; box-sizing: border-box;
+  }
+  .menu { 
+    position: absolute; top: 0; right: 0; width: 62%; height: 100%; 
+    background: white; border-radius: 16px; opacity: 0.8; transition: all 0.7s; z-index: 1;
+    border: 2px solid red;
+  }
+  .wrapper:hover .card {
+    transform: translateX(-40%) rotateY(55deg) scale(0.95);
+    box-shadow: 20px 0 40px rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="menu">Menu Items Here</div>
+    <div class="card">
+      <span style="font-size: 20px;">BALANCE</span>
+      <span>View Options -></span>
+    </div>
+  </div>
+</body>
+</html>

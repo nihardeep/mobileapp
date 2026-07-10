@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndiGo 3D Cards Swipe Test Sandbox</title>
+    <!-- Premium Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --indigo-navy: #001f54;
+            --indigo-blue: #002f6c;
+            --indigo-light: #e6f0fa;
+            --glow-gold: rgba(245, 158, 11, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #002244 0%, #000c1a 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+            padding: 20px;
+        }
+
+        /* Mockup Mobile Container */
+        .phone-frame {
+            width: 375px;
+            height: 780px;
+            background: #001433;
+            border: 10px solid #222;
+            border-radius: 40px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), inset 0 2px 10px rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Phone Header */
+        .phone-header {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .phone-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #e6f0fa;
+            letter-spacing: 0.5px;
+        }
+
+        .phone-status {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            font-family: monospace;
+        }
+
+        /* Test Content Container */
+        .phone-content {
+            flex: 1;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .section-header {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5b9cff;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        /* ==========================================================================
+           CAROUSELS STYLING
+           ========================================================================== */
+
+        .carousel-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: visible;
+            perspective: 1000px;
+            perspective-origin: 50% 50%;
+            transform-style: preserve-3d;
+            height: 240px;
+            touch-action: none;
+        }
+
+        #destinationsContainer {
+            height: 170px;
+        }
+
+        .carousel-3d-track {
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Slide - Curved Coverflow */
+        .carousel-slide {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 270px;
+            height: 210px;
+            margin-left: -135px;
+            margin-top: -105px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            cursor: grab;
+            border: 6px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .carousel-slide:active {
+            cursor: grabbing;
+        }
+
+        /* Slide Overlays & Colors */
+        .offers-slide-1 { background: url('offer_card_1.png') center center / cover no-repeat !important; }
+        .offers-slide-2 { background: url('offer_card_2.png') center center / cover no-repeat !important; }
+        .offers-slide-3 { background: url('offer_card_3.png') center center / cover no-repeat !important; }
+
+        .slide-content {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .slide-tag {
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: #ffd700;
+            text-transform: uppercase;
+        }
+
+        .slide-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .slide-subtitle {
+            font-size: 9.5px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.3;
+        }
+
+        .slide-actions {
+            margin-top: 6px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .slide-btn {
+            padding: 6px 12px;
+            font-size: 9px;
+            font-weight: 700;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #001f54;
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Slide - Curved Coverflow */
+        .trending-slide-card {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 180px;
+            height: 125px;
+            margin-left: -90px;
+            margin-top: -62.5px;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 14px;
+            cursor: grab;
+            border: 6px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.3, 1), opacity 0.4s ease;
+        }
+
+        .card-dubai { background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%), url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=300&q=80') center center / cover; }
+        .card-bangkok { background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%), url('https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=300&q=80') center center / cover; }
+        .card-bali { background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%), url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=300&q=80') center center / cover; }
+
+        .card-details {
+            z-index: 2;
+        }
+
+        .card-city {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .card-price {
+            font-size: 11px;
+            font-weight: 600;
+            color: #5b9cff;
+            margin-top: 2px;
+        }
+
+        .card-original-price {
+            text-decoration: line-through;
+            color: rgba(255,255,255,0.4);
+            font-size: 9px;
+            margin-right: 4px;
+        }
+
+        /* Carousel Navigation Dots */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            width: 14px;
+            border-radius: 3px;
+            background: #5b9cff;
+        }
+
+        /* ==========================================================================
+           ON-SCREEN LOGGER
+           ========================================================================== */
+        .event-logger {
+            background: rgba(0, 0, 0, 0.85);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            height: 180px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 10.5px;
+            color: #00ff66;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow-y: auto;
+        }
+
+        .logger-header {
+            color: #fff;
+            font-weight: bold;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 4px;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .logger-header span:last-child {
+            color: #ffd700;
+            cursor: pointer;
+        }
+
+        .log-entry {
+            line-height: 1.3;
+            animation: fadeIn 0.15s ease-out;
+        }
+
+        .log-time {
+            color: #ffd700;
+            margin-right: 6px;
+        }
+
+        .log-action {
+            color: #5b9cff;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(2px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="font-family: 'Outfit', sans-serif; font-weight:700; margin-bottom: 10px; color: #ffd700;">3D Swipe Sandbox</h2>
+    <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 20px; text-align: center; max-width: 450px;">
+        This sandbox tests touch/mouse swiping in absolute isolation. Use your mouse to click & drag or your finger on mobile.
+    </p>
+
+    <!-- Phone Simulator -->
+    <div class="phone-frame">
+        <div class="phone-header">
+            <div class="phone-title">IndiGo 3D Sandbox</div>
+            <div class="phone-status" id="phoneTime">12:00</div>
+        </div>
+
+        <div class="phone-content">
+            <!-- Section 1: Offers Carousel -->
+            <div class="carousel-section">
+                <div class="section-header">Exclusive Offers (Coverflow)</div>
+                <div class="carousel-container" id="offersCarouselContainer">
+                    <div class="carousel-3d-track" id="offersCarousel">
+                        <!-- Slide 1 -->
+                        <div class="carousel-slide offers-slide-1" onclick="alert('Book Now clicked')">
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="carousel-slide offers-slide-2" onclick="alert('Tours clicked')">
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="carousel-slide offers-slide-3" onclick="alert('Stretch clicked')">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="offersDots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <!-- Section 2: Destinations Stack -->
+            <div class="carousel-section">
+                <div class="section-header">Trending Destinations (Stack)</div>
+                <div class="carousel-container" id="destinationsContainer">
+                    <div class="carousel-3d-track" id="destinationsCarousel">
+                        <!-- Card 1 -->
+                        <div class="trending-slide-card card-dubai">
+                            <div class="card-details">
+                                <div class="card-city">Dubai</div>
+                                <div class="card-price"><span class="card-original-price">₹28,500</span>₹20,199</div>
+                            </div>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="trending-slide-card card-bangkok">
+                            <div class="card-details">
+                                <div class="card-city">Bangkok</div>
+                                <div class="card-price"><span class="card-original-price">₹26,900</span>₹20,199</div>
+                            </div>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="trending-slide-card card-bali">
+                            <div class="card-details">
+                                <div class="card-city">Bali</div>
+                                <div class="card-price"><span class="card-original-price">₹34,000</span>₹25,400</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots" id="destinationsDots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Logger Console -->
+        <div class="event-logger" id="eventLogger">
+            <div class="logger-header">
+                <span>Gesture Log Console</span>
+                <span onclick="clearLog()">Clear</span>
+            </div>
+            <div class="log-entry"><span class="log-time">[System]</span> Logger started. Ready for interaction.</div>
+        </div>
+    </div>
+
+    <script>
+        // Update Time display
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('phoneTime').innerText = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Logger utilities
+        const logger = document.getElementById('eventLogger');
+        function addLog(action, details) {
+            const time = new Date().toLocaleTimeString().split(' ')[0];
+            const log = document.createElement('div');
+            log.className = 'log-entry';
+            log.innerHTML = `<span class="log-time">[${time}]</span> <span class="log-action">${action}</span>: ${details}`;
+            logger.appendChild(log);
+            logger.scrollTop = logger.scrollHeight;
+        }
+
+        function clearLog() {
+            logger.innerHTML = `
+                <div class="logger-header">
+                    <span>Gesture Log Console</span>
+                    <span onclick="clearLog()">Clear</span>
+                </div>
+                <div class="log-entry"><span class="log-time">[System]</span> Log cleared. Ready.</div>
+            `;
+        }
+
+        // ==========================================================================
+        // 3D Curved Coverflow Engine
+        // ==========================================================================
+        function init3DCurvedCoverflow(carouselId, dotsContainerId, cardWidth, cardHeight) {
+            const carousel = document.getElementById(carouselId);
+            const dotsContainer = document.getElementById(dotsContainerId);
+            if (!carousel || !dotsContainer) return;
+
+            const viewport = carousel.parentElement;
+            const slides = carousel.querySelectorAll('.carousel-slide, .trending-slide-card');
+            const dots = dotsContainer.querySelectorAll('.dot');
+            const N = slides.length;
+            if (N === 0) return;
+
+            let progress = 0;
+            let startX = 0;
+            let startY = 0;
+            let startProgress = 0;
+            let dragDistance = 0;
+            let isDragging = false;
+            let lastTouchTime = 0;
+
+            viewport.style.touchAction = 'none';
+
+            slides.forEach(slide => {
+                slide.style.touchAction = 'none';
+                slide.setAttribute('draggable', 'false');
+            });
+
+            // Prevent browser selection/drag defaults
+            viewport.addEventListener('dragstart', (e) => e.preventDefault());
+            viewport.addEventListener('selectstart', (e) => e.preventDefault());
+
+            function updateLayout(animate = true) {
+                let normalizedProgress = (progress % N + N) % N;
+                let activeIndex = Math.round(normalizedProgress) % N;
+
+                slides.forEach((slide, i) => {
+                    slide.style.position = 'absolute';
+                    slide.style.left = '50%';
+                    slide.style.top = '50%';
+                    slide.style.marginLeft = `-${cardWidth / 2}px`;
+                    slide.style.marginTop = `-${cardHeight / 2}px`;
+                    slide.style.width = `${cardWidth}px`;
+                    slide.style.height = `${cardHeight}px`;
+                    slide.style.transformStyle = 'preserve-3d';
+                    slide.style.backfaceVisibility = 'hidden';
+
+                    if (animate) {
+                        slide.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.85, 0.3, 1), opacity 0.4s ease';
+                    } else {
+                        slide.style.transition = 'none';
+                    }
+
+                    let dist = i - normalizedProgress;
+                    while (dist > N/2) dist -= N;
+                    while (dist < -N/2) dist += N;
+
+                    let tx = dist * (cardWidth * 0.62);
+                    let ty = 0;
+                    let tz = -Math.abs(dist) * 80;
+                    let ry = dist * -28;
+                    let scale = 1.02 - Math.abs(dist) * 0.12;
+                    let opacity = 1.0 - Math.abs(dist) * 0.55;
+                    let zIndex = Math.round(10 - Math.abs(dist) * 5);
+
+                    slide.style.zIndex = zIndex;
+                    slide.style.opacity = opacity;
+                    slide.style.transform = `perspective(1000px) translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotateY(${ry}deg) scale(${scale})`;
+                });
+
+                dots.forEach((dot, i) => {
+                    if (i === activeIndex) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            }
+
+            function getCoordinates(e) {
+                let clientX = 0;
+                let clientY = 0;
+                if (e.clientX !== undefined) {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                } else if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+                return { clientX, clientY };
+            }
+
+            function handleStart(e) {
+                isDragging = true;
+                const coords = getCoordinates(e);
+                startX = coords.clientX;
+                startY = coords.clientY;
+                startProgress = progress;
+                dragDistance = 0;
+                updateLayout(false);
+
+                const isTouch = e.type && e.type.startsWith('touch');
+                addLog('Coverflow Start', `${isTouch ? 'Touch' : 'Mouse'} drag at x=${Math.round(startX)}`);
+            }
+
+            function handleMove(e) {
+                if (!isDragging) return;
+                const coords = getCoordinates(e);
+                const diffX = coords.clientX - startX;
+
+                if (e.cancelable) e.preventDefault();
+
+                dragDistance = diffX;
+                const viewportWidth = viewport.offsetWidth || 340;
+                progress = startProgress - (dragDistance / viewportWidth) * 1.5;
+                updateLayout(false);
+            }
+
+            function handleEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+
+                let targetProgress = Math.round(progress);
+                progress = targetProgress;
+                progress = (progress % N + N) % N;
+
+                updateLayout(true);
+                addLog('Coverflow Snap', `Snapped to card index ${progress}`);
+            }
+
+            // Bind Touch event listeners
+            viewport.addEventListener('touchstart', (e) => {
+                lastTouchTime = Date.now();
+                handleStart(e);
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (e) => {
+                handleMove(e);
+            }, { passive: false });
+
+            viewport.addEventListener('touchend', handleEnd);
+            viewport.addEventListener('touchcancel', handleEnd);
+
+            // Bind Mouse event listeners
+            viewport.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return;
+                if (Date.now() - lastTouchTime < 800) return;
+
+                handleStart(e);
+
+                const mouseMoveHandler = (ev) => handleMove(ev);
+                const mouseUpHandler = () => {
+                    handleEnd();
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+
+            updateLayout(false);
+        }
+
+        // ==========================================================================
+        // 3D Swiping Stack Engine
+        // ==========================================================================
+        function init3DSwipingStack(carouselId, dotsContainerId, cardWidth, cardHeight) {
+            const carousel = document.getElementById(carouselId);
+            const dotsContainer = document.getElementById(dotsContainerId);
+            if (!carousel || !dotsContainer) return;
+
+            const viewport = carousel.parentElement;
+            const slides = carousel.querySelectorAll('.trending-slide-card');
+            const dots = dotsContainer.querySelectorAll('.dot');
+            const N = slides.length;
+            if (N === 0) return;
+
+            let activeIndex = 0;
+            let dragX = 0;
+            let dragY = 0;
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let lastTouchTime = 0;
+
+            viewport.style.touchAction = 'none';
+
+            slides.forEach(slide => {
+                slide.style.touchAction = 'none';
+                slide.setAttribute('draggable', 'false');
+            });
+
+            viewport.addEventListener('dragstart', (e) => e.preventDefault());
+            viewport.addEventListener('selectstart', (e) => e.preventDefault());
+
+            function updateLayout(animate = true, swipingOffIndex = -1, flyDirection = 0) {
+                slides.forEach((slide, i) => {
+                    slide.style.position = 'absolute';
+                    slide.style.left = '50%';
+                    slide.style.top = '50%';
+                    slide.style.marginLeft = `-${cardWidth / 2}px`;
+                    slide.style.marginTop = `-${cardHeight / 2}px`;
+                    slide.style.width = `${cardWidth}px`;
+                    slide.style.height = `${cardHeight}px`;
+                    slide.style.transformStyle = 'preserve-3d';
+                    slide.style.backfaceVisibility = 'hidden';
+
+                    if (animate) {
+                        slide.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.85, 0.3, 1), opacity 0.4s ease';
+                    } else {
+                        slide.style.transition = 'none';
+                    }
+
+                    if (i === swipingOffIndex) {
+                        slide.style.transition = 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease';
+                        let tx = flyDirection * 400;
+                        let ty = dragY * 1.5;
+                        let rotate = flyDirection * 45;
+                        slide.style.transform = `perspective(1000px) translateX(${tx}px) translateY(${ty}px) translateZ(50px) rotate(${rotate}deg) scale(0.9)`;
+                        slide.style.opacity = '0';
+                        slide.style.zIndex = '12';
+                        return;
+                    }
+
+                    let indexInStack = (i - activeIndex + N) % N;
+                    let dragRatio = 0;
+                    if (isDragging) {
+                        let dist = Math.hypot(dragX, dragY);
+                        dragRatio = Math.min(1, dist / 150);
+                    }
+
+                    if (indexInStack === 0) {
+                        slide.style.opacity = '1';
+                        slide.style.zIndex = '10';
+                        let rotate = dragX / 12;
+                        slide.style.transform = `perspective(1000px) translateX(${dragX}px) translateY(${dragY}px) translateZ(0px) rotate(${rotate}deg) scale(1)`;
+                    } else {
+                        let tx = (indexInStack * 15) - (dragRatio * 15);
+                        let ty = (indexInStack * 10) - (dragRatio * 10);
+                        let tz = -(indexInStack * 50) + (dragRatio * 50);
+                        let rotate = (indexInStack * 2) - (dragRatio * 2);
+                        let scale = (1 - indexInStack * 0.07) + (dragRatio * 0.07);
+                        let opacity = (0.95 - indexInStack * 0.15) + (dragRatio * 0.15);
+                        let zIndex = 10 - indexInStack;
+
+                        slide.style.zIndex = zIndex;
+                        slide.style.opacity = opacity;
+                        slide.style.transform = `perspective(1000px) translateX(${tx}px) translateY(${ty}px) translateZ(${tz}px) rotate(${rotate}deg) scale(${scale})`;
+                    }
+                });
+
+                dots.forEach((dot, i) => {
+                    if (i === activeIndex) dot.classList.add('active');
+                    else dot.classList.remove('active');
+                });
+            }
+
+            function getCoordinates(e) {
+                let clientX = 0;
+                let clientY = 0;
+                if (e.clientX !== undefined) {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                } else if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+                return { clientX, clientY };
+            }
+
+            function handleStart(e) {
+                isDragging = true;
+                const coords = getCoordinates(e);
+                startX = coords.clientX;
+                startY = coords.clientY;
+                dragX = 0;
+                dragY = 0;
+                updateLayout(false);
+
+                const isTouch = e.type && e.type.startsWith('touch');
+                addLog('Stack Start', `${isTouch ? 'Touch' : 'Mouse'} drag at x=${Math.round(startX)}`);
+            }
+
+            function handleMove(e) {
+                if (!isDragging) return;
+                const coords = getCoordinates(e);
+                const diffX = coords.clientX - startX;
+                const diffY = coords.clientY - startY;
+
+                if (e.cancelable) e.preventDefault();
+
+                dragX = diffX;
+                dragY = diffY;
+                if (dragY > 80) dragY = 80;
+
+                updateLayout(false);
+            }
+
+            function handleEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+
+                let totalDist = Math.hypot(dragX, dragY);
+                if (totalDist > 90) {
+                    let flyDirection = dragX >= 0 ? 1 : -1;
+                    let swipedIndex = activeIndex;
+
+                    updateLayout(true, swipedIndex, flyDirection);
+                    addLog('Stack Swipe Off', `Card index ${swipedIndex} swiped away`);
+
+                    setTimeout(() => {
+                        activeIndex = (activeIndex + 1) % N;
+                        dragX = 0;
+                        dragY = 0;
+                        updateLayout(true);
+                    }, 300);
+                } else {
+                    dragX = 0;
+                    dragY = 0;
+                    updateLayout(true);
+                    addLog('Stack Snap Back', `Card index ${activeIndex} returned to center`);
+                }
+            }
+
+            // Touch event listeners
+            viewport.addEventListener('touchstart', (e) => {
+                lastTouchTime = Date.now();
+                handleStart(e);
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (e) => {
+                handleMove(e);
+            }, { passive: false });
+
+            viewport.addEventListener('touchend', handleEnd);
+            viewport.addEventListener('touchcancel', handleEnd);
+
+            // Mouse event listeners
+            viewport.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return;
+                if (Date.now() - lastTouchTime < 800) return;
+
+                handleStart(e);
+
+                const mouseMoveHandler = (ev) => handleMove(ev);
+                const mouseUpHandler = () => {
+                    handleEnd();
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                };
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            });
+
+            updateLayout(false);
+        }
+
+        // Initialize both
+        window.addEventListener('DOMContentLoaded', () => {
+            init3DCurvedCoverflow('offersCarousel', 'offersDots', 270, 210);
+            init3DCurvedCoverflow('destinationsCarousel', 'destinationsDots', 180, 125);
+        });
+    </script>
+</body>
+</html>

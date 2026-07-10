@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #cce; font-family: sans-serif; }
+  .wrapper { position: relative; width: 400px; height: 230px; perspective: 1500px; }
+  .card { 
+    width: 100%; height: 100%; background: #0f172a; color: white; 
+    border-radius: 16px;
+    transition: all 0.7s; transform-origin: left center; z-index: 2; position: relative;
+    /* simulated open state */
+    transform: translateX(-55%) rotateY(-45deg) scale(0.95);
+  }
+  .menu { 
+    position: absolute; right: 0; width: 62%; background: #fff; border-radius: 16px; 
+    padding: 12px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 4px; 
+    align-content: center; justify-items: center;
+    /* Vertically center the menu itself relative to the wrapper */
+    top: 0; height: 100%; box-sizing: border-box;
+  }
+  .item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; }
+  .circle { width: 36px; height: 36px; border-radius: 50%; border: 1px solid #ccc; background: #fff; }
+  .bottom-item { grid-column: span 2; }
+  span { font-size: 8px; font-weight: 700; text-transform: uppercase; color: #0f172a; line-height: 1.1;}
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="menu">
+      <div class="item top-item"><div class="circle"></div><span>play<br>& win</span></div>
+      <div class="item top-item"><div class="circle"></div><span>complete<br>profile</span></div>
+      <div class="item"><div class="circle"></div><span>old<br>pnr</span></div>
+      <div class="item"><div class="circle"></div><span>partner<br>page</span></div>
+      <div class="item bottom-item"><div class="circle"></div><span>view<br>all</span></div>
+    </div>
+    <div class="card">
+    </div>
+  </div>
+</body>
+</html>

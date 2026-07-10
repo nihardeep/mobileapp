@@ -1,0 +1,1780 @@
+
+                <!-- Plane Flyover Transition -->
+                
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndiGo Premium Mobile Prototype</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="prototype-container">
+        
+        <!-- ==========================================================================
+             DEVELOPER SIMULATOR COCKPIT (Left Sidebar Xcode Theme)
+             ========================================================================== -->
+        <div class="dev-simulator-console">
+            <div class="dev-console-title">
+                <span>⚡</span> IndiGo Flight Deck Cockpit
+            </div>
+            <p class="dev-console-desc">
+                Simulate flight lifecycle states, trigger Siri-style voice inputs, adjust atmospheric parallax physics, and monitor real-time haptic oscilloscope waveforms.
+            </p>
+            
+            <div class="dev-state-group">
+                <div class="dev-state-label">Screen Navigation</div>
+                <div class="dev-btn-stack">
+                    <button class="dev-trigger-btn active" onclick="navigateTo('home')">
+                        Home Page
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="devNavDeals" onclick="navigateTo('deals')">
+                        Offers & Deals
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="devNavTrips" onclick="triggerHomepageCompanion()">
+                        My Trips (Companion)
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
+                        🎓 Student Persona
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dev-state-group">
+                <div class="dev-state-label">Flight Lifecycle States</div>
+                <div class="dev-btn-stack grid-btn-stack">
+                    <button class="dev-trigger-btn active" id="btnStateCheckinOpen" onclick="setFlightState('checkin_open')">
+                        1. Check-in Open
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateCheckedIn" onclick="setFlightState('checked_in')">
+                        2. Checked In
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateGateOpen" onclick="setFlightState('gate_open')">
+                        3. Gate Open
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateAirportCheckin" onclick="setFlightState('airport_checkin')">
+                        4. Desk Closed
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateGoToCounter" onclick="setFlightState('go_to_counter')">
+                        5. Visit Counter
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateGateUpdate" onclick="setFlightState('gate_update')">
+                        6. Gate Update
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateDelayed" onclick="setFlightState('delayed')">
+                        7. Delay Alert
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateCancelled" onclick="setFlightState('cancelled')">
+                        8. Cancel Alert
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
+                        🎓 Student Persona
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dev-state-group">
+                <div class="dev-state-label">Atmosphere & Sound overrides</div>
+                <div class="dev-slider-control">
+                    <div class="slider-lbl-row">
+                        <span>Parallax Drift</span>
+                        <span id="lblCloudSpeed">20s</span>
+                    </div>
+                    <input type="range" id="cloudSpeedRange" min="5" max="45" value="20" class="cockpit-range" oninput="changeCloudSpeed(this.value)">
+                </div>
+                <div class="dev-slider-control">
+                    <div class="slider-lbl-row">
+                        <span>Haptic Volume</span>
+                        <span id="lblHapticVol">80%</span>
+                    </div>
+                    <input type="range" id="hapticVolumeRange" min="0" max="100" value="80" class="cockpit-range" oninput="changeHapticVolume(this.value)">
+                    <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
+                        🎓 Student Persona
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dev-state-group">
+                <div class="dev-state-label">Haptic Oscilloscope Waveform</div>
+                <div class="interactive-feedback-indicator" id="hapticFeedbackLog">
+                    <div class="feedback-status-dot" id="hapticDot"></div>
+                    <span id="hapticMessage">Device standing by...</span>
+                </div>
+                <div class="waveform-container" style="margin-top: 8px;">
+                    <canvas id="hapticWaveformCanvas" width="230" height="50"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================================================
+             HIGH-FIDELITY iPHONE 16 PRO FRAME (Right Panel)
+             ========================================================================== -->
+        <div class="iphone-frame">
+            <div class="iphone-screen">
+                
+                <!-- Parallax Atmospheric Background -->
+                <div class="sky-clouds-container">
+                    <div class="cloud-layer cloud-slow"></div>
+                    <div class="cloud-layer cloud-medium"></div>
+                    <div class="cloud-layer cloud-fast"></div>
+                    <div class="sky-light-rays"></div>
+                </div>
+
+                <!-- Siri Voice Input Listening Overlay -->
+                <div class="siri-voice-overlay" id="siriVoiceOverlay" onclick="closeVoiceSearch()">
+                    <div class="siri-backdrop-blur"></div>
+                    <div class="siri-overlay-content">
+                        <div class="siri-listening-text">Listening for destination...</div>
+                        <div class="siri-canvas-container">
+                            <canvas id="siriVoiceCanvas" width="280" height="100"></canvas>
+                        </div>
+                        <div class="siri-hint-text">Tap anywhere to dismiss</div>
+                    </div>
+                </div>
+
+                <!-- Plane Takeoff Screen Transition Overlay -->
+                <div class="plane-transition-overlay" id="planeTransitionOverlay">
+                    <div class="plane-transition-bg"></div>
+                    <div class="plane-transition-aircraft" id="transitionAircraft">
+                        <svg viewBox="0 0 24 24" width="80" height="80" fill="currentColor">
+                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                        </svg>
+                        <div class="plane-transition-vapor"></div>
+                    </div>
+                </div>
+
+                <!-- Cockpit Interstitial Overlay -->
+                <div class="cockpit-interstitial" id="cockpitInterstitial">
+                    <div class="cockpit-3d-render"></div>
+                    <div class="cockpit-content">
+                        <div class="cockpit-logo-pulse">
+                            <span style="font-weight: 900; font-style: italic; font-size: 28px; color: #fff; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">go<span style="color: #ffd15c;">IndiGo</span></span>
+                        </div>
+                        <div class="cockpit-tagline-container">
+                            <div class="cockpit-tagline" id="cockpitTagline" style="text-shadow: 0 1px 4px rgba(0,0,0,0.8);">Hold tight, we're about to fly...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Expandable iOS Dynamic Island -->
+                <div class="dynamic-island-container">
+                    <div class="dynamic-island" id="dynamicIsland" onclick="toggleIslandExpansion()">
+                        <div class="dynamic-island-content" id="islandContent">
+                            <svg class="island-icon-svg" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z"/></svg>
+                            <div class="island-text" id="islandText">
+                                <strong id="islandHeadline">Indigo 6E 2015</strong>
+                                <span id="islandSubline">Welcome Aboard</span>
+                            </div>
+                            <div class="island-action-badge" id="islandBadge">Boarding</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Native iOS Status Bar -->
+                <div class="status-bar">
+                    <div class="status-time" id="statusTime">09:41</div>
+                    <div class="status-icons">
+                        <svg class="status-svg" viewBox="0 0 100 100" width="13" height="13" fill="currentColor"><path d="M10 80h10v10H10zm20-20h10v30H30zm20-20h10v50H50zm20-20h10v70H70zm20-20h10v90H90z"/></svg>
+                        <svg class="status-svg" viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.94 0M12 20h.01"/></svg>
+                        <svg class="status-svg" viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/></svg>
+                    </div>
+                </div>
+
+                <!-- Main Scrollable App Container -->
+                <div class="app-content" id="appContent">
+                    
+                    <!-- ==========================================================
+                         SCREEN 1: HOME PAGE
+                         ========================================================== -->
+                    <div class="screen active" id="screenHome">
+                        <div class="screen-home-content" id="homeContentContainer">
+                            
+                            <!-- Header with Profile -->
+                            <div class="home-header" id="homeHeaderSection">
+                                <div class="greeting-container">
+                                    <div class="greeting-name" id="userGreeting">Hi Nihar!</div>
+                                </div>
+                                <div class="header-actions">
+                                    <div class="header-logo-circle" onclick="triggerHaptic('light', 'Logo clicked')">
+                                        <svg viewBox="0 0 24 24" class="header-logo-badge-svg" width="16" height="16" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                                    </div>
+                                    <div class="header-avatar-circle" onclick="triggerHaptic('light', 'Profile clicked'); toggleLoyaltyState();">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Category Tabs -->
+                            <div class="category-tabs-container" id="categoryTabsSection">
+                                <div class="category-tab active" onclick="switchCategory(0)">Flights</div>
+                                <div class="category-tab" onclick="switchCategory(1)">Hotels</div>
+                                <div class="category-tab" onclick="switchCategory(2)">Cabs</div>
+                                <div class="category-tab" onclick="switchCategory(3)">Deals</div>
+                                <div class="category-tab" onclick="switchCategory(4)">More</div>
+                            </div>
+
+                            <!-- Frosted Glass Search Widget -->
+                            <div class="search-widget-panel" id="searchWidgetSection" style="padding-bottom: 24px;">
+    
+
+
+    <div id="manualSearchView" class="search-view-container active-view" style="display: block;">
+        
+
+
+
+                                <div class="route-row">
+                                    <div class="input-group" id="inputGroupFrom" onclick="openAirportSelector('from')">
+                                        <div class="input-label">From</div>
+                                        <div class="input-value" id="valFromCode">Select City</div>
+                                    </div>
+                                    
+                                    <div class="swap-route-btn" onclick="swapRoutes()">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m7 16-4-4 4-4M3 12h18M17 8l4 4-4 4"/></svg>
+                                    </div>
+
+                                    <div class="input-group" id="inputGroupTo" onclick="openAirportSelector('to')">
+                                        <div class="input-label">Where to?</div>
+                                        <div class="input-value" id="valToCode">Select City</div>
+                                        
+                                    </div>
+                                </div>
+
+                                
+<div class="search-accordion-toggle" onclick="toggleSearchWidget()" id="searchAccordionToggle" style="display: none;">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+</div>
+
+<div class="search-widget-expanded-content" id="searchWidgetExpandedContent">
+<div class="search-details-row" style="margin-top: 8px; display: flex; gap: 8px;">
+                                    <div class="input-group" id="inputGroupDate" onclick="openDatePicker()" style="flex: 1;">
+                                        <div class="input-label">Departure</div>
+                                        <div class="input-value" id="valDateText">Select Date</div>
+                                    </div>
+                                    <div class="input-group" id="inputGroupTravelers" onclick="openTravelersPicker()" style="flex: 1;">
+                                        <div class="input-label">Travelers</div>
+                                        <div class="input-value" id="valTravelersText">1 Traveler</div>
+                                    </div>
+                                </div>
+                                
+                                
+        <div class="unified-nlp-container" style="margin-top: 16px; margin-bottom: 16px;">
+            <div class="nlp-input-wrapper" style="background: #fff; border-radius: 32px; padding: 8px 8px 8px 16px; position: relative; box-shadow: 0 4px 20px rgba(0,31,84,0.08); border: none; display: flex; align-items: center; margin-bottom: 16px;">
+            
+            
+            
+            <div id="nlpBackIcon" onclick="exitNlpMode(event)" style="color: var(--indigo-blue); margin-right: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(0,95,169,0.05); border-radius: 50%;">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </div>
+    <div id="customNlpPlaceholder" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; display: flex; align-items: center;">
+                Ask 6eSkai about &nbsp;<span id="nlpAnimatedText" style="color: var(--indigo-navy); font-weight: 600; transition: opacity 0.3s ease;">'Coorg Homestays'</span>
+            </div>
+    
+<input type="text" id="nlpSearchInput" class="nlp-placeholder" placeholder="" style="position: relative; z-index: 2; flex: 1; color: var(--indigo-navy); font-size: 14px; font-weight: 500; border: none; background: transparent; outline: none; width: 100%;">
+<div class="nlp-mic-icon" onclick="startVoiceSearch(event)" style="background: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(0,95,169,0.2), 0 0 0 3px rgba(0,95,169,0.05); color: var(--indigo-blue); cursor: pointer; transition: all 0.3s ease;">
+                <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                    <line x1="12" y1="19" x2="12" y2="22"/>
+                </svg>
+            </div>
+        </div>
+        
+        <div class="trending-prompts-section" id="trendingPromptsSection" style="display: none; background: #fafcff; border-radius: 24px; padding: 24px; box-shadow: 0 8px 30px rgba(0,31,84,0.06); border: 1px solid #eef2f6; animation: slideDown 0.3s ease;">
+            <div class="trending-prompts-title" style="font-size: 13px; font-weight: 800; color: #5a6b82; letter-spacing: 0.5px; margin-bottom: 20px; text-transform: uppercase;">TRENDING PROMPTS</div>
+            
+            <div class="trending-prompt-card" onclick="simulateIntent('Cheapest flights to Goa', 'GOI')" style="display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.03); cursor: pointer;">
+                <div class="tpc-icon" style="width: 56px; height: 56px; background: #e8f4fc; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">✈️</div>
+                <div class="tpc-content" style="flex: 1;">
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Cheapest flights to Goa</div>
+                </div>
+            </div>
+
+            <div class="trending-prompt-card" onclick="simulateIntent('Flights to Beach destinations', 'GOI')" style="display: flex; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.03); cursor: pointer;">
+                <div class="tpc-icon" style="width: 56px; height: 56px; background: #e0f7fa; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">🏖️</div>
+                <div class="tpc-content" style="flex: 1;">
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Flights to Beach destinations</div>
+                </div>
+            </div>
+
+            <div class="trending-prompt-card" onclick="simulateIntent('Flight to Europe', 'CDG')" style="display: flex; align-items: center; gap: 16px; padding: 12px 0; cursor: pointer;">
+                <div class="tpc-icon" style="width: 56px; height: 56px; background: #f3e5f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">🌍</div>
+                <div class="tpc-content" style="flex: 1;">
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Flight to Europe</div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="search-btn-container" id="searchBtnContainer">
+    
+                                    <button class="riyadh-search-btn" id="searchFlightsBtn" onclick="searchFlights()">
+                                        Search Flights ➔
+                                    </button>
+                                </div>
+</div>
+
+    </div>
+
+    <!-- AI NLP Search View (Hidden) -->
+    
+    
+</div>
+<!-- STUDENT HYPER-PERSONALIZED BANNER -->
+                            <div class="student-hyper-banner-wrapper" id="studentBannerWrapper">
+                                <div class="student-hyper-banner" onclick="openStudentHub()">
+                                    <div class="shb-icon">🎓</div>
+                                    <div class="shb-content">
+                                        <div class="shb-title">Welcome back, Student!</div>
+                                        <div class="shb-desc">10% Off • Free Date Change • +15Kg Extra Baggage</div>
+                                    </div>
+                                    <div class="shb-cta">Search ➔</div>
+                                </div>
+                            </div>
+
+                            <!-- Recent Searches -->
+                            
+
+<div id="tripCompanionPlaceholder" style="order: 3; height: 0; overflow: hidden; position: relative; transition: height 0.4s ease; margin-bottom: 0;">
+    <svg id="inlinePlaneIcon" viewBox="0 0 24 24" width="32" height="32" fill="var(--indigo-blue)" style="position: absolute; top: 50%; left: -50px; transform: translateY(-50%) rotate(90deg); transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);">
+        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/>
+    </svg>
+</div>
+<div class="flight-state-wrapper" id="homeFlightStateWrapper" style="order: 3; display: none;">
+                            
+                                                                                    <!-- Upfront Upgrade Suggestions Section -->
+                                                        <div class="upgrade-promo-card subtle-glass" id="upgradePromoCard" style="flex-direction: column; align-items: flex-start; height: auto;">
+                                <div style="font-size: 11px; font-weight: 800; color: #60a5fa; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;">IndiGo Upfront</div>
+                                <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
+                                    <div class="animated-text-container">
+                                        <div class="animated-benefit-frame frame-1">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 8px; color: #60a5fa;">
+                                                <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12z"/>
+                                            </svg>
+                                            <span>Skip the airport queues</span>
+                                        </div>
+                                        <div class="animated-benefit-frame frame-2">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right: 8px; color: #60a5fa;">
+                                                <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                                            </svg>
+                                            <span>Curated in-flight meals</span>
+                                        </div>
+                                        <div class="animated-benefit-frame frame-3">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; color: #60a5fa;">
+                                                <path d="M19 18v2M5 18v2M4 6v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6M8 3h8a1 1 0 0 1 1 1v2H7V4a1 1 0 0 1 1-1z"/>
+                                            </svg>
+                                            <span>Front row seats</span>
+                                        </div>
+                                    </div>
+                                    <button class="subtle-action-btn" onclick="triggerHaptic('medium', 'Upgrade'); this.style.transform='scale(0.95)'; setTimeout(()=>this.style.transform='scale(1)', 150); setTimeout(() => alert('Upgraded to Upfront!'), 200);" style="flex-shrink: 0; margin-left: 12px;">
+                                        Upgrade ₹3499
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- PNR Card Wrapper containing Route + Dynamic State Subcard -->
+                            <div class="pnr-main-card">
+                                <div class="pnr-card-header">
+                                    <div class="pnr-flight-icon">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                                    </div>
+                                    <div class="pnr-header-left">
+                                        <span class="pnr-flight-no">6E 2015</span>
+                                        <span class="pnr-route-txt">DEL - BOM</span>
+                                    </div>
+                                    <div class="pnr-header-right" onclick="triggerHaptic('light', 'PNR Copied')">
+                                        <span class="pnr-code">PNR1123453</span>
+                                        <span class="copy-pnr-icon">
+                                            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Route Node Grid -->
+                                <div class="pnr-route-details">
+                                    <div class="pnr-route-point">
+                                        <span class="pnr-time" id="routeDepTime">11:30</span>
+                                        <span class="pnr-city-code">DEL <span class="terminal">T1</span></span>
+                                        <span class="pnr-date">24 April</span>
+                                    </div>
+                                    <div class="pnr-route-line-box">
+                                        <div class="pnr-arrow-line"></div>
+                                        <span class="pnr-duration">2h 00m</span>
+                                    </div>
+                                    <div class="pnr-route-point right-aligned">
+                                        <span class="pnr-time" id="routeArrTime">13:30</span>
+                                        <span class="pnr-city-code">BOM <span class="terminal">T2</span></span>
+                                        <span class="pnr-date">24 April</span>
+                                    </div>
+                                </div>
+
+                                <!-- Morphing Flight Companion Sub-Card (Inside the PNR Card) -->
+                                <div class="companion-subcard" id="flightCompanionCard">
+                                    <div class="subcard-content" id="companionSubcardContent">
+                                        <!-- Will load one of the 8 states -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+<div class="recent-searches-section" id="recentSearchesSection">
+                                <div class="recent-searches-header">
+                                    <span class="recent-title">Recent Search</span>
+                                    <span class="recent-toggle" onclick="toggleRecentSearches()" id="recentToggleArrow">Hide</span>
+                                </div>
+                                <div class="recent-searches-grid" id="recentSearchesList">
+                                    <div class="recent-card" onclick="selectRecentSearch('DEL', 'BOM')">
+                                        <span class="recent-route">DEL to BOM</span>
+                                        <span class="recent-info">May 23 • 2 Travelers</span>
+                                    </div>
+                                    <div class="recent-card" onclick="triggerHaptic('light', 'Recent Food Walk Selected')">
+                                        <span class="recent-route">Explore Delhi</span>
+                                        <span class="recent-info">July 23 • 1 Traveler</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                                                        <!-- Loyalty Panel (IndiGo BluChip balance) -->
+                            <div class="loyalty-section" id="loyaltySection">
+                                
+                                <!-- ========================================================= -->
+                                <!-- STATE 1: LOYAL USER (Has Balance) -->
+                                <!-- ========================================================= -->
+                                <div class="bluchip-card" id="loyalUserCard" onclick="triggerHaptic('medium', 'Loyalty card clicked')">
+                                    <div class="bluchip-top-row">
+                                        <div class="bluchip-left-info">
+                                            <span class="bluchip-title">IndiGo BluChip balance</span>
+                                            <div class="bluchip-balance">
+                                                <div class="bluchip-balance-reveal-wrapper">
+                                                    <div class="bluchip-balance-text" id="bluchipBalanceText">
+                                                        27,440 <span class="bluchip-sub-logo">Blu 3</span>
+                                                    </div>
+                                                    <div class="bluchip-plane-flyer" id="bluchipPlaneFlyer">
+                                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                                            <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bluchip-right-info">
+                                            <span class="bluchip-id">ID: 2582447 
+                                                <span class="copy-icon" onclick="event.stopPropagation(); triggerHaptic('light', 'ID Copied'); alert('ID copied to clipboard!')">
+                                                    <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                                </span>
+                                            </span>
+                                            <span class="bluchip-action" onclick="event.stopPropagation(); triggerHaptic('light', 'Activity screen'); alert('Opening BluChip activity tracker...')">See Activity ➔</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bluchip-divider"></div>
+                                    
+                                    <div class="bluchip-bottom-layout">
+                                        <div class="partner-wallet-deck">
+                                            <div class="partner-cards-container" id="partnerCardsContainer">
+                                                <div class="partner-card card-cleartrip">
+                                                    <div class="partner-logo-circle">
+                                                        <svg viewBox="0 0 100 100" width="28" height="28">
+                                                            <circle cx="50" cy="40" r="22" fill="#ff4f00" />
+                                                            <path d="M40 40 l7 7 l14 -14" stroke="#ffffff" stroke-width="6" stroke-linecap="round" fill="none" />
+                                                            <text x="50" y="82" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="900" fill="#000000" text-anchor="middle">cleartrip</text>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="partner-card card-amazon">
+                                                    <div class="partner-logo-circle">
+                                                        <svg viewBox="0 0 100 100" width="28" height="28">
+                                                            <text x="50" y="44" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="900" fill="#000000" text-anchor="middle">amazon</text>
+                                                            <path d="M25 54 Q50 72 75 54" stroke="#ff9900" stroke-width="7" fill="none" stroke-linecap="round" />
+                                                            <path d="M70 51 l6 6 l-6 -1" fill="#ff9900" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="partner-card card-sbi">
+                                                    <div class="partner-logo-circle">
+                                                        <svg viewBox="0 0 100 100" width="28" height="28">
+                                                            <circle cx="50" cy="50" r="30" fill="#00a9e0" />
+                                                            <circle cx="50" cy="50" r="10" fill="#ffffff" />
+                                                            <rect x="46" y="50" width="8" height="30" fill="#ffffff" />
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="partner-card card-reliance">
+                                                    <div class="partner-logo-circle">
+                                                        <svg viewBox="0 0 100 100" width="28" height="28">
+                                                            <rect x="12" y="22" width="76" height="56" rx="6" fill="#0a2240" />
+                                                            <text x="50" y="62" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle">R</text>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bluchip-rewards-info">
+                                            <div class="rewards-title">Earn more with partners</div>
+                                            <div class="rewards-subtitle" style="font-size: 10px; color: #b5c7ec; margin-top: 6px; line-height: 1.4;">
+                                                ✦ You're 550 IndiGo BluChips away from a free flight to Goa!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- ========================================================= -->
+                                <!-- ========================================================= -->
+                                <!-- STATE 2: NEW USER (Zero Balance) -->
+                                <!-- ========================================================= -->
+                                <div class="bluchip-card" id="newUserCard" onclick="triggerHaptic('medium', 'Loyalty card clicked')" style="display: none;">
+                                    <div class="bluchip-top-row">
+                                        <div class="bluchip-left-info">
+                                            <span class="bluchip-title">IndiGo BluChip balance</span>
+                                            <div class="bluchip-balance">
+                                                <div class="bluchip-balance-reveal-wrapper">
+                                                    <div class="bluchip-balance-text">
+                                                        0 <span class="bluchip-sub-logo">Blu 1</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bluchip-right-info">
+                                            <span class="bluchip-id" style="color: #60a5fa;">NEW MEMBER</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bluchip-divider"></div>
+                                    
+                                    <div class="bluchip-bottom-layout" style="flex-direction: column; gap: 12px; align-items: stretch; padding-top: 8px;">
+                                        
+                                        <!-- Top part: Centered Flashing texts -->
+                                        <div class="zero-balance-flash-container" style="position: relative; height: 20px; width: 100%; display: flex; justify-content: center;">
+                                            <div class="zero-flash-frame z-frame-1" style="justify-content: center;">
+                                                <span class="z-icon">🎮</span> Play & Win: Earn your first 50 points
+                                            </div>
+                                            <div class="zero-flash-frame z-frame-2" style="justify-content: center;">
+                                                <span class="z-icon">✈️</span> Claim Past Flights: Add old PNRs
+                                            </div>
+                                            <div class="zero-flash-frame z-frame-3" style="justify-content: center;">
+                                                <span class="z-icon">🤝</span> Link Partners: Connect Flipkart
+                                            </div>
+                                            <div class="zero-flash-frame z-frame-4" style="justify-content: center;">
+                                                <span class="z-icon">🛫</span> Book a Flight: Get 2x points today
+                                            </div>
+                                        </div>
+
+                                        <!-- Bottom part: Stock Ticker Marquee -->
+                                        <div class="partner-stock-ticker-wrapper">
+                                            <div class="partner-stock-ticker-track">
+                                                <!-- Duplicate content for seamless loop -->
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#00a9e0; color:#fff;">S</span>SBI: Earn 5%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#ff9900; color:#000;">a</span>Amazon: Earn 2%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#861f41; color:#fff;">A</span>Axis: Earn 3%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#0a2240; color:#fff;">R</span>Reliance: Earn 4%</div>
+                                                
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#00a9e0; color:#fff;">S</span>SBI: Earn 5%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#ff9900; color:#000;">a</span>Amazon: Earn 2%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#861f41; color:#fff;">A</span>Axis: Earn 3%</div>
+                                                <div class="ticker-item"><span class="ticker-logo" style="background:#0a2240; color:#fff;">R</span>Reliance: Earn 4%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <!-- Offers Carousel (Not business as usual slides) -->
+                            <div class="offers-carousel-section" id="featureBannerSection">
+                                <div class="offers-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; margin-top: 4px; padding: 0 4px;">
+                                    <span class="section-title">Exclusive Offers</span>
+                                </div>
+                                <div class="carousel-container" id="offersCarouselContainer">
+                                    <div class="carousel-3d-track" id="offersCarousel">
+
+                                        <!-- Slide 0: Student Exclusive -->
+                                        <div class="carousel-slide offers-slide-0" id="studentCarouselSlide" onclick="openStudentHub()" style="display: none;">
+                                            <div class="offer-overlay">
+                                                <div class="offer-title">Student Exclusive</div>
+                                                <div class="offer-subtitle">10% Off + Free Change + 15Kg Baggage</div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 1: Weekend Exclusives -->
+                                        <div class="carousel-slide offers-slide-1" onclick="triggerHaptic('medium', 'Book Weekend Exclusives'); alert('Redirecting to Weekend Exclusives flight search...')">
+                                            <div class="offer-overlay">
+                                                <div class="offer-title">Weekend Exclusives</div>
+                                                <div class="offer-subtitle">Book your perfect getaway now</div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 2: Save ₹400 per person -->
+                                        <div class="carousel-slide offers-slide-2" onclick="triggerHaptic('medium', 'Save 400 Offer'); alert('Redirecting to Save ₹400 flight offer search...')">
+                                            <div class="offer-overlay">
+                                                <div class="offer-title">Save ₹400 per person</div>
+                                                <div class="offer-subtitle">Use code INDIGO400 on domestic flights</div>
+                                            </div>
+                                        </div>
+                                        <!-- Slide 3: Up to ₹5,000 Off -->
+                                        <div class="carousel-slide offers-slide-3" onclick="triggerHaptic('medium', 'Up to 5000 Off'); alert('Redirecting to flight offers page...')">
+                                            <div class="offer-overlay">
+                                                <div class="offer-title">Up to ₹5,000 Off</div>
+                                                <div class="offer-subtitle">On your next international vacation</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carousel Dots -->
+                                <div class="carousel-dots" id="offersDots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+
+                                                                                    <!-- Trending Destinations Insta Stories -->
+                            <div class="trending-destinations-section" id="trendingDestinationsSection">
+                                <div class="promo-section-header">
+                                    <div class="section-title">Trending Destinations</div>
+                                </div>
+                                                                <div class="carousel-container" id="trendingInstaContainer">
+                                    <div class="carousel-3d-track" id="trendingInstaCarousel">
+                                    <!-- Card 1 -->
+                                    <div class="insta-story-card carousel-slide" onclick="selectDestination('DXB', 'Dubai')">
+                                        <video src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" class="insta-card-video" loop muted playsinline poster="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&h=400&fit=crop"></video>
+                                        <div class="insta-play-ring"><svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                                        <div class="insta-story-overlay">
+                                            <div class="insta-story-city">Dubai</div>
+                                            <div class="insta-story-price">From ₹20,199</div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 2 -->
+                                    <div class="insta-story-card carousel-slide" onclick="selectDestination('BKK', 'Bangkok')">
+                                        <video src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" class="insta-card-video" loop muted playsinline poster="https://images.unsplash.com/photo-1508009603885-247a505979c3?w=600&h=400&fit=crop"></video>
+                                        <div class="insta-play-ring"><svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                                        <div class="insta-story-overlay">
+                                            <div class="insta-story-city">Bangkok</div>
+                                            <div class="insta-story-price">From ₹20,199</div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 3 -->
+                                    <div class="insta-story-card carousel-slide" onclick="selectDestination('DPS', 'Bali')">
+                                        <video src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" class="insta-card-video" loop muted playsinline poster="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&h=400&fit=crop"></video>
+                                        <div class="insta-play-ring"><svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                                        <div class="insta-story-overlay">
+                                            <div class="insta-story-city">Bali</div>
+                                            <div class="insta-story-price">From ₹25,400</div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 4 -->
+                                    <div class="insta-story-card carousel-slide" onclick="selectDestination('BLR', 'Bengaluru')">
+                                        <video src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" class="insta-card-video" loop muted playsinline poster="blr_flower_market.png"></video>
+                                        <div class="insta-play-ring"><svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                                        <div class="insta-story-overlay">
+                                            <div class="insta-story-city">Bengaluru</div>
+                                            <div class="insta-story-price">From ₹5,400</div>
+                                        </div>
+                                    </div>
+                                    <!-- Card 5 -->
+                                    <div class="insta-story-card carousel-slide" onclick="selectDestination('SIN', 'Singapore')">
+                                        <video src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-city-traffic-at-night-11-large.mp4" class="insta-card-video" loop muted playsinline poster="https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=600&h=400&fit=crop"></video>
+                                        <div class="insta-play-ring"><svg viewBox="0 0 24 24" width="10" height="10" fill="white"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg></div>
+                                        <div class="insta-story-overlay">
+                                            <div class="insta-story-city">Singapore</div>
+                                            <div class="insta-story-price">From ₹18,900</div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-dots" id="trendingInstaDots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                                <div class="explore-all-text" onclick="alert('Exploring all destinations!')">Explore all destinations</div>
+                            </div>
+
+                            <!-- Travel on Tap -->
+                            <div class="travel-on-tap-section" id="travelOnTapSection">
+                                <div class="promo-section-header" style="margin-bottom: 8px;">
+                                    <div class="section-title">Travel on Tap</div>
+                                </div>
+                                
+                                <!-- Boarding Pass Accordion Stack -->
+                                <div class="boarding-passes-stack" id="boardingPassesStack">
+                                    <!-- Pass 1: Khajuraho (HJR) -->
+                                    <div class="boarding-pass-card" id="passCardHJR" onclick="expandBoardingPass('HJR')">
+                                        <div class="pass-header">
+                                            <div class="pass-header-top">
+                                                <div class="pass-logo-area">
+                                                    <span class="pass-indigo-logo">goIndiGo</span>
+                                                    <span class="pass-title">BOARDING PASS</span>
+                                                </div>
+                                                <div class="pass-price-summary">Fares from <span class="pass-min-price">₹3,199</span></div>
+                                            </div>
+                                            <div class="pass-route-row">
+                                                <div class="pass-city">
+                                                    <span class="pass-airport-code">DEL</span>
+                                                    <span class="pass-airport-name">Delhi</span>
+                                                </div>
+                                                <div class="pass-plane-icon">
+                                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l7 2.5z"/></svg>
+                                                </div>
+                                                <div class="pass-city align-right">
+                                                    <span class="pass-airport-code">HJR</span>
+                                                    <span class="pass-airport-name">Khajuraho</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pass-body">
+                                            <div class="pass-divider">
+                                                <div class="pass-notch notch-left"></div>
+                                                <div class="pass-dashed-line"></div>
+                                                <div class="pass-notch notch-right"></div>
+                                            </div>
+                                            <div class="pass-details-grid">
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">FLIGHT</span>
+                                                    <span class="pass-detail-val">6E 404</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">CLASS</span>
+                                                    <span class="pass-detail-val">ECONOMY</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">SEAT</span>
+                                                    <span class="pass-detail-val">AUTO</span>
+                                                </div>
+                                                <div class="pass-detail-col align-right">
+                                                    <span class="pass-detail-label">GATE</span>
+                                                    <span class="pass-detail-val">T3</span>
+                                                </div>
+                                            </div>
+                                            <div class="pass-calendar-section">
+                                                <div class="pass-calendar-title">SELECT FARE DATE</div>
+                                                <div class="pass-calendar-chips" id="passCalendarHJR">
+                                                    <!-- Populated dynamically via JS -->
+                                                </div>
+                                            </div>
+                                            <div class="pass-footer">
+                                                <div class="pass-barcode-wrapper">
+                                                    <div class="pass-barcode"></div>
+                                                    <span class="pass-barcode-text">6E-HJR-TRAVEL-ON-TAP</span>
+                                                </div>
+                                                <div class="pass-view-more-stub" onclick="event.stopPropagation(); triggerHaptic('light', 'View More Deals'); navigateTo('deals')">
+                                                    View More Deals ➔
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pass 2: Kanpur (KNU) -->
+                                    <div class="boarding-pass-card" id="passCardKNU" onclick="expandBoardingPass('KNU')">
+                                        <div class="pass-header">
+                                            <div class="pass-header-top">
+                                                <div class="pass-logo-area">
+                                                    <span class="pass-indigo-logo">goIndiGo</span>
+                                                    <span class="pass-title">BOARDING PASS</span>
+                                                </div>
+                                                <div class="pass-price-summary">Fares from <span class="pass-min-price">₹2,999</span></div>
+                                            </div>
+                                            <div class="pass-route-row">
+                                                <div class="pass-city">
+                                                    <span class="pass-airport-code">DEL</span>
+                                                    <span class="pass-airport-name">Delhi</span>
+                                                </div>
+                                                <div class="pass-plane-icon">
+                                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l7 2.5z"/></svg>
+                                                </div>
+                                                <div class="pass-city align-right">
+                                                    <span class="pass-airport-code">KNU</span>
+                                                    <span class="pass-airport-name">Kanpur</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pass-body">
+                                            <div class="pass-divider">
+                                                <div class="pass-notch notch-left"></div>
+                                                <div class="pass-dashed-line"></div>
+                                                <div class="pass-notch notch-right"></div>
+                                            </div>
+                                            <div class="pass-details-grid">
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">FLIGHT</span>
+                                                    <span class="pass-detail-val">6E 5612</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">CLASS</span>
+                                                    <span class="pass-detail-val">ECONOMY</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">SEAT</span>
+                                                    <span class="pass-detail-val">AUTO</span>
+                                                </div>
+                                                <div class="pass-detail-col align-right">
+                                                    <span class="pass-detail-label">GATE</span>
+                                                    <span class="pass-detail-val">T3</span>
+                                                </div>
+                                            </div>
+                                            <div class="pass-calendar-section">
+                                                <div class="pass-calendar-title">SELECT FARE DATE</div>
+                                                <div class="pass-calendar-chips" id="passCalendarKNU">
+                                                    <!-- Populated dynamically -->
+                                                </div>
+                                            </div>
+                                            <div class="pass-footer">
+                                                <div class="pass-barcode-wrapper">
+                                                    <div class="pass-barcode"></div>
+                                                    <span class="pass-barcode-text">6E-KNU-TRAVEL-ON-TAP</span>
+                                                </div>
+                                                <div class="pass-view-more-stub" onclick="event.stopPropagation(); triggerHaptic('light', 'View More Deals'); navigateTo('deals')">
+                                                    View More Deals ➔
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pass 3: Dharamsala (DHM) -->
+                                    <div class="boarding-pass-card" id="passCardDHM" onclick="expandBoardingPass('DHM')">
+                                        <div class="pass-header">
+                                            <div class="pass-header-top">
+                                                <div class="pass-logo-area">
+                                                    <span class="pass-indigo-logo">goIndiGo</span>
+                                                    <span class="pass-title">BOARDING PASS</span>
+                                                </div>
+                                                <div class="pass-price-summary">Fares from <span class="pass-min-price">₹4,199</span></div>
+                                            </div>
+                                            <div class="pass-route-row">
+                                                <div class="pass-city">
+                                                    <span class="pass-airport-code">DEL</span>
+                                                    <span class="pass-airport-name">Delhi</span>
+                                                </div>
+                                                <div class="pass-plane-icon">
+                                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l7 2.5z"/></svg>
+                                                </div>
+                                                <div class="pass-city align-right">
+                                                    <span class="pass-airport-code">DHM</span>
+                                                    <span class="pass-airport-name">Dharamsala</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pass-body">
+                                            <div class="pass-divider">
+                                                <div class="pass-notch notch-left"></div>
+                                                <div class="pass-dashed-line"></div>
+                                                <div class="pass-notch notch-right"></div>
+                                            </div>
+                                            <div class="pass-details-grid">
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">FLIGHT</span>
+                                                    <span class="pass-detail-val">6E 2108</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">CLASS</span>
+                                                    <span class="pass-detail-val">ECONOMY</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">SEAT</span>
+                                                    <span class="pass-detail-val">AUTO</span>
+                                                </div>
+                                                <div class="pass-detail-col align-right">
+                                                    <span class="pass-detail-label">GATE</span>
+                                                    <span class="pass-detail-val">T3</span>
+                                                </div>
+                                            </div>
+                                            <div class="pass-calendar-section">
+                                                <div class="pass-calendar-title">SELECT FARE DATE</div>
+                                                <div class="pass-calendar-chips" id="passCalendarDHM">
+                                                    <!-- Populated dynamically -->
+                                                </div>
+                                            </div>
+                                            <div class="pass-footer">
+                                                <div class="pass-barcode-wrapper">
+                                                    <div class="pass-barcode"></div>
+                                                    <span class="pass-barcode-text">6E-DHM-TRAVEL-ON-TAP</span>
+                                                </div>
+                                                <div class="pass-view-more-stub" onclick="event.stopPropagation(); triggerHaptic('light', 'View More Deals'); navigateTo('deals')">
+                                                    View More Deals ➔
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pass 4: Chandigarh (IXC) -->
+                                    <div class="boarding-pass-card" id="passCardIXC" onclick="expandBoardingPass('IXC')">
+                                        <div class="pass-header">
+                                            <div class="pass-header-top">
+                                                <div class="pass-logo-area">
+                                                    <span class="pass-indigo-logo">goIndiGo</span>
+                                                    <span class="pass-title">BOARDING PASS</span>
+                                                </div>
+                                                <div class="pass-price-summary">Fares from <span class="pass-min-price">₹3,199</span></div>
+                                            </div>
+                                            <div class="pass-route-row">
+                                                <div class="pass-city">
+                                                    <span class="pass-airport-code">DEL</span>
+                                                    <span class="pass-airport-name">Delhi</span>
+                                                </div>
+                                                <div class="pass-plane-icon">
+                                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l7 2.5z"/></svg>
+                                                </div>
+                                                <div class="pass-city align-right">
+                                                    <span class="pass-airport-code">IXC</span>
+                                                    <span class="pass-airport-name">Chandigarh</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pass-body">
+                                            <div class="pass-divider">
+                                                <div class="pass-notch notch-left"></div>
+                                                <div class="pass-dashed-line"></div>
+                                                <div class="pass-notch notch-right"></div>
+                                            </div>
+                                            <div class="pass-details-grid">
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">FLIGHT</span>
+                                                    <span class="pass-detail-val">6E 998</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">CLASS</span>
+                                                    <span class="pass-detail-val">ECONOMY</span>
+                                                </div>
+                                                <div class="pass-detail-col">
+                                                    <span class="pass-detail-label">SEAT</span>
+                                                    <span class="pass-detail-val">AUTO</span>
+                                                </div>
+                                                <div class="pass-detail-col align-right">
+                                                    <span class="pass-detail-label">GATE</span>
+                                                    <span class="pass-detail-val">T3</span>
+                                                </div>
+                                            </div>
+                                            <div class="pass-calendar-section">
+                                                <div class="pass-calendar-title">SELECT FARE DATE</div>
+                                                <div class="pass-calendar-chips" id="passCalendarIXC">
+                                                    <!-- Populated dynamically -->
+                                                </div>
+                                            </div>
+                                            <div class="pass-footer">
+                                                <div class="pass-barcode-wrapper">
+                                                    <div class="pass-barcode"></div>
+                                                    <span class="pass-barcode-text">6E-IXC-TRAVEL-ON-TAP</span>
+                                                </div>
+                                                <div class="pass-view-more-stub" onclick="event.stopPropagation(); triggerHaptic('light', 'View More Deals'); navigateTo('deals')">
+                                                    View More Deals ➔
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Explore Communities -->
+                            <div class="communities-section" id="communitiesSection">
+                                <div class="comm-horizontal-scroll">
+                                    <div class="comm-card" onclick="triggerHaptic('medium', 'Communities clicked')">
+                                        <div class="comm-img-container">
+                                            <div class="comm-img" style="background-image: url('imtiaz_nofilter.png');"></div>
+                                        </div>
+                                        <div class="comm-badge-inside">1/9</div>
+                                        <div class="comm-info-overlay">
+                                            <div class="nofilter-logo">
+                                                <span style="color: #ffd15c; font-style: italic; font-weight: 900;">#no</span><span style="color: #fff; font-style: italic; font-weight: 900;">filter</span> <span style="font-size: 10px; color: #fff; opacity: 0.9; margin-left: 4px;">by IndiGo</span>
+                                            </div>
+                                            <strong class="comm-headline outline-text">Explore the World through the lens of our Community</strong>
+                                        </div>
+                                    </div>
+                                    <div class="comm-card comm-card-secondary" onclick="triggerHaptic('medium', 'Communities clicked')">
+                                        <div class="comm-img-container">
+                                            <div class="comm-img" style="background-image: url('cricket_nofilter.png');"></div>
+                                        </div>
+                                        <div class="comm-badge-inside">2/9</div>
+                                        <div class="comm-info-overlay" style="justify-content: flex-end;">
+                                            <strong class="comm-headline outline-text" style="font-size: 16px;">Witness the magic of the game</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lorem Ipsum Movies section -->
+                            <div class="movies-section" id="moviesSection">
+                                <div class="movies-header">
+                                    <span class="movies-title">Lorem Ipsum</span>
+                                </div>
+                                <div class="movies-scroll-container">
+                                    <div class="movie-card" onclick="triggerHaptic('light', 'Movie Selected')">
+                                        <div class="movie-banner-text">
+                                            <strong class="movie-brand">Hello 6E Movies</strong>
+                                            <p class="movie-desc">Browse our collection of movies to keep you entertained while in sky.</p>
+                                        </div>
+                                        <div class="movie-poster-container">
+                                            <div class="movie-poster">
+                                                <div class="poster-overlay-title">THE INTERN</div>
+                                                <span class="movie-brand-badge">Hello 6E</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Rotating 3D Globe with Travelling Planes -->
+                            <div class="globe-section" id="globeSection">
+                                <div class="globe-map-container">
+
+                                    <div class="globe-sphere-wrapper">
+                                        <!-- Rotating 3D earth sphere -->
+                                        <div class="globe-sphere" id="globeSphere">
+                                            <div class="globe-texture" style="background-image: url('world_map_texture.png');"></div>
+                                            <div class="globe-inner-shadow"></div>
+                                            <div class="globe-atmosphere-glow"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Traveling plane SVG paths overlay -->
+                                    <svg class="globe-flight-svg" id="globeFlightSvg" viewBox="0 0 350 260">
+                                        <path class="interactive-flight-path" id="interactiveFlightPath" d="" />
+                                        <path class="interactive-flight-path-active" id="interactiveFlightPathActive" d="" />
+                                        
+                                        <g id="airportNodes">
+                                            <circle cx="185" cy="135" r="4.5" class="airport-node active" id="node-DEL" />
+                                            <circle cx="170" cy="170" r="4.5" class="airport-node" id="node-MUM" />
+                                            <circle cx="75" cy="85" r="4.5" class="airport-node" id="node-LON" />
+                                            <circle cx="115" cy="75" r="4.5" class="airport-node" id="node-AMST" />
+                                            <circle cx="230" cy="130" r="4.5" class="airport-node" id="node-GAU" />
+                                        </g>
+
+                                        <g id="airportPulses">
+                                            <circle cx="185" cy="135" r="10" class="airport-pulse" id="pulse-DEL" />
+                                            <circle cx="170" cy="170" r="10" class="airport-pulse" id="pulse-MUM" />
+                                            <circle cx="75" cy="85" r="10" class="airport-pulse" id="pulse-LON" />
+                                            <circle cx="115" cy="75" r="10" class="airport-pulse" id="pulse-AMST" />
+                                            <circle cx="230" cy="130" r="10" class="airport-pulse" id="pulse-GAU" />
+                                        </g>
+
+                                        <g class="interactive-plane-group" id="interactivePlane" style="display: none;">
+                                            <path fill="var(--indigo-accent)" stroke="#fff" stroke-width="0.5" d="M-6,-4 L-2,-4 L0,-7 L2,-4 L6,-4 L7,-3 L6,-2 L4,-2 L2,2 L-1,2 L-2,-2 L-6,-2 Z" />
+                                        </g>
+                                    </svg>
+
+                                    <!-- Destination Callout Overlay (shows city name on arrival) -->
+                                    <div class="globe-dest-callout" id="globeDestCallout">
+                                        <span class="dest-callout-emoji">✈️</span>
+                                        <span class="dest-callout-name" id="destCalloutName">Delhi</span>
+                                        <span class="dest-callout-code" id="destCalloutCode">DEL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        
+</div>
+                    </div>
+
+                    <!-- ==========================================================
+                         SCREEN 2: OFFERS & DEALS
+                         ========================================================== -->
+                    <div class="screen" id="screenDeals">
+                        <div class="deals-header">
+                            <div class="deals-nav-bar">
+                                <span class="back-btn-chevron" onclick="navigateTo('home')">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </span>
+                                <span class="deals-title">Best Deals and Offers</span>
+                                <div class="deals-header-logo">✦</div>
+                            </div>
+                            
+                            <div class="deals-filter-scroll">
+                                <div class="pop-filter-pill active" onclick="filterDeals('all')">All</div>
+                                <div class="pop-filter-pill" onclick="filterDeals('flights')">Flights</div>
+                                <div class="pop-filter-pill" onclick="filterDeals('cabs')">Cabs</div>
+                                <div class="pop-filter-pill" onclick="filterDeals('hotels')">Hotels</div>
+                                <div class="pop-filter-pill" onclick="filterDeals('sightseeing')">Sightseeing</div>
+                            </div>
+                        </div>
+
+                        <div class="offers-list">
+                            <!-- Offer 1 -->
+                            <div class="pop-offer-card offer-card-blue" data-category="flights" onclick="triggerHaptic('medium', 'Click promo: Weekend')">
+                                <div class="offer-bg-graphic beach-graphic"></div>
+                                <div class="offer-content-overlay">
+                                    <div class="offer-headline">IndiGo Weekend Exclusives</div>
+                                    <div class="offer-subtext">*T&C apply.</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Offer 2 -->
+                            <div class="pop-offer-card offer-card-cyan-gradient" data-category="flights" onclick="triggerHaptic('medium', 'Click promo: Save 400')">
+                                <div class="offer-plane-graphic">
+                                    <svg viewBox="0 0 24 24" width="36" height="36" fill="currentColor" opacity="0.1"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                                </div>
+                                <div class="offer-content-overlay">
+                                    <div class="offer-discount-title">Save ₹400 <span class="small-text">per person on flights</span></div>
+                                    <div class="offer-app-badge">Only on 6E App</div>
+                                    <div class="offer-subtext">*T&C apply.</div>
+                                </div>
+                            </div>
+
+                            <!-- Offer 3 -->
+                            <div class="pop-offer-card offer-card-rose-gold" data-category="hotels" onclick="triggerHaptic('medium', 'Click promo: Hotels')">
+                                <div class="offer-palm-graphic">
+                                    <svg class="offer-palm-svg" viewBox="0 0 64 64" fill="currentColor">
+                                        <path d="M26 56h12a2 2 0 0 1 0 4H26a2 2 0 0 1 0-4zm4-32c0 2 1 4 3 6 3 3 5 7 5 11v11H26V41c0-4 2-8 5-11 2-2 3-4 3-6V12h-4a2 2 0 0 1 0-4h12a2 2 0 0 1 0 4h-4v12zm1-13c-6.8 0-13 4.2-15 11a2 2 0 0 1-3.8-1.2c2.5-8.3 10-13.8 18.8-13.8a2 2 0 0 1 0 4zm-1 0a2 2 0 0 1 0-4c8.8 0 16.3 5.5 18.8 13.8a2 2 0 0 1-3.8 1.2c-2-6.8-8.2-11-15-11zm-5.4 12c-4.4 2-7.6 6.3-8.6 11a2 2 0 1 1-3.9-.8c1.2-5.9 5.3-11.4 10.9-14a2 2 0 0 1 1.6 3.8zm10.8 0a2 2 0 0 1 1.6-3.8c5.6 2.6 9.7 8.1 10.9 14a2 2 0 1 1-3.9.8c-1-4.7-4.2-9-8.6-11z"/>
+                                    </svg>
+                                </div>
+                                <div class="offer-content-overlay">
+                                    <div class="offer-discount-title">Up to ₹5,000* Off</div>
+                                </div>
+                            </div>
+
+                            <!-- Offer 4 -->
+                            <div class="pop-offer-card offer-card-gold-gradient" data-category="cabs" onclick="triggerHaptic('medium', 'Click promo: Gift Cards')">
+                                <div class="offer-retail-logos">AMZN • DOMNS • NYKAA</div>
+                                <div class="offer-content-overlay">
+                                    <div class="offer-discount-title">Up to 20% Off Gift Cards</div>
+                                    <div class="offer-brands-sub">Shop PVR, Amazon Prime, Dominos, Nykaa & more.</div>
+                                </div>
+                                <div class="offer-circle-arrow-badge">➔</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================================
+                         SCREEN 3: MY TRIPS / COMPANION CARD
+                         ========================================================== -->
+                    <div class="screen" id="screenTrips">
+                        <div class="trips-header">
+                            <div class="trips-title">Upcoming Trip</div>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+
+                <!-- ==========================================================
+                     SCREEN 4: FLIGHT RESULTS
+                     ========================================================== -->
+                <div class="screen" id="screenResults">
+                    <div class="results-header">
+                        <div class="results-nav-bar">
+                            <div class="back-btn-chevron" onclick="navigateTo('home')">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="results-route-title">
+                                <div class="route-main" id="resultsRouteMain">Delhi <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="margin: 0 4px;"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg> Mumbai</div>
+                                <div class="route-sub" id="resultsRouteSub">Return • 22-22 Jan • 1 Pax</div>
+                            </div>
+                            <div class="edit-search-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--indigo-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Date Pills Row -->
+                        <div class="results-date-pills">
+                            <div class="date-pill">Sat, 22 Jan<br><span>₹10,400</span></div>
+                            <div class="date-pill active">Sun, 23 Jan<br><span>₹5,500</span></div>
+                            <div class="date-pill">Mon, 24 Jan<br><span>₹10,400</span></div>
+                            <div class="date-pill">Tue, 25 Jan<br><span>₹10,400</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Results List Area -->
+                    <div class="results-scroll-area">
+                        <div class="results-filters-row">
+                            <div class="filter-chip">Non-stop</div>
+                            <div class="filter-chip">Morning Flights</div>
+                            <div class="filter-chip">Stretch</div>
+                            <div class="filter-icon-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--indigo-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                            </div>
+                        </div>
+
+                        <div class="results-sort-row">
+                            <div class="sort-col active">Sort by price<br><span>₹5,500</span></div>
+                            <div class="sort-col">Sort by duration<br><span>2h 10m</span></div>
+                        </div>
+
+                        <div class="flight-results-list" id="flightResultsList">
+                            <!-- Cards injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                
+                <!-- ==========================================================
+                     SCREEN 5: AI DESTINATION RECOMMENDATIONS
+                     ========================================================== -->
+                
+                <!-- ==========================================================
+                     SCREEN: STUDENT HUB
+                     ========================================================== -->
+                <div class="screen" id="screenStudentHub">
+                    <div class="student-hub-header">
+                        <div class="sh-nav-bar">
+                            <div class="back-btn-chevron" onclick="navigateTo('home')">
+                                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="sh-nav-title">Student Exclusive</div>
+                        </div>
+                        
+                        <div class="sh-hero-content">
+                            <h1 class="sh-hero-title">Travel Smarter,<br>Study Harder 🎓</h1>
+                            <p class="sh-hero-subtitle">Unlock your exclusive student benefits and save big on your next journey home or away.</p>
+                            
+                            <div class="sh-benefits-row">
+                                <div class="sh-benefit-item">
+                                    <div class="sh-benefit-icon">💸</div>
+                                    <span>10% Off Fares</span>
+                                </div>
+                                <div class="sh-benefit-item">
+                                    <div class="sh-benefit-icon">🧳</div>
+                                    <span>+15Kg Extra Baggage</span>
+                                </div>
+                                <div class="sh-benefit-item">
+                                    <div class="sh-benefit-icon">📅</div>
+                                    <span>Free Date Change</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="student-hub-body">
+                        <!-- Embedded Flight Search Widget Replica -->
+                        <div class="search-widget-container" style="margin-top: -30px; position: relative; z-index: 10; border: 1px solid rgba(255, 255, 255, 0.1); background: white; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            <div class="search-widget-header" style="border-bottom: 1px solid #f1f5f9; padding: 12px 16px 0;">
+                                <div class="tab active" style="font-weight: 700; border-bottom: 2px solid var(--indigo-blue); padding-bottom: 8px; display: inline-block; color: var(--indigo-blue);">Flights</div>
+                            </div>
+                            <div class="search-widget-content" style="padding: 16px;">
+                                <div class="search-route-row" style="margin-bottom: 12px; display: flex; gap: 8px;">
+                                    <div class="input-group" style="flex: 1;">
+                                        <div class="input-label">From</div>
+                                        <div class="input-value" style="font-size: 16px;">Delhi (DEL)</div>
+                                    </div>
+                                    <div class="input-group" style="flex: 1;">
+                                        <div class="input-label">To</div>
+                                        <div class="input-value" style="font-size: 16px;">Mumbai (BOM)</div>
+                                    </div>
+                                </div>
+                                <div class="search-details-row" style="margin-bottom: 16px; display: flex; gap: 8px;">
+                                    <div class="input-group" style="flex: 1;">
+                                        <div class="input-label">Departure</div>
+                                        <div class="input-value">22 Jan 2026</div>
+                                    </div>
+                                    <div class="input-group" style="flex: 1;">
+                                        <div class="input-label">Travelers</div>
+                                        <div class="input-value">1 Student</div>
+                                    </div>
+                                </div>
+                                <button class="riyadh-search-btn" style="width: 100%;" onclick="activateStudentModeAndSearch()">
+                                    Search Student Fares ➔
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Trending Student Fares Preview -->
+                        <div style="margin-top: 24px; position: relative; z-index: 20; padding-bottom: 250px;">
+                            <div style="font-size: 15px; font-weight: 800; margin-bottom: 12px; color: #1e293b;">Trending Student Fares</div>
+
+                            <!-- Sample Card 1 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 1234</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">05:15</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">07:30</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹4,800</span> ₹4,320 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 2 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 5678</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">06:30</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">4h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: var(--indigo-blue)">1 Stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">10:45</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹5,500</span> ₹4,950 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 3 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 2341</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">08:00</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 10m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">10:10</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹4,200</span> ₹3,780 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 4 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 7890</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">11:45</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">14:00</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹5,100</span> ₹4,590 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 5 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 3456</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">13:20</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">15:35</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹4,900</span> ₹4,410 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 6 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 8901</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">15:00</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">5h 30m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: var(--indigo-blue)">1 Stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">20:30</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹6,200</span> ₹5,580 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 7 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 4567</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">16:45</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 10m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">18:55</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹4,500</span> ₹4,050 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 8 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 9012</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">18:30</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">20:45</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹5,800</span> ₹5,220 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 9 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 5678</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">20:15</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 05m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">22:20</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹4,100</span> ₹3,690 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sample Card 10 -->
+                            <div class="flight-card" onclick="activateStudentModeAndSearch()" style="margin-bottom: 12px; cursor: pointer; position: relative;">
+                                <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
+                                <div class="fc-header">
+                                    <span>6E 1122</span>
+                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                </div>
+                                <div class="fc-times-row">
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">22:00</div>
+                                        <div class="fc-code">DEL, T1</div>
+                                    </div>
+                                    <div class="fc-duration">
+                                        <span class="fc-dur-text">2h 15m</span>
+                                        <div class="fc-dur-line"></div>
+                                        <span class="fc-dur-stop" style="color: #10b981">Non-stop</span>
+                                    </div>
+                                    <div class="fc-time-block">
+                                        <div class="fc-time">00:15</div>
+                                        <div class="fc-code">BOM, T2</div>
+                                    </div>
+                                </div>
+                                <div class="fc-pricing-row">
+                                    <div class="fc-price-col student-fare-active">
+                                        <div class="fc-class-name eco">Economy</div>
+                                        <div class="fc-price-val"><span class="price-strikethrough">₹3,900</span> ₹3,510 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+<div class="screen" id="screenDestinationAI">
+                    <div class="ai-dest-header">
+                        <div class="ai-dest-title">Inspiring you to travel</div>
+                        <div class="ai-dest-close" onclick="closeDestinationAI()">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-dest-search-context">
+                        <span>Cheapest fare to <strong id="aiDestCityName">Bengaluru</strong></span>
+                        <div class="ai-dest-edit-icon">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-dest-content-scroll">
+                        <div class="ai-recommendation-badge">
+                            <svg viewBox="0 0 24 24" width="12" height="12" fill="#ffd15c"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z"/></svg>
+                            RECOMMENDATIONS FROM AI
+                        </div>
+                        
+                        <div class="ai-dest-main-card">
+                            <div class="ai-dest-card-content">
+                                <h2 class="ai-dest-card-title"><span id="aiDestTitleCity">Bengaluru</span>, <span id="aiDestTitleCountry">India</span></h2>
+                                <p class="ai-dest-card-desc" id="aiDestDescription">
+                                    Bengaluru, often referred to as the "Silicon Valley of India," is a bustling metropolis known for its thriving IT industry and cosmopolitan vibe. The city is a blend of modernity and tradition, with verdant parks like Cubbon Park offering tranquil retreats amidst urban sprawl.
+                                </p>
+                            </div>
+                            <div class="ai-dest-hero-img" id="aiDestHeroImg">
+                                <video id="aiDestHeroVideo" loop muted playsinline></video>
+                            </div>
+                            
+                            <div class="ai-flight-cards-container">
+                                <div class="ai-flight-route-header">
+                                    <span id="aiRouteText">SIN ⇄ BLR • 1 ADULT</span>
+                                </div>
+                                
+                                <div class="ai-flight-list" id="aiFlightList">
+                                    <!-- Cards will be injected via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Navigation Bar -->
+                <div class="bottom-nav">
+                    <div class="nav-item active" id="navHome" onclick="navigateTo('home')">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                        </div>
+                        <span>Explore</span>
+                        <div class="nav-indicator-dot"></div>
+                    </div>
+                    <div class="nav-item" id="navFlights" onclick="triggerHaptic('light', 'Flights tab clicked'); switchCategory(0); navigateTo('home')">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                        </div>
+                        <span>Flights</span>
+                        <div class="nav-indicator-dot"></div>
+                    </div>
+                    <div class="nav-item" id="navBot" onclick="triggerHaptic('medium', 'Chatbot support stand-by')">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <span>Hello 6E</span>
+                        <div class="nav-indicator-dot"></div>
+                    </div>
+                    <div class="nav-item" id="navTrips" onclick="navigateTo('trips')">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="4"/><line x1="8" y1="2" x2="8" y2="4"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <span>My Trips</span>
+                        <div class="nav-indicator-dot"></div>
+                    </div>
+                    <div class="nav-item" id="navPick" onclick="triggerHaptic('light', '6EPick tab clicked')">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <span>6EPick</span>
+                        <div class="nav-indicator-dot"></div>
+                    </div>
+                </div>
+
+                <!-- Backdrop for drawers -->
+                <div class="bottom-sheet-backdrop" id="bottomSheetBackdrop" onclick="closeAllDrawers()"></div>
+
+                <!-- Airport Selection Sheet -->
+                <div class="bottom-sheet-drawer" id="bottomSheetDrawer">
+                    <div class="drawer-header">
+                        <div class="drawer-title" id="drawerTitle">Select Airport</div>
+                        <div class="drawer-close" onclick="closeAllDrawers()">✕</div>
+                    </div>
+                    <input type="text" class="drawer-search-bar" placeholder="Search city or airport..." id="airportSearchInput" oninput="filterAirports()">
+                    
+                    <div class="airport-options-list" id="airportList">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Date Selection Sheet (Calendar) -->
+                <div class="bottom-sheet-drawer" id="dateSheetDrawer">
+                    <div class="drawer-header">
+                        <div class="drawer-title">Select Date</div>
+                        <div class="drawer-close" onclick="closeAllDrawers()">✕</div>
+                    </div>
+                    <div class="calendar-month-header">
+                        <div class="calendar-month-prev" onclick="changeMonth(-1)">◄</div>
+                        <div class="calendar-month-title" id="calendarMonthTitle">June 2026</div>
+                        <div class="calendar-month-next" onclick="changeMonth(1)">►</div>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Filled dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- Travelers Selection Sheet (Steppers) -->
+                <div class="bottom-sheet-drawer" id="travelersSheetDrawer">
+                    <div class="drawer-header">
+                        <div class="drawer-title">Select Travelers</div>
+                        <div class="drawer-close" onclick="closeAllDrawers()">✕</div>
+                    </div>
+                    <div class="travelers-options-list">
+                        <!-- Adults -->
+                        <div class="traveler-row">
+                            <div class="traveler-info">
+                                <span class="traveler-type">Adults</span>
+                                <span class="traveler-desc">12+ years</span>
+                            </div>
+                            <div class="stepper-controls">
+                                <button class="stepper-btn" onclick="adjustTravelers('adults', -1)">-</button>
+                                <span class="stepper-value" id="countAdults">1</span>
+                                <button class="stepper-btn" onclick="adjustTravelers('adults', 1)">+</button>
+                            </div>
+                        </div>
+                        <!-- Children -->
+                        <div class="traveler-row">
+                            <div class="traveler-info">
+                                <span class="traveler-type">Children</span>
+                                <span class="traveler-desc">2-12 years</span>
+                            </div>
+                            <div class="stepper-controls">
+                                <button class="stepper-btn" onclick="adjustTravelers('children', -1)">-</button>
+                                <span class="stepper-value" id="countChildren">0</span>
+                                <button class="stepper-btn" onclick="adjustTravelers('children', 1)">+</button>
+                            </div>
+                        </div>
+                        <!-- Infants -->
+                        <div class="traveler-row">
+                            <div class="traveler-info">
+                                <span class="traveler-type">Infants</span>
+                                <span class="traveler-desc">Under 2 years</span>
+                            </div>
+                            <div class="stepper-controls">
+                                <button class="stepper-btn" onclick="adjustTravelers('infants', -1)">-</button>
+                                <span class="stepper-value" id="countInfants">0</span>
+                                <button class="stepper-btn" onclick="adjustTravelers('infants', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="confirm-travelers-btn" onclick="confirmTravelers()">Confirm</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Haptic audio simulation nodes -->
+    <audio id="sndTap" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+    <audio id="sndConfirm" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+    <audio id="sndAlert" src="https://assets.mixkit.co/active_storage/sfx/911/911-84.wav" preload="auto"></audio>
+
+    <script src="app.js"></script>
+</body>
+</html>
