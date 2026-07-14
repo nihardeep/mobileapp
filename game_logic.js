@@ -1,6 +1,6 @@
 /* PLAY & WIN GAME LOGIC */
 /* ========================================== */
-const GAME_TARGET_WORDS = ['FLY', 'PLANE', '6ESKY', 'INDIGO'];
+const GAME_TARGET_WORDS = ['FLY', 'PLANE', '6ESKY', 'X AIRLINE'];
 const GAME_FOUND_WORDS = new Set();
 let gameCurrentPath = []; // array of indices
 let gameIsDragging = false;

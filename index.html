@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IndiGo Premium Mobile Prototype</title>
+    <title>X Airline Premium Mobile Prototype</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
              ========================================================================== -->
         <div class="dev-simulator-console">
             <div class="dev-console-title">
-                <span>⚡</span> IndiGo Flight Deck Cockpit
+                <span>⚡</span> X Airline Flight Deck Cockpit
             </div>
             <p class="dev-console-desc">
                 Simulate flight lifecycle states, trigger Siri-style voice inputs, adjust atmospheric parallax physics, and monitor real-time haptic oscilloscope waveforms.
@@ -209,7 +209,7 @@
         <div id="gameWinOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 300; display: none; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.5s;">
             <div style="font-size: 64px; margin-bottom: 16px;">🎉</div>
             <h2 style="color: #fff; font-size: 28px; font-weight: 900; margin: 0 0 8px;">You Won!</h2>
-            <p style="color: #cbd5e1; font-size: 16px; margin: 0 0 32px;">+100 BluChip Points</p>
+            <p style="color: #cbd5e1; font-size: 16px; margin: 0 0 32px;">+100 Loyalty Points</p>
             <button onclick="closeGame()" style="background: #3b82f6; color: #fff; border: none; padding: 16px 32px; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer;">Claim & Return</button>
         </div>
 
@@ -221,7 +221,7 @@
     <div style="padding: 0 24px 16px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
             <h2 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0;">Edit Search</h2>
-            <div onclick="closeAllDrawers()" style="font-size: 14px; color: var(--indigo-blue); font-weight: 700; cursor: pointer;">Close</div>
+            <div onclick="closeAllDrawers()" style="font-size: 14px; color: var(--xairline-blue); font-weight: 700; cursor: pointer;">Close</div>
         </div>
         <div id="flightSearchDrawerContent"></div>
     </div>
@@ -282,7 +282,7 @@
                         <div style="margin-bottom: 24px;">
                             <div style="font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 12px;">What's your gender?</div>
                             <div class="gender-segmented-control" style="display: flex; gap: 12px;">
-                                <div class="gender-segment active" onclick="selectGender('Male')" id="gender-male" style="flex: 1; text-align: center; padding: 12px 0; border-radius: 12px; font-size: 14px; font-weight: 700; color: #0f172a; border: 1px solid var(--indigo-blue); background: rgba(14,165,233,0.05); cursor: pointer;">👨 Male</div>
+                                <div class="gender-segment active" onclick="selectGender('Male')" id="gender-male" style="flex: 1; text-align: center; padding: 12px 0; border-radius: 12px; font-size: 14px; font-weight: 700; color: #0f172a; border: 1px solid var(--xairline-blue); background: rgba(14,165,233,0.05); cursor: pointer;">👨 Male</div>
                                 <div class="gender-segment" onclick="selectGender('Female')" id="gender-female" style="flex: 1; text-align: center; padding: 12px 0; border-radius: 12px; font-size: 14px; font-weight: 700; color: #64748b; border: 1px solid #cbd5e1; cursor: pointer;">👩 Female</div>
                             </div>
                         </div>
@@ -324,8 +324,8 @@
                         </div>
 
                         <div class="form-field-group" style="margin-bottom: 20px;">
-                            <label style="font-size: 10px; font-weight: 700; color: #64748b; margin-bottom: 4px; display: block;">IndiGo BluChip Membership Number (Optional)</label>
-                            <input type="text" id="pf-bluchip" class="neo-input" placeholder="" style="width: 100%; box-sizing: border-box; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; outline: none; font-size: 14px; font-weight: 600;">
+                            <label style="font-size: 10px; font-weight: 700; color: #64748b; margin-bottom: 4px; display: block;">X Airline Loyalty Membership Number (Optional)</label>
+                            <input type="text" id="pf-loyalty" class="neo-input" placeholder="" style="width: 100%; box-sizing: border-box; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #fff; outline: none; font-size: 14px; font-weight: 600;">
                         </div>
 
                         <label class="neo-checkbox-container" style="font-size: 12px; font-weight: 700; color: #0f172a; margin-bottom: 32px; display: flex; align-items: flex-start; gap: 8px;">
@@ -595,7 +595,7 @@
                     <div class="cockpit-3d-render"></div>
                     <div class="cockpit-content">
                         <div class="cockpit-logo-pulse">
-                            <span style="font-weight: 900; font-style: italic; font-size: 28px; color: #fff; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">go<span style="color: #ffd15c;">IndiGo</span></span>
+                            <span style="font-weight: 900; font-style: italic; font-size: 28px; color: #fff; letter-spacing: -0.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">go<span style="color: #ffd15c;">X Airline</span></span>
                         </div>
                         <div class="cockpit-tagline-container">
                             <div class="cockpit-tagline" id="cockpitTagline" style="text-shadow: 0 1px 4px rgba(0,0,0,0.8);">Hold tight, we're about to fly...</div>
@@ -609,7 +609,7 @@
                         <div class="dynamic-island-content" id="islandContent">
                             <svg class="island-icon-svg" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z"/></svg>
                             <div class="island-text" id="islandText">
-                                <strong id="islandHeadline">Indigo 6E 2015</strong>
+                                <strong id="islandHeadline">X Airline 6E 2015</strong>
                                 <span id="islandSubline">Welcome Aboard</span>
                             </div>
                             <div class="island-action-badge" id="islandBadge">Boarding</div>
@@ -705,15 +705,15 @@
         <div class="unified-nlp-container" style="margin-top: 16px; margin-bottom: 16px;">
             <div class="nlp-input-wrapper" style="background: #fff; border-radius: 32px; padding: 8px 8px 8px 16px; position: relative; box-shadow: 0 4px 20px rgba(0,31,84,0.08); border: none; display: flex; align-items: center; margin-bottom: 16px;">
 
-            <div id="nlpBackIcon" onclick="exitNlpMode(event)" style="color: var(--indigo-blue); margin-right: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(0,95,169,0.05); border-radius: 50%;">
+            <div id="nlpBackIcon" onclick="exitNlpMode(event)" style="color: var(--xairline-blue); margin-right: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(0,95,169,0.05); border-radius: 50%;">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </div>
     <div id="customNlpPlaceholder" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; display: flex; align-items: center;">
-                Ask 6eSkai about &nbsp;<span id="nlpAnimatedText" style="color: var(--indigo-navy); font-weight: 600; transition: opacity 0.3s ease;">'Coorg Homestays'</span>
+                Ask 6eSkai about &nbsp;<span id="nlpAnimatedText" style="color: var(--xairline-navy); font-weight: 600; transition: opacity 0.3s ease;">'Coorg Homestays'</span>
             </div>
 
-<input type="text" id="nlpSearchInput" class="nlp-placeholder" placeholder="" style="position: relative; z-index: 2; flex: 1; color: var(--indigo-navy); font-size: 14px; font-weight: 500; border: none; background: transparent; outline: none; width: 100%;">
-<div class="nlp-mic-icon" onclick="startVoiceSearch(event)" style="background: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(0,95,169,0.2), 0 0 0 3px rgba(0,95,169,0.05); color: var(--indigo-blue); cursor: pointer; transition: all 0.3s ease;">
+<input type="text" id="nlpSearchInput" class="nlp-placeholder" placeholder="" style="position: relative; z-index: 2; flex: 1; color: var(--xairline-navy); font-size: 14px; font-weight: 500; border: none; background: transparent; outline: none; width: 100%;">
+<div class="nlp-mic-icon" onclick="startVoiceSearch(event)" style="background: #fff; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 1px rgba(0,95,169,0.2), 0 0 0 3px rgba(0,95,169,0.05); color: var(--xairline-blue); cursor: pointer; transition: all 0.3s ease;">
                 <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
                     <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
@@ -728,24 +728,24 @@
             <div class="trending-prompt-card" onclick="simulateIntent('Cheapest flights to Goa', 'GOI')" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.03); cursor: pointer;">
                 <div class="tpc-icon" style="width: 56px; height: 56px; background: #e8f4fc; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">✈️</div>
                 <div class="tpc-content" style="flex: 1;">
-                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
-                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Cheapest flights to Goa</div>
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--xairline-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--xairline-navy); line-height: 1.3;">Cheapest flights to Goa</div>
                 </div>
             </div>
 
             <div class="trending-prompt-card" onclick="simulateIntent('Flights to Beach destinations', 'GOI')" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.03); cursor: pointer;">
                 <div class="tpc-icon" style="width: 56px; height: 56px; background: #e0f7fa; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">🏖️</div>
                 <div class="tpc-content" style="flex: 1;">
-                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
-                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Flights to Beach destinations</div>
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--xairline-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--xairline-navy); line-height: 1.3;">Flights to Beach destinations</div>
                 </div>
             </div>
 
             <div class="trending-prompt-card" onclick="simulateIntent('Flight to Europe', 'CDG')" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; cursor: pointer;">
                 <div class="tpc-icon" style="width: 56px; height: 56px; background: #f3e5f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">🌍</div>
                 <div class="tpc-content" style="flex: 1;">
-                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--indigo-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
-                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--indigo-navy); line-height: 1.3;">Flight to Europe</div>
+                    <div class="tpc-tag" style="display: inline-flex; align-items: center; gap: 4px; color: var(--xairline-blue); border: 1px solid rgba(0,95,169,0.2); font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 6px; text-transform: uppercase;"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/></svg> FLIGHTS</div>
+                    <div class="tpc-text" style="font-size: 15px; font-weight: 500; color: var(--xairline-navy); line-height: 1.3;">Flight to Europe</div>
                 </div>
             </div>
         </div>
@@ -755,7 +755,7 @@
         <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; margin-top: -8px; padding-left: 4px; scrollbar-width: none; -ms-overflow-style: none;">
             <style>
                 .shortcut-pill {
-                    white-space: nowrap; padding: 6px 12px; border-radius: 16px; background: rgba(0,27,148,0.04); border: 1px solid rgba(0,27,148,0.1); font-size: 11px; font-weight: 700; color: var(--indigo-blue); cursor: pointer; transition: all 0.2s;
+                    white-space: nowrap; padding: 6px 12px; border-radius: 16px; background: rgba(0,27,148,0.04); border: 1px solid rgba(0,27,148,0.1); font-size: 11px; font-weight: 700; color: var(--xairline-blue); cursor: pointer; transition: all 0.2s;
                 }
                 .shortcut-pill:active { transform: scale(0.95); background: rgba(0,27,148,0.08); }
             </style>
@@ -795,7 +795,7 @@
                             <!-- Recent Searches -->
 
 <div id="tripCompanionPlaceholder" style="order: 3; height: 0; overflow: hidden; position: relative; transition: height 0.4s ease; margin-bottom: 0;">
-    <svg id="inlinePlaneIcon" viewBox="0 0 24 24" width="32" height="32" fill="var(--indigo-blue)" style="position: absolute; top: 50%; left: -50px; transform: translateY(-50%) rotate(90deg); transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);">
+    <svg id="inlinePlaneIcon" viewBox="0 0 24 24" width="32" height="32" fill="var(--xairline-blue)" style="position: absolute; top: 50%; left: -50px; transform: translateY(-50%) rotate(90deg); transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);">
         <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/>
     </svg>
 </div>
@@ -803,7 +803,7 @@
 
                                                                                     <!-- Upfront Upgrade Suggestions Section -->
                                                         <div class="upgrade-promo-card subtle-glass" id="upgradePromoCard" style="flex-direction: column; align-items: flex-start; height: auto;">
-                                <div style="font-size: 11px; font-weight: 800; color: #60a5fa; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;">IndiGo Upfront</div>
+                                <div style="font-size: 11px; font-weight: 800; color: #60a5fa; margin-bottom: 6px; letter-spacing: 0.5px; text-transform: uppercase;">X Airline Upfront</div>
                                 <div style="display: flex; width: 100%; align-items: center; justify-content: space-between;">
                                     <div class="animated-text-container">
                                         <div class="animated-benefit-frame frame-1">
@@ -1038,10 +1038,10 @@
                                 <!-- ========================================================= -->
                                 <!-- STATE 1: LOYAL USER (Has Balance) -->
                                 <!-- ========================================================= -->
-                                <div class="bluchip-3d-wrapper" id="loyalUserCard" style="position: relative; perspective: 1500px; margin-bottom: 24px;">
+                                <div class="loyalty-3d-wrapper" id="loyalUserCard" style="position: relative; perspective: 1500px; margin-bottom: 24px;">
                                     
                                     <!-- Hidden Menu Layer (Behind the card, on the right) -->
-                                    <div class="bluchip-hidden-menu" style="position: absolute; top: 0; right: 0; width: 62%; height: 100%; background: #fff; border-radius: 16px; padding: 12px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 4px; align-content: center; justify-items: center; opacity: 0; pointer-events: none; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateX(10%) scale(0.95); z-index: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box;">
+                                    <div class="loyalty-hidden-menu" style="position: absolute; top: 0; right: 0; width: 62%; height: 100%; background: #fff; border-radius: 16px; padding: 12px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 4px; align-content: center; justify-items: center; opacity: 0; pointer-events: none; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateX(10%) scale(0.95); z-index: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box;">
                                         <!-- Play & Win -->
                                         <div onclick="openGame()" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; cursor: pointer;">
                                             <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; background: #fff;">
@@ -1070,7 +1070,7 @@
                                             </div>
                                             <span style="font-size: 8px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1px; line-height: 1.1;">PARTNER<br>PAGE</span>
                                         </div>
-                                        <!-- Blu Dashboard -->
+                                        <!-- Loyalty Dashboard -->
                                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; grid-column: span 2;">
                                             <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; background: #fff;">
                                                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
@@ -1082,16 +1082,16 @@
                                     </div>
 
                                     <!-- Main Card (The Door) -->
-                                    <div class="bluchip-card" style="position: relative; z-index: 2; transform-origin: left center; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 0;">
-                                        <div class="bluchip-top-row">
-                                            <div class="bluchip-left-info">
-                                                <span class="bluchip-title">IndiGo BluChip balance</span>
-                                                <div class="bluchip-balance">
-                                                    <div class="bluchip-balance-reveal-wrapper">
-                                                        <div class="bluchip-balance-text" id="bluchipBalanceText">
-                                                            27,440 <span class="bluchip-sub-logo">Blu 3</span>
+                                    <div class="loyalty-card" style="position: relative; z-index: 2; transform-origin: left center; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 0;">
+                                        <div class="loyalty-top-row">
+                                            <div class="loyalty-left-info">
+                                                <span class="loyalty-title">X Airline Loyalty balance</span>
+                                                <div class="loyalty-balance">
+                                                    <div class="loyalty-balance-reveal-wrapper">
+                                                        <div class="loyalty-balance-text" id="loyaltyBalanceText">
+                                                            27,440 <span class="loyalty-sub-logo">Loyalty 3</span>
                                                         </div>
-                                                        <div class="bluchip-plane-flyer" id="bluchipPlaneFlyer">
+                                                        <div class="loyalty-plane-flyer" id="loyaltyPlaneFlyer">
                                                             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                                                                 <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5l8 2.5z"/>
                                                             </svg>
@@ -1099,19 +1099,19 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="bluchip-right-info" style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
-                                                <span class="bluchip-id">ID: 2582447 
+                                            <div class="loyalty-right-info" style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
+                                                <span class="loyalty-id">ID: 2582447 
                                                     <span class="copy-icon" onclick="event.stopPropagation(); triggerHaptic('light', 'ID Copied'); alert('ID copied to clipboard!')">
                                                         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                                     </span>
                                                 </span>
-                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleLoyaltyMenu(this.closest('.bluchip-3d-wrapper'));">View Options <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
+                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleLoyaltyMenu(this.closest('.loyalty-3d-wrapper'));">View Options <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
                                             </div>
                                         </div>
 
-                                        <div class="bluchip-divider"></div>
+                                        <div class="loyalty-divider"></div>
 
-                                        <div class="bluchip-bottom-layout" style="display: block; padding-top: 8px;">
+                                        <div class="loyalty-bottom-layout" style="display: block; padding-top: 8px;">
                                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                                                 <span style="font-size: 12px; font-weight: 500; color: #fff; letter-spacing: 0.5px; opacity: 0.9;">Earn more with our popular partners</span>
                                             </div>
@@ -1245,10 +1245,10 @@
                                 </div>
 
                                 <!-- STATE 2: NEW USER (Zero Balance) -->
-                                <div class="bluchip-3d-wrapper" id="newUserCard" style="position: relative; perspective: 1500px; display: none;">
+                                <div class="loyalty-3d-wrapper" id="newUserCard" style="position: relative; perspective: 1500px; display: none;">
                                     
                                     <!-- Hidden Menu Layer (Behind the card, on the right) -->
-                                    <div class="bluchip-hidden-menu" style="position: absolute; top: 0; right: 0; width: 62%; height: 100%; background: #fff; border-radius: 16px; padding: 12px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 4px; align-content: center; justify-items: center; opacity: 0; pointer-events: none; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateX(10%) scale(0.95); z-index: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box;">
+                                    <div class="loyalty-hidden-menu" style="position: absolute; top: 0; right: 0; width: 62%; height: 100%; background: #fff; border-radius: 16px; padding: 12px 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 4px; align-content: center; justify-items: center; opacity: 0; pointer-events: none; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateX(10%) scale(0.95); z-index: 1; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box;">
                                         <!-- Play & Win -->
                                         <div onclick="openGame()" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; cursor: pointer;">
                                             <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; background: #fff;">
@@ -1277,7 +1277,7 @@
                                             </div>
                                             <span style="font-size: 8px; font-weight: 700; color: #0f172a; text-transform: uppercase; letter-spacing: 0.1px; line-height: 1.1;">PARTNER<br>PAGE</span>
                                         </div>
-                                        <!-- Blu Dashboard -->
+                                        <!-- Loyalty Dashboard -->
                                         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; grid-column: span 2;">
                                             <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; background: #fff;">
                                                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
@@ -1289,34 +1289,34 @@
                                     </div>
 
                                     <!-- Main Card (The Door) -->
-                                    <div class="bluchip-card" style="position: relative; z-index: 2; transform-origin: left center; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 0;">
-                                        <div class="bluchip-top-row">
-                                            <div class="bluchip-left-info">
-                                                <span class="bluchip-title">IndiGo BluChip balance</span>
-                                                <div class="bluchip-balance">
-                                                    <div class="bluchip-balance-reveal-wrapper">
-                                                        <div class="bluchip-balance-text" style="opacity: 1; width: auto;">
-                                                            0 <span class="bluchip-sub-logo">Blu 1</span>
+                                    <div class="loyalty-card" style="position: relative; z-index: 2; transform-origin: left center; transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-bottom: 0;">
+                                        <div class="loyalty-top-row">
+                                            <div class="loyalty-left-info">
+                                                <span class="loyalty-title">X Airline Loyalty balance</span>
+                                                <div class="loyalty-balance">
+                                                    <div class="loyalty-balance-reveal-wrapper">
+                                                        <div class="loyalty-balance-text" style="opacity: 1; width: auto;">
+                                                            0 <span class="loyalty-sub-logo">Loyalty 1</span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="bluchip-right-info" style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
-                                                <span class="bluchip-id">ID: 2582447 
+                                            <div class="loyalty-right-info" style="display: flex; flex-direction: column; align-items: flex-end; gap: 12px;">
+                                                <span class="loyalty-id">ID: 2582447 
                                                     <span class="copy-icon" onclick="event.stopPropagation(); triggerHaptic('light', 'ID Copied'); alert('ID copied to clipboard!')">
                                                         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                                     </span>
                                                 </span>
-                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleLoyaltyMenu(this.closest('.bluchip-3d-wrapper'));">View Options <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
+                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleLoyaltyMenu(this.closest('.loyalty-3d-wrapper'));">View Options <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
                                             </div>
                                         </div>
 
-                                        <div class="bluchip-divider"></div>
+                                        <div class="loyalty-divider"></div>
 
-                                        <div class="bluchip-bottom-layout" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; padding-top: 8px;">
+                                        <div class="loyalty-bottom-layout" style="display: flex; flex-direction: column; gap: 12px; align-items: stretch; padding-top: 8px;">
                                             <!-- Register Promo -->
                                             <div style="display: flex; align-items: center; justify-content: center; background: linear-gradient(90deg, rgba(251,191,36,0.15) 0%, rgba(245,158,11,0.05) 100%); border: 1px solid rgba(251,191,36,0.4); border-radius: 8px; padding: 6px 12px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(245,158,11,0.15);">
-                                                <span style="font-size: 11px; font-weight: 800; color: #fbbf24; letter-spacing: 0.2px;">✨ Earn <span style="color: #fff;">50% More BluChip</span> by registering</span>
+                                                <span style="font-size: 11px; font-weight: 800; color: #fbbf24; letter-spacing: 0.2px;">✨ Earn <span style="color: #fff;">50% More Loyalty</span> by registering</span>
                                             </div>
                                             <div class="zero-balance-flash-container" onclick="openGame()" style="position: relative; height: 20px; width: 100%; display: flex; justify-content: center; cursor: pointer;">
                                                 <div class="zero-flash-frame z-frame-1" style="justify-content: center;">
@@ -1379,7 +1379,7 @@
                                         <div class="carousel-slide offers-slide-2" onclick="triggerHaptic('medium', 'Save 400 Offer'); alert('Redirecting to Save ₹400 flight offer search...')">
                                             <div class="offer-overlay">
                                                 <div class="offer-title">Save ₹400 per person</div>
-                                                <div class="offer-subtitle">Use code INDIGO400 on domestic flights</div>
+                                                <div class="offer-subtitle">Use code X AIRLINE400 on domestic flights</div>
                                             </div>
                                         </div>
                                         <!-- Slide 3: Up to ₹5,000 Off -->
@@ -1476,7 +1476,7 @@
                                         <div class="pass-header" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
                                             <div class="pass-header-top">
                                                 <div class="pass-logo-area">
-                                                    <span class="pass-indigo-logo" style="color: #fff;">goIndiGo</span>
+                                                    <span class="pass-xairline-logo" style="color: #fff;">goX Airline</span>
                                                     <span class="pass-title" style="color: #fff; background: rgba(245, 158, 11, 0.2); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(245, 158, 11, 0.4); font-weight: 800; font-size: 11px;">NIHAR'S USUAL</span>
                                                 </div>
                                                 <div class="pass-price-summary" style="color: rgba(255,255,255,0.8);">Fares from <span class="pass-min-price" style="color: #fcd34d;">₹4,999</span></div>
@@ -1550,11 +1550,11 @@
                                                             Your usuals are <span style="color: #ffffff;">already included!</span>
                                                         </span>
                                                     </div>
-                                                    <!-- BluChip Promo Pill -->
+                                                    <!-- Loyalty Promo Pill -->
                                                     <div style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 14px; background: linear-gradient(90deg, rgba(245,158,11,0.2) 0%, rgba(245,158,11,0.05) 100%); border: 1px solid rgba(245,158,11,0.4); border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1), inset 0 1px 1px rgba(255,255,255,0.3);">
                                                         <span style="font-size: 13px; margin-right: 6px;">🪙</span>
                                                         <span style="font-size: 11px; font-weight: 800; color: #ffffff; letter-spacing: 0.2px;">
-                                                            Earn <span style="color: #fbbf24;">50% more</span> BluChip
+                                                            Earn <span style="color: #fbbf24;">50% more</span> Loyalty
                                                         </span>
                                                     </div>
                                                 </div>
@@ -1603,8 +1603,8 @@
                                         <div class="pass-header">
                                             <div class="pass-header-top">
                                                 <div class="pass-logo-area">
-                                                    <span class="pass-indigo-logo">goIndiGo</span>
-                                                    <span class="pass-title">INDIGO DEALS</span>
+                                                    <span class="pass-xairline-logo">goX Airline</span>
+                                                    <span class="pass-title">X AIRLINE DEALS</span>
                                                 </div>
                                                 <div class="pass-price-summary">Fares from <span class="pass-min-price">₹2,499</span></div>
                                             </div>
@@ -1666,8 +1666,8 @@
                                         <div class="pass-header">
                                             <div class="pass-header-top">
                                                 <div class="pass-logo-area">
-                                                    <span class="pass-indigo-logo">goIndiGo</span>
-                                                    <span class="pass-title">INDIGO DEALS</span>
+                                                    <span class="pass-xairline-logo">goX Airline</span>
+                                                    <span class="pass-title">X AIRLINE DEALS</span>
                                                 </div>
                                                 <div class="pass-price-summary">Fares from <span class="pass-min-price">₹2,999</span></div>
                                             </div>
@@ -1729,8 +1729,8 @@
                                         <div class="pass-header">
                                             <div class="pass-header-top">
                                                 <div class="pass-logo-area">
-                                                    <span class="pass-indigo-logo">goIndiGo</span>
-                                                    <span class="pass-title">INDIGO DEALS</span>
+                                                    <span class="pass-xairline-logo">goX Airline</span>
+                                                    <span class="pass-title">X AIRLINE DEALS</span>
                                                 </div>
                                                 <div class="pass-price-summary">Fares from <span class="pass-min-price">₹3,999</span></div>
                                             </div>
@@ -1792,8 +1792,8 @@
                                         <div class="pass-header">
                                             <div class="pass-header-top">
                                                 <div class="pass-logo-area">
-                                                    <span class="pass-indigo-logo">goIndiGo</span>
-                                                    <span class="pass-title">INDIGO DEALS</span>
+                                                    <span class="pass-xairline-logo">goX Airline</span>
+                                                    <span class="pass-title">X AIRLINE DEALS</span>
                                                 </div>
                                                 <div class="pass-price-summary">Fares from <span class="pass-min-price">₹3,199</span></div>
                                             </div>
@@ -1865,7 +1865,7 @@
                                         <div class="comm-badge-inside">1/9</div>
                                         <div class="comm-info-overlay">
                                             <div class="nofilter-logo">
-                                                <span style="color: #ffd15c; font-style: italic; font-weight: 900;">#no</span><span style="color: #fff; font-style: italic; font-weight: 900;">filter</span> <span style="font-size: 10px; color: #fff; opacity: 0.9; margin-left: 4px;">by IndiGo</span>
+                                                <span style="color: #ffd15c; font-style: italic; font-weight: 900;">#no</span><span style="color: #fff; font-style: italic; font-weight: 900;">filter</span> <span style="font-size: 10px; color: #fff; opacity: 0.9; margin-left: 4px;">by X Airline</span>
                                             </div>
                                             <strong class="comm-headline outline-text">Explore the World through the lens of our Community</strong>
                                         </div>
@@ -2814,7 +2814,7 @@
                                         </g>
 
                                         <g class="interactive-plane-group" id="interactivePlane" style="display: none;">
-                                            <path fill="var(--indigo-accent)" stroke="#fff" stroke-width="0.5" d="M-6,-4 L-2,-4 L0,-7 L2,-4 L6,-4 L7,-3 L6,-2 L4,-2 L2,2 L-1,2 L-2,-2 L-6,-2 Z" />
+                                            <path fill="var(--xairline-accent)" stroke="#fff" stroke-width="0.5" d="M-6,-4 L-2,-4 L0,-7 L2,-4 L6,-4 L7,-3 L6,-2 L4,-2 L2,2 L-1,2 L-2,-2 L-6,-2 Z" />
                                         </g>
                                     </svg>
 
@@ -2857,7 +2857,7 @@
                             <div class="pop-offer-card offer-card-blue" data-category="flights" onclick="triggerHaptic('medium', 'Click promo: Weekend')">
                                 <div class="offer-bg-graphic beach-graphic"></div>
                                 <div class="offer-content-overlay">
-                                    <div class="offer-headline">IndiGo Weekend Exclusives</div>
+                                    <div class="offer-headline">X Airline Weekend Exclusives</div>
                                     <div class="offer-subtext">*T&C apply.</div>
                                 </div>
                             </div>
@@ -2926,7 +2926,7 @@
                                 <div class="route-sub" id="resultsRouteSub">Return • 22-22 Jan • 1 Pax</div>
                             </div>
                             <div class="edit-search-icon">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--indigo-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--xairline-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </div>
                         </div>
 
@@ -2965,7 +2965,7 @@
                             <div class="filter-chip">Morning Flights</div>
                             <div class="filter-chip">Stretch</div>
                             <div class="filter-icon-btn">
-                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--indigo-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--xairline-blue)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
                             </div>
                         </div>
 
@@ -3023,7 +3023,7 @@
                         <!-- Mini Search Widget -->
                         <div class="student-hub-search-context" onclick="openFlightSearchDrawer()" style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 16px; margin: -16px 0 24px 0; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 14px; color: #0f172a; position: relative; z-index: 10; cursor: pointer;">
                             <span><strong>DEL</strong> to <strong>BOM</strong> • 1 Student</span>
-                            <div style="color: var(--indigo-blue); display: flex; align-items: center; gap: 4px;">
+                            <div style="color: var(--xairline-blue); display: flex; align-items: center; gap: 4px;">
                                 <span style="font-size: 12px; font-weight: 700;">Edit</span>
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </div>
@@ -3038,7 +3038,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 1234</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3069,7 +3069,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 5678</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3079,7 +3079,7 @@
                                     <div class="fc-duration">
                                         <span class="fc-dur-text">4h 15m</span>
                                         <div class="fc-dur-line"></div>
-                                        <span class="fc-dur-stop" style="color: var(--indigo-blue)">1 Stop</span>
+                                        <span class="fc-dur-stop" style="color: var(--xairline-blue)">1 Stop</span>
                                     </div>
                                     <div class="fc-time-block">
                                         <div class="fc-time">10:45</div>
@@ -3099,7 +3099,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 2341</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3129,7 +3129,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 7890</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3159,7 +3159,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 3456</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3189,7 +3189,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 8901</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3199,7 +3199,7 @@
                                     <div class="fc-duration">
                                         <span class="fc-dur-text">5h 30m</span>
                                         <div class="fc-dur-line"></div>
-                                        <span class="fc-dur-stop" style="color: var(--indigo-blue)">1 Stop</span>
+                                        <span class="fc-dur-stop" style="color: var(--xairline-blue)">1 Stop</span>
                                     </div>
                                     <div class="fc-time-block">
                                         <div class="fc-time">20:30</div>
@@ -3219,7 +3219,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 4567</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3249,7 +3249,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 9012</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3279,7 +3279,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 5678</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3309,7 +3309,7 @@
                                 <div class="student-edge-badge">✨ Free Change • 🧳 15Kg Extra</div>
                                 <div class="fc-header">
                                     <span>6E 1122</span>
-                                    <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                                    <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
                                 </div>
                                 <div class="fc-times-row">
                                     <div class="fc-time-block">
@@ -3356,10 +3356,10 @@
 
                         <!-- Flight Info Snippet -->
                         <div style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5); border-radius: 16px; padding: 16px; box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05); position: relative; overflow: hidden;">
-                            <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--indigo-blue); opacity: 0.05; border-radius: 50%;"></div>
+                            <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: var(--xairline-blue); opacity: 0.05; border-radius: 50%;"></div>
                             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--indigo-blue); font-weight: 800;">Flight Summary</div>
-                                <div style="font-size: 12px; color: var(--indigo-blue); font-weight: 700; cursor: pointer; background: #fff; padding: 4px 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">View details ></div>
+                                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--xairline-blue); font-weight: 800;">Flight Summary</div>
+                                <div style="font-size: 12px; color: var(--xairline-blue); font-weight: 700; cursor: pointer; background: #fff; padding: 4px 8px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">View details ></div>
                             </div>
 
                             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
@@ -3371,7 +3371,7 @@
                                     <div style="font-size: 10px; color: #64748b; margin-bottom: 4px;">2h 10m</div>
                                     <div style="width: 100%; height: 2px; background: #cbd5e1; position: relative;">
                                         <div style="position: absolute; top: -6px; left: 50%; transform: translateX(-50%); background: #E6EAF0; padding: 0 4px;">
-                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--indigo-blue)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                                            <svg viewBox="0 0 24 24" width="14" height="14" fill="var(--xairline-blue)"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
                                         </div>
                                     </div>
                                     <div style="font-size: 10px; color: #64748b; margin-top: 4px;">Non-stop</div>
@@ -3384,7 +3384,7 @@
 
                             <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed rgba(203, 213, 225, 0.5); padding-top: 12px; margin-top: 4px;">
                                 <div style="font-size: 11px; color: #64748b; font-weight: 600;">3 Adults, 1 Child</div>
-                                <div style="background: rgba(14,165,233,0.1); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; color: var(--indigo-blue);">
+                                <div style="background: rgba(14,165,233,0.1); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; color: var(--xairline-blue);">
                                     <span id="passenger-fare-type">Saver</span> Fare
                                 </div>
                             </div>
@@ -3393,7 +3393,7 @@
                         <!-- Choose from saved list -->
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 24px;">
                             <div style="font-size: 16px; font-weight: 800; color: #0f172a;">Choose from saved list</div>
-                            <div style="font-size: 12px; font-weight: 700; color: var(--indigo-blue); cursor: pointer;" onclick="openBulkAddSheet()">View all ></div>
+                            <div style="font-size: 12px; font-weight: 700; color: var(--xairline-blue); cursor: pointer;" onclick="openBulkAddSheet()">View all ></div>
                         </div>
                         <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 16px; margin-bottom: 16px; -webkit-overflow-scrolling: touch; padding-right: 24px; margin-right: -24px;" class="hide-scrollbar">
                             <!-- Saved Item 1 -->
@@ -3441,7 +3441,7 @@
                         <!-- Progress Bar -->
                         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
                             <div style="font-size: 16px; font-weight: 800; color: #0f172a;">Passengers</div>
-                            <div style="font-size: 12px; color: var(--indigo-blue); font-weight: 700;"><span id="passenger-added-count">1</span>/8 Added</div>
+                            <div style="font-size: 12px; color: var(--xairline-blue); font-weight: 700;"><span id="passenger-added-count">1</span>/8 Added</div>
                         </div>
 
                         <!-- Passenger Cards Container -->
@@ -3453,7 +3453,7 @@
                                         <div class="passenger-name" style="color: #22c55e;">Ragini Shah</div>
                                         <div class="passenger-type">Adult</div>
                                     </div>
-                                    <div class="passenger-status" style="font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
+                                    <div class="passenger-status" style="font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
                                 </div>
                             </div>
                             <div class="passenger-card empty" id="passenger-card-2" onclick="openPassengerForm(2, '', 'Child', '')" style="border: 1px solid #cbd5e1; background: #fff; display: flex; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.30s; opacity: 0; transform: translateY(15px);">
@@ -3462,7 +3462,7 @@
                                         <div class="passenger-name">Passenger 2</div>
                                         <div class="passenger-type">Child</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(2, '', 'Child', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(2, '', 'Child', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
                             <div class="passenger-card incomplete" id="passenger-card-3" onclick="openPassengerForm(3, 'John', 'Senior Citizen', '')" style="border: 1px dashed #f59e0b; background: rgba(245, 158, 11, 0.05); display: flex; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.45s; opacity: 0; transform: translateY(15px);">
@@ -3481,7 +3481,7 @@
                                         <div class="passenger-name">Passenger 4</div>
                                         <div class="passenger-type">Adult</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(4, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(4, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
                             <div class="passenger-card empty" id="passenger-card-5" onclick="openPassengerForm(5, '', 'Adult', '')" style="border: 1px solid #cbd5e1; background: #fff; display: flex; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.75s; opacity: 0; transform: translateY(15px);">
@@ -3490,10 +3490,10 @@
                                         <div class="passenger-name">Passenger 5</div>
                                         <div class="passenger-type">Adult</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(5, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(5, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
-                            <div id="addRemainingBtn" onclick="showRemainingCards()" style="text-align: center; padding: 12px; margin-top: 8px; font-size: 14px; font-weight: 800; color: var(--indigo-blue); background: rgba(14,165,233,0.1); border-radius: 12px; cursor: pointer; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.90s; opacity: 0; transform: translateY(15px);">
+                            <div id="addRemainingBtn" onclick="showRemainingCards()" style="text-align: center; padding: 12px; margin-top: 8px; font-size: 14px; font-weight: 800; color: var(--xairline-blue); background: rgba(14,165,233,0.1); border-radius: 12px; cursor: pointer; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.90s; opacity: 0; transform: translateY(15px);">
                                 Add Remaining (3) ⬇️
                             </div>
                             <div class="passenger-card empty" id="passenger-card-6" onclick="openPassengerForm(6, '', 'Adult', '')" style="border: 1px solid #cbd5e1; background: #fff; display: none; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 0.8999999999999999s; opacity: 0; transform: translateY(15px);">
@@ -3502,7 +3502,7 @@
                                         <div class="passenger-name">Passenger 6</div>
                                         <div class="passenger-type">Adult</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(6, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(6, '', 'Adult', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
                             <div class="passenger-card empty" id="passenger-card-7" onclick="openPassengerForm(7, '', 'Child', '')" style="border: 1px solid #cbd5e1; background: #fff; display: none; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 1.05s; opacity: 0; transform: translateY(15px);">
@@ -3511,7 +3511,7 @@
                                         <div class="passenger-name">Passenger 7</div>
                                         <div class="passenger-type">Child</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(7, '', 'Child', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(7, '', 'Child', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
                             <div class="passenger-card empty" id="passenger-card-8" onclick="openPassengerForm(8, '', 'Infant', '')" style="border: 1px solid #cbd5e1; background: #fff; display: none; animation: staggerFadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; animation-delay: 1.20s; opacity: 0; transform: translateY(15px);">
@@ -3520,7 +3520,7 @@
                                         <div class="passenger-name">Passenger 8</div>
                                         <div class="passenger-type">Infant</div>
                                     </div>
-                                    <div class="passenger-add-btn" onclick="openPassengerForm(8, '', 'Infant', '')" style="cursor: pointer; font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                                    <div class="passenger-add-btn" onclick="openPassengerForm(8, '', 'Infant', '')" style="cursor: pointer; font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                                 </div>
                             </div>
                         </div>
@@ -3554,7 +3554,7 @@
                                 <input type="email" value="raginishah@gmail.com" style="flex: 1; border: none; background: transparent; outline: none; font-size: 14px; font-weight: 600; color: #0f172a;">
                             </div>
 
-                            <div style="font-size: 12px; color: var(--indigo-blue); font-weight: 800; cursor: pointer; margin-top: 16px; display: inline-block;">+ Add another contact</div>
+                            <div style="font-size: 12px; color: var(--xairline-blue); font-weight: 800; cursor: pointer; margin-top: 16px; display: inline-block;">+ Add another contact</div>
                         </div>
 
                         <!-- Secure Your Trip -->
@@ -3566,14 +3566,14 @@
                                     <div style="font-size: 11px; color: #64748b;">Zero cancellation from ₹425</div>
                                 </div>
                             </div>
-                            <div style="font-size: 14px; color: var(--indigo-blue); font-weight: 800;">Add +</div>
+                            <div style="font-size: 14px; color: var(--xairline-blue); font-weight: 800;">Add +</div>
                         </div>
 
                         <!-- Terms & Conditions Checkboxes -->
                         <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
                             <label style="font-size: 11px; color: #64748b; line-height: 1.4; display: flex; align-items: flex-start; gap: 12px;">
                                 <input type="checkbox" checked style="margin-top: 2px;">
-                                <span>I have read and agree to IndiGo's <span style="color: var(--indigo-blue); font-weight: 700;">Conditions of Carriage</span>. I further agree to the Privacy Policy.</span>
+                                <span>I have read and agree to X Airline's <span style="color: var(--xairline-blue); font-weight: 700;">Conditions of Carriage</span>. I further agree to the Privacy Policy.</span>
                             </label>
                             <label style="font-size: 11px; color: #64748b; line-height: 1.4; display: flex; align-items: flex-start; gap: 12px;">
                                 <input type="checkbox" checked style="margin-top: 2px;">
@@ -3591,7 +3591,7 @@
                                     <div style="font-size: 24px; font-weight: 900; color: #0f172a; letter-spacing: -0.5px;" id="passenger-total-fare">₹ 6,182</div>
                                     <div style="font-size: 12px; font-weight: 600; color: #94a3b8; text-decoration: line-through; display: none;" id="passenger-original-fare">₹ 6,182</div>
                                 </div>
-                                <div style="font-size: 10px; font-weight: 700; color: var(--indigo-blue); display: none; margin-top: 2px;" id="passenger-student-badge">Student Fare Applied</div>
+                                <div style="font-size: 10px; font-weight: 700; color: var(--xairline-blue); display: none; margin-top: 2px;" id="passenger-student-badge">Student Fare Applied</div>
                             </div>
                             <button class="primary-btn" id="passenger-next-btn" style="padding: 12px 32px; border-radius: 30px; font-size: 16px; font-weight: 800; background: #005FA9; color: #fff; border: 2px solid #000; box-shadow: none; opacity: 0.5;" disabled onclick="navigateTo('addons')">Continue</button>
                         </div>
@@ -3681,7 +3681,7 @@
         <div style="background: rgba(10, 15, 30, 0.55); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.15); border-radius: 28px; padding: 32px 24px; text-align: left; box-shadow: 0 24px 48px rgba(0,0,0,0.5);">
             <div style="font-size: 13px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                IndiGo Stretch
+                X Airline Stretch
             </div>
             <div style="font-size: 28px; font-weight: 800; color: #ffffff; line-height: 1.15; letter-spacing: -0.8px; margin-bottom: 28px;">Preparing your A320 Neo Stretch seat...</div>
             
@@ -3732,7 +3732,7 @@
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </div>
                 <div>
-                    <div style="font-size: 12px; font-weight: 800;">IndiGo Upfront</div>
+                    <div style="font-size: 12px; font-weight: 800;">X Airline Upfront</div>
                     <div style="font-size: 9px; font-weight: 500; opacity: 0.9;">Priority boarding & meals</div>
                 </div>
             </div>
@@ -4050,11 +4050,11 @@
 
                 <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 8px; border-radius: 30px; border: 1px solid #e2e8f0;">
                     <div class="stepper-btn" onclick="updateBaggage(-5)">-</div>
-                    <div style="font-size: 18px; font-weight: 900; color: var(--indigo-blue); min-width: 60px; text-align: center;"><span id="baggage-val">0</span> kg</div>
+                    <div style="font-size: 18px; font-weight: 900; color: var(--xairline-blue); min-width: 60px; text-align: center;"><span id="baggage-val">0</span> kg</div>
                     <div class="stepper-btn" onclick="updateBaggage(5)">+</div>
                 </div>
                 <div style="text-align: center; font-size: 12px; font-weight: 700; color: #0f172a; margin-top: 16px;">
-                    Additional cost: <span id="baggage-cost" style="color: var(--indigo-blue);">₹ 0</span>
+                    Additional cost: <span id="baggage-cost" style="color: var(--xairline-blue);">₹ 0</span>
                 </div>
             </div>
         </div>
@@ -4145,7 +4145,7 @@
                                 </div>
                                 <div style="flex: 1; padding: 0 12px; position: relative; text-align: center;">
                                     <div style="border-top: 1px dashed #ccc; width: 100%; position: absolute; top: 50%; left: 0; transform: translateY(-50%); z-index: 1;"></div>
-                                    <div style="background: white; position: relative; display: inline-block; padding: 0 8px; font-size: 10px; color: var(--indigo-blue); font-weight: 700; z-index: 2;" id="cp-dur">3h 10m</div>
+                                    <div style="background: white; position: relative; display: inline-block; padding: 0 8px; font-size: 10px; color: var(--xairline-blue); font-weight: 700; z-index: 2;" id="cp-dur">3h 10m</div>
                                 </div>
                                 <div style="text-align: center;">
                                     <div style="font-size: 16px; font-weight: 800; color: #000;" id="cp-arr-time">08:10</div>

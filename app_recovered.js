@@ -28,7 +28,7 @@ function closeBaggageTracking() {
 /* ========================================== */
 /* PLAY & WIN GAME LOGIC */
 /* ========================================== */
-const GAME_TARGET_WORDS = ['FLY', 'PLANE', '6ESKY', 'INDIGO'];
+const GAME_TARGET_WORDS = ['FLY', 'PLANE', '6ESKY', 'X AIRLINE'];
 const GAME_FOUND_WORDS = new Set();
 let gameCurrentPath = []; // array of indices
 let gameIsDragging = false;
@@ -475,8 +475,8 @@ window.addEventListener('DOMContentLoaded', () => {
     init3DCurvedCoverflow('offersCarousel', 'offersDots', 280, 220);
     init3DCurvedCoverflow('trendingInstaCarousel', 'trendingInstaDots', 140, 200);
     
-    // Initialize BluChip Loyalty animations
-    triggerBluChipPlaneAnimation();
+    // Initialize Loyalty Loyalty animations
+    triggerLoyaltyPlaneAnimation();
     initPartnerWallet();
     
     // Update initial search button state (disabled)
@@ -683,7 +683,7 @@ function navigateTo(screenName) {
         document.getElementById('screenHome').classList.add('active');
         document.getElementById('navHome').classList.add('active');
         switchCategory(0); // Reset sliding tab visual indicator
-        triggerBluChipPlaneAnimation();
+        triggerLoyaltyPlaneAnimation();
     } else if (screenName === 'deals') {
         document.getElementById('screenDeals').classList.add('active');
         document.getElementById('navFlights').classList.remove('active'); // Deals is active
@@ -1351,7 +1351,7 @@ function renderFlightStateCard(state) {
                 </div>
                 <div class="detail-block">
                     <span class="detail-lbl">Boarding Starts In</span>
-                    <span class="detail-val" id="countdownTimer" style="color: var(--indigo-accent);">45m 00s</span>
+                    <span class="detail-val" id="countdownTimer" style="color: var(--xairline-accent);">45m 00s</span>
                 </div>
                 <div class="barcode-thumbnail-box">
                     <div class="barcode-mini-lines"></div>
@@ -1459,7 +1459,7 @@ function runCheckinVerify() {
         </div>
         <p class="state-desc">Assigning priority seat and verifying credentials...</p>
         <div style="width: 100%; height: 2px; background: rgba(0,31,84,0.06); border-radius: 2px; overflow: hidden; margin-top: 8px;">
-            <div style="width: 50%; height: 100%; background: var(--indigo-blue); animation: pulse 1s infinite alternate;"></div>
+            <div style="width: 50%; height: 100%; background: var(--xairline-blue); animation: pulse 1s infinite alternate;"></div>
         </div>
     `;
     
@@ -2070,7 +2070,7 @@ function startGlobeExploration(event) {
     
     isExploring = !isExploring;
     
-    const btn = document.getElementById('exploreIndigoBtn');
+    const btn = document.getElementById('exploreX AirlineBtn');
     const plane = document.getElementById('interactivePlane');
     
     if (isExploring) {
@@ -2099,7 +2099,7 @@ function startGlobeExploration(event) {
         triggerHaptic('light', 'Stopping globe exploration');
         if (btn) {
             btn.classList.remove('active');
-            btn.innerText = 'Explore with IndiGo';
+            btn.innerText = 'Explore with X Airline';
         }
         
         clearTimeout(flightTimeoutId);
@@ -2125,7 +2125,7 @@ function startGlobeExploration(event) {
         // Reset HUD
         const hudTitle = document.getElementById('hudDestinationName');
         const hudStats = document.getElementById('hudDestinationStats');
-        if (hudTitle) hudTitle.innerText = 'Explore with IndiGo';
+        if (hudTitle) hudTitle.innerText = 'Explore with X Airline';
         if (hudStats) hudStats.innerText = 'Click the button above to begin journey';
         
         const pulseLight = document.querySelector('.hud-pulse-light');
@@ -2853,12 +2853,12 @@ function triggerPlaneTransition(event) {
 }
 
 // ==========================================================================
-// LOYALTY SECTION - INTERACTIVE BLUCHIP CARD ANIMATIONS
+// LOYALTY SECTION - INTERACTIVE LOYALTY CARD ANIMATIONS
 // ==========================================================================
 
-function triggerBluChipPlaneAnimation() {
-    const text = document.getElementById('bluchipBalanceText');
-    const flyer = document.getElementById('bluchipPlaneFlyer');
+function triggerLoyaltyPlaneAnimation() {
+    const text = document.getElementById('loyaltyBalanceText');
+    const flyer = document.getElementById('loyaltyPlaneFlyer');
     if (!text || !flyer) return;
 
     // Reset animations
@@ -3276,7 +3276,7 @@ function renderFlightResults() {
             const discountedStr = discountedPriceNum.toLocaleString('en-IN');
             
             ecoPriceHtml = `<span class="price-strikethrough">₹${f.price}</span> ₹${discountedStr}`;
-            ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--indigo-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
+            ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--xairline-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
         }
 
         let edgeBadgeHtml = "";
@@ -3286,7 +3286,7 @@ function renderFlightResults() {
             <div class="fc-duration">
                 <span class="fc-dur-text">${f.dur}</span>
                 <div class="fc-dur-line"></div>
-                <span class="fc-dur-stop" style="color: ${f.stops === 'Non-stop' ? '#10b981' : 'var(--indigo-blue)'}">${f.stops}</span>
+                <span class="fc-dur-stop" style="color: ${f.stops === 'Non-stop' ? '#10b981' : 'var(--xairline-blue)'}">${f.stops}</span>
             </div>
         `;
 
@@ -3313,7 +3313,7 @@ function renderFlightResults() {
             ${edgeBadgeHtml}
             <div class="fc-header">
                 <span>${f.id}</span>
-                <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+                <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
             </div>
             
             <div class="fc-times-row">
@@ -3434,7 +3434,7 @@ function injectRecommendedCard(fromAp, toAp) {
         const discountedStr = discountedPriceNum.toLocaleString('en-IN');
         
         ecoPriceHtml = `<span class="price-strikethrough">₹${oldP}</span> ₹${discountedStr}`;
-        ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--indigo-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
+        ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--xairline-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
     }
 
     const recCard = document.createElement('div');
@@ -3443,7 +3443,7 @@ function injectRecommendedCard(fromAp, toAp) {
         <div class="recommended-badge">⭐ Recommended Morning Flight</div>
         <div class="fc-header" style="margin-top: 8px;">
             <span>6E 8888</span>
-            <span style="color: var(--indigo-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 BluChips</span>
+            <span style="color: var(--xairline-blue); background: rgba(0, 95, 169, 0.05); padding: 2px 6px; border-radius: 4px;">Earn up to 400 Loyalty Points</span>
         </div>
         
         <div class="fc-times-row">
@@ -4282,10 +4282,10 @@ window.renderPopupCards = function(options, className) {
         if (typeof isStudentMode !== 'undefined' && isStudentMode && className === 'Economy') {
             displayFeatures.forEach(f => {
                 if (f.icon === 'luggage') {
-                    f.text = '<strong>25 kg</strong> Checkin bag <span style="color:var(--indigo-blue); font-size:9px; font-weight:700;">(Student +10kg)</span>';
+                    f.text = '<strong>25 kg</strong> Checkin bag <span style="color:var(--xairline-blue); font-size:9px; font-weight:700;">(Student +10kg)</span>';
                 }
                 if (f.icon === 'seat') {
-                    f.text = '<strong>Free</strong> Standard Seat <span style="color:var(--indigo-blue); font-size:9px; font-weight:700;">(Student)</span>';
+                    f.text = '<strong>Free</strong> Standard Seat <span style="color:var(--xairline-blue); font-size:9px; font-weight:700;">(Student)</span>';
                     f.type = 'tick';
                 }
             });
@@ -4333,7 +4333,7 @@ window.renderPopupCards = function(options, className) {
                 </div>
                 <div class="cp-pricing-block">
                     ${pricingHtml}
-                    <div style="font-size: 9px; color: var(--indigo-blue); font-weight: 700; margin-top: 8px;">Know More <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
+                    <div style="font-size: 9px; color: var(--xairline-blue); font-weight: 700; margin-top: 8px;">Know More <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div>
                 </div>
             </div>
         `;
@@ -4693,12 +4693,12 @@ window.selectGender = function(gender) {
     
     if (gender === 'Male') {
         male.classList.add('active');
-        male.style.border = '1px solid var(--indigo-blue)';
+        male.style.border = '1px solid var(--xairline-blue)';
         male.style.background = 'rgba(14,165,233,0.05)';
         male.style.color = '#0f172a';
     } else {
         female.classList.add('active');
-        female.style.border = '1px solid var(--indigo-blue)';
+        female.style.border = '1px solid var(--xairline-blue)';
         female.style.background = 'rgba(14,165,233,0.05)';
         female.style.color = '#0f172a';
     }
@@ -4740,7 +4740,7 @@ window.applyBulkAdd = function() {
                         <div class="passenger-name" style="color: #22c55e;">${name}</div>
                         <div class="passenger-type">${type}</div>
                     </div>
-                    <div class="passenger-status" style="font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
+                    <div class="passenger-status" style="font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
                 </div>
             `;
             added++;
@@ -4774,7 +4774,7 @@ window.toggleSavedPassengerChip = function(el, name) {
                             <div class="passenger-name">Passenger ${num}</div>
                             <div class="passenger-type">${type}</div>
                         </div>
-                        <div class="passenger-add-btn" style="font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
+                        <div class="passenger-add-btn" style="font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Add details ></div>
                     </div>
                 `;
             }
@@ -4784,8 +4784,8 @@ window.toggleSavedPassengerChip = function(el, name) {
         el.classList.add('active');
         el.querySelector('.chip-checkbox').innerHTML = '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
         el.style.background = 'rgba(14, 165, 233, 0.05)';
-        el.style.border = '1px solid var(--indigo-blue)';
-        el.querySelector('.chip-checkbox').style.background = 'var(--indigo-blue)';
+        el.style.border = '1px solid var(--xairline-blue)';
+        el.querySelector('.chip-checkbox').style.background = 'var(--xairline-blue)';
         el.querySelector('.chip-checkbox').style.border = 'none';
         
         // Auto-fill an empty card
@@ -4804,7 +4804,7 @@ window.toggleSavedPassengerChip = function(el, name) {
                         <div class="passenger-name" style="color: #22c55e;">${name}</div>
                         <div class="passenger-type">${type}</div>
                     </div>
-                    <div class="passenger-status" style="font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
+                    <div class="passenger-status" style="font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
                 </div>
             `;
             updatePassengerCount();
@@ -4843,7 +4843,7 @@ window.savePassengerForm = function() {
                     <div class="passenger-type" style="margin-bottom: 2px;">${type}</div>
                     ${wheelchairHtml}
                 </div>
-                <div class="passenger-status" style="font-size: 10px; color: var(--indigo-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
+                <div class="passenger-status" style="font-size: 10px; color: var(--xairline-blue); font-weight: 800; text-align: right; margin-left: auto;">Edit ✏️</div>
             </div>
         `;
     }
@@ -4872,7 +4872,7 @@ window.updatePassengerCount = function() {
     if (completedCards >= 4) { // Enable if they complete at least 4, or all visible
         nextBtn.disabled = false;
         nextBtn.style.opacity = '1';
-        nextBtn.style.background = 'var(--indigo-blue)';
+        nextBtn.style.background = 'var(--xairline-blue)';
         nextBtn.style.color = '#fff';
     } else {
         nextBtn.disabled = true;
@@ -6319,7 +6319,7 @@ function processPayment() {
 }
 
 // ==========================================================================
-// BLUCHIP 3D DOOR ANIMATION (CRED STYLE)
+// LOYALTY 3D DOOR ANIMATION (CRED STYLE)
 // ==========================================================================
 
 function toggleLoyaltyMenu(wrapperElement) {
@@ -6336,7 +6336,7 @@ function toggleLoyaltyMenu(wrapperElement) {
 
 // Swipe detection for Loyalty Cards
 document.addEventListener('DOMContentLoaded', () => {
-    const wrappers = document.querySelectorAll('.bluchip-3d-wrapper');
+    const wrappers = document.querySelectorAll('.loyalty-3d-wrapper');
     wrappers.forEach(wrapper => {
         let startX = 0;
         let startY = 0;
