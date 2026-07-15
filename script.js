@@ -73,3 +73,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setBPState('single');
     }
 });
+
+// Trip Companion Flow
+function handleCheckIn() {
+    const btn = document.getElementById('btnCheckIn');
+    btn.innerHTML = '<span style="animation: pulse-glow 1s infinite;">Checking in...</span>';
+    setTimeout(() => {
+        btn.style.display = 'none';
+        document.getElementById('btnViewBP').style.display = 'block';
+    }, 1500);
+}
+
+function showBoardingPasses() {
+    document.getElementById('tripsCompanionCard').style.display = 'none';
+    document.getElementById('tripsBoardingPassUI').style.display = 'block';
+}
+
+function hideBoardingPasses() {
+    document.getElementById('tripsCompanionCard').style.display = 'block';
+    document.getElementById('tripsBoardingPassUI').style.display = 'none';
+}
