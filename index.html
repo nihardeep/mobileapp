@@ -2919,7 +2919,7 @@
                     <!-- ==========================================================
                          SCREEN 3: MY TRIPS / BOARDING PASS
                          ========================================================== -->
-                    <div class="screen" id="screenTrips" style="background: #f4f6f8; overflow-y: auto; overflow-x: hidden;">
+                    <div class="screen" id="screenTrips" style="background: #041029 url('world_map_texture.png') top center no-repeat; background-size: cover; overflow-y: auto; overflow-x: hidden;">
                         
 
 
@@ -2937,586 +2937,395 @@
                         <!-- Carousel Container -->
                         <div class="bp-carousel-container" id="bpCarousel">
                             <div class="bp-carousel-track" id="bpTrack">
-<!-- Passenger 1 -->
+
                                 <div class="bp-slide">
-                                    <div class="digital-bp">
-                                        <!-- TOP: Boarding Pass Header & Barcode -->
-                                        <div class="bp-top-section">
-                                            <div class="bp-header">
-                                                <div class="bp-title-small">Boarding pass</div>
-                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
+                                    <div class="bp-ticket-wrapper">
+                                        <div class="bp-ticket-route-header">
+                                            <div class="bp-ticket-city-col">
+                                                <div class="city-name" id="tkCity1Name">DELHI</div>
+                                                <div class="city-code" id="tkCity1Code">DEL</div>
+                                            </div>
+                                            <div class="plane-icon">✈</div>
+                                            <div class="bp-ticket-city-col right">
+                                                <div class="city-name" id="tkCity2Name">MUMBAI</div>
+                                                <div class="city-code" id="tkCity2Code">BOM</div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-ticket-card">
+                                            <div class="bp-ticket-top">
+                                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Passenger</div>
+                                                        <div class="bp-ticket-value large">SHARMA / RAVI</div>
+                                                    </div>
+                                                    <div class="bp-ticket-logo" style="text-align: right;">
+                                                        <div style="font-weight: 800; font-size: 16px; font-style: italic; color: #001f54;">Skyline</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bp-ticket-grid-top" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Flight</div>
+                                                        <div class="bp-ticket-value large" id="tkFlight">6E 2341</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seat</div>
+                                                        <div class="bp-ticket-value large" id="tkSeat">12C</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Class</div>
+                                                        <div class="bp-ticket-value large" id="tkClass">Economy (W)</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">Boarding</div>
+                                                        <div class="bp-ticket-value"><span class="time" id="tkBoardingTime">22:00</span></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Gate / Door</div>
+                                                        <div class="bp-ticket-value large" id="tkGate">5B / L1</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Zone</div>
+                                                        <div class="bp-ticket-value large" id="tkZone">02</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">PNR</div>
+                                                        <div class="bp-ticket-value">X3K9P2</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Date</div>
+                                                        <div class="bp-ticket-value" id="tkDate">25 MAR 2026</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seq</div>
+                                                        <div class="bp-ticket-value" id="tkSeq">001</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
-                                            <!-- 3D Flipping Barcode Container -->
-                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
-                                                <div class="bp-qr-flipper" id="bpQrFlipper">
-                                                    <div class="bp-qr-front">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E2341:001</div>
+                                            <div class="bp-ticket-divider"></div>
+                                            
+                                            <div class="bp-ticket-bottom">
+                                                <div class="bp-ticket-grid-bottom" style="display: flex; flex-direction: column; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Baggage</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkBaggage">15kg + 7kg cabin | 1 Piece</div>
                                                     </div>
-                                                    <div class="bp-qr-back">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E7892:002</div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">SSR</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkSSR">WCHR, VGML</div>
                                                     </div>
+                                                </div>
+                                                <div class="bp-ticket-qr-block" onclick="openQRModal()" style="margin-left: 16px;">
+                                                    <img src="qr_code.png" />
                                                 </div>
                                             </div>
-
-                                            <!-- Passenger Name -->
-                                            <div class="bp-passenger-name">SHARMA / RAVI</div>
-                                        </div>
-
-                                        <!-- TOGGLE BUTTONS (Only visible for multi-city) -->
-                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle">
-                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1">LKO ✈ DEL</div>
-                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2">DEL ✈ AMS</div>
-                                        </div>
-
-                                        <!-- TIMELINE SECTION (Sliding wrapper) -->
-                                        <div class="bp-timeline-wrapper">
-                                            <div class="bp-timeline-slider" id="bpTimelineSlider">
-                                                
-                                                <!-- LEG 1 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 2341</div>
-                                                            <div class="lbl">25 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">LKO</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">DEL</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">17:25</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">22:00</div>
-                                                            <div class="desc white">Gate 5B / Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">22:25</div>
-                                                            <div class="desc">Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">12C</div>
-                                                            <div class="desc">Economy (SSR: WCHR)</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">00:30</div>
-                                                            <div class="desc">Terminal 2</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
-                                                <!-- LEG 2 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 7892</div>
-                                                            <div class="lbl">26 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">DEL</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">AMS</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">04:45</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">05:45</div>
-                                                            <div class="desc white">Gate 2A / Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">06:10</div>
-                                                            <div class="desc">Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">8F</div>
-                                                            <div class="desc">Economy (SSR: VGML)</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">07:20</div>
-                                                            <div class="desc">Terminal 1</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
+                                            <div class="bp-ticket-footer">
+                                                Gate is subject to change. Boarding closes 25 min before departure.
                                             </div>
                                         </div>
+                                        
+                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle" style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
+                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">DEL ✈ BOM</div>
+                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">BOM ✈ GOI</div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-
-<!-- Passenger 2 -->
+    
                                 <div class="bp-slide">
-                                    <div class="digital-bp">
-                                        <!-- TOP: Boarding Pass Header & Barcode -->
-                                        <div class="bp-top-section">
-                                            <div class="bp-header">
-                                                <div class="bp-title-small">Boarding pass</div>
-                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
+                                    <div class="bp-ticket-wrapper">
+                                        <div class="bp-ticket-route-header">
+                                            <div class="bp-ticket-city-col">
+                                                <div class="city-name" id="tkCity1Name">DELHI</div>
+                                                <div class="city-code" id="tkCity1Code">DEL</div>
+                                            </div>
+                                            <div class="plane-icon">✈</div>
+                                            <div class="bp-ticket-city-col right">
+                                                <div class="city-name" id="tkCity2Name">MUMBAI</div>
+                                                <div class="city-code" id="tkCity2Code">BOM</div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-ticket-card">
+                                            <div class="bp-ticket-top">
+                                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Passenger</div>
+                                                        <div class="bp-ticket-value large">SHARMA / ISHIKA</div>
+                                                    </div>
+                                                    <div class="bp-ticket-logo" style="text-align: right;">
+                                                        <div style="font-weight: 800; font-size: 16px; font-style: italic; color: #001f54;">Skyline</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bp-ticket-grid-top" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Flight</div>
+                                                        <div class="bp-ticket-value large" id="tkFlight">6E 2341</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seat</div>
+                                                        <div class="bp-ticket-value large" id="tkSeat">12D</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Class</div>
+                                                        <div class="bp-ticket-value large" id="tkClass">Economy (W)</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">Boarding</div>
+                                                        <div class="bp-ticket-value"><span class="time" id="tkBoardingTime">22:00</span></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Gate / Door</div>
+                                                        <div class="bp-ticket-value large" id="tkGate">5B / L1</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Zone</div>
+                                                        <div class="bp-ticket-value large" id="tkZone">02</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">PNR</div>
+                                                        <div class="bp-ticket-value">X3K9P2</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Date</div>
+                                                        <div class="bp-ticket-value" id="tkDate">25 MAR 2026</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seq</div>
+                                                        <div class="bp-ticket-value" id="tkSeq">002</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
-                                            <!-- 3D Flipping Barcode Container -->
-                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
-                                                <div class="bp-qr-flipper" id="bpQrFlipper">
-                                                    <div class="bp-qr-front">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E2341:002</div>
+                                            <div class="bp-ticket-divider"></div>
+                                            
+                                            <div class="bp-ticket-bottom">
+                                                <div class="bp-ticket-grid-bottom" style="display: flex; flex-direction: column; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Baggage</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkBaggage">15kg + 7kg cabin | 1 Piece</div>
                                                     </div>
-                                                    <div class="bp-qr-back">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E7892:002</div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">SSR</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkSSR">WCHR, VGML</div>
                                                     </div>
+                                                </div>
+                                                <div class="bp-ticket-qr-block" onclick="openQRModal()" style="margin-left: 16px;">
+                                                    <img src="qr_code.png" />
                                                 </div>
                                             </div>
-
-                                            <!-- Passenger Name -->
-                                            <div class="bp-passenger-name">SHARMA / ISHIKA</div>
-                                        </div>
-
-                                        <!-- TOGGLE BUTTONS (Only visible for multi-city) -->
-                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle">
-                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1">LKO ✈ DEL</div>
-                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2">DEL ✈ AMS</div>
-                                        </div>
-
-                                        <!-- TIMELINE SECTION (Sliding wrapper) -->
-                                        <div class="bp-timeline-wrapper">
-                                            <div class="bp-timeline-slider" id="bpTimelineSlider">
-                                                
-                                                <!-- LEG 1 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 2341</div>
-                                                            <div class="lbl">25 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">LKO</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">DEL</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">17:25</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">22:00</div>
-                                                            <div class="desc white">Gate 5B / Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">22:25</div>
-                                                            <div class="desc">Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">12D</div>
-                                                            <div class="desc">Economy</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">00:30</div>
-                                                            <div class="desc">Terminal 2</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
-                                                <!-- LEG 2 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 7892</div>
-                                                            <div class="lbl">26 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">DEL</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">AMS</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">04:45</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">05:45</div>
-                                                            <div class="desc white">Gate 2A / Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">06:10</div>
-                                                            <div class="desc">Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">8F</div>
-                                                            <div class="desc">Economy (SSR: VGML)</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">07:20</div>
-                                                            <div class="desc">Terminal 1</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
+                                            <div class="bp-ticket-footer">
+                                                Gate is subject to change. Boarding closes 25 min before departure.
                                             </div>
                                         </div>
+                                        
+                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle" style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
+                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">DEL ✈ BOM</div>
+                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">BOM ✈ GOI</div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-
-<!-- Passenger 3 -->
+    
                                 <div class="bp-slide">
-                                    <div class="digital-bp">
-                                        <!-- TOP: Boarding Pass Header & Barcode -->
-                                        <div class="bp-top-section">
-                                            <div class="bp-header">
-                                                <div class="bp-title-small">Boarding pass</div>
-                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
+                                    <div class="bp-ticket-wrapper">
+                                        <div class="bp-ticket-route-header">
+                                            <div class="bp-ticket-city-col">
+                                                <div class="city-name" id="tkCity1Name">DELHI</div>
+                                                <div class="city-code" id="tkCity1Code">DEL</div>
+                                            </div>
+                                            <div class="plane-icon">✈</div>
+                                            <div class="bp-ticket-city-col right">
+                                                <div class="city-name" id="tkCity2Name">MUMBAI</div>
+                                                <div class="city-code" id="tkCity2Code">BOM</div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-ticket-card">
+                                            <div class="bp-ticket-top">
+                                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Passenger</div>
+                                                        <div class="bp-ticket-value large">SHARMA / ARYA</div>
+                                                    </div>
+                                                    <div class="bp-ticket-logo" style="text-align: right;">
+                                                        <div style="font-weight: 800; font-size: 16px; font-style: italic; color: #001f54;">Skyline</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bp-ticket-grid-top" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Flight</div>
+                                                        <div class="bp-ticket-value large" id="tkFlight">6E 2341</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seat</div>
+                                                        <div class="bp-ticket-value large" id="tkSeat">12E</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Class</div>
+                                                        <div class="bp-ticket-value large" id="tkClass">Economy (W)</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">Boarding</div>
+                                                        <div class="bp-ticket-value"><span class="time" id="tkBoardingTime">22:00</span></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Gate / Door</div>
+                                                        <div class="bp-ticket-value large" id="tkGate">5B / L1</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Zone</div>
+                                                        <div class="bp-ticket-value large" id="tkZone">02</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">PNR</div>
+                                                        <div class="bp-ticket-value">X3K9P2</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Date</div>
+                                                        <div class="bp-ticket-value" id="tkDate">25 MAR 2026</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seq</div>
+                                                        <div class="bp-ticket-value" id="tkSeq">003</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
-                                            <!-- 3D Flipping Barcode Container -->
-                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
-                                                <div class="bp-qr-flipper" id="bpQrFlipper">
-                                                    <div class="bp-qr-front">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E2341:003</div>
+                                            <div class="bp-ticket-divider"></div>
+                                            
+                                            <div class="bp-ticket-bottom">
+                                                <div class="bp-ticket-grid-bottom" style="display: flex; flex-direction: column; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Baggage</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkBaggage">15kg + 7kg cabin | 1 Piece</div>
                                                     </div>
-                                                    <div class="bp-qr-back">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E7892:002</div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">SSR</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkSSR">WCHR, VGML</div>
                                                     </div>
+                                                </div>
+                                                <div class="bp-ticket-qr-block" onclick="openQRModal()" style="margin-left: 16px;">
+                                                    <img src="qr_code.png" />
                                                 </div>
                                             </div>
-
-                                            <!-- Passenger Name -->
-                                            <div class="bp-passenger-name">SHARMA / ARYA</div>
-                                        </div>
-
-                                        <!-- TOGGLE BUTTONS (Only visible for multi-city) -->
-                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle">
-                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1">LKO ✈ DEL</div>
-                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2">DEL ✈ AMS</div>
-                                        </div>
-
-                                        <!-- TIMELINE SECTION (Sliding wrapper) -->
-                                        <div class="bp-timeline-wrapper">
-                                            <div class="bp-timeline-slider" id="bpTimelineSlider">
-                                                
-                                                <!-- LEG 1 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 2341</div>
-                                                            <div class="lbl">25 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">LKO</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">DEL</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">17:25</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">22:00</div>
-                                                            <div class="desc white">Gate 5B / Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">22:25</div>
-                                                            <div class="desc">Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">12E</div>
-                                                            <div class="desc">Economy</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">00:30</div>
-                                                            <div class="desc">Terminal 2</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
-                                                <!-- LEG 2 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 7892</div>
-                                                            <div class="lbl">26 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">DEL</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">AMS</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">04:45</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">05:45</div>
-                                                            <div class="desc white">Gate 2A / Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">06:10</div>
-                                                            <div class="desc">Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">8F</div>
-                                                            <div class="desc">Economy (SSR: VGML)</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">07:20</div>
-                                                            <div class="desc">Terminal 1</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
+                                            <div class="bp-ticket-footer">
+                                                Gate is subject to change. Boarding closes 25 min before departure.
                                             </div>
                                         </div>
+                                        
+                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle" style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
+                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">DEL ✈ BOM</div>
+                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">BOM ✈ GOI</div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-
-<!-- Passenger 4 -->
+    
                                 <div class="bp-slide">
-                                    <div class="digital-bp">
-                                        <!-- TOP: Boarding Pass Header & Barcode -->
-                                        <div class="bp-top-section">
-                                            <div class="bp-header">
-                                                <div class="bp-title-small">Boarding pass</div>
-                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
+                                    <div class="bp-ticket-wrapper">
+                                        <div class="bp-ticket-route-header">
+                                            <div class="bp-ticket-city-col">
+                                                <div class="city-name" id="tkCity1Name">DELHI</div>
+                                                <div class="city-code" id="tkCity1Code">DEL</div>
+                                            </div>
+                                            <div class="plane-icon">✈</div>
+                                            <div class="bp-ticket-city-col right">
+                                                <div class="city-name" id="tkCity2Name">MUMBAI</div>
+                                                <div class="city-code" id="tkCity2Code">BOM</div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-ticket-card">
+                                            <div class="bp-ticket-top">
+                                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Passenger</div>
+                                                        <div class="bp-ticket-value large">SHARMA / ROHAN</div>
+                                                    </div>
+                                                    <div class="bp-ticket-logo" style="text-align: right;">
+                                                        <div style="font-weight: 800; font-size: 16px; font-style: italic; color: #001f54;">Skyline</div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bp-ticket-grid-top" style="grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Flight</div>
+                                                        <div class="bp-ticket-value large" id="tkFlight">6E 2341</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seat</div>
+                                                        <div class="bp-ticket-value large" id="tkSeat">12F</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Class</div>
+                                                        <div class="bp-ticket-value large" id="tkClass">Economy (W)</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">Boarding</div>
+                                                        <div class="bp-ticket-value"><span class="time" id="tkBoardingTime">22:00</span></div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Gate / Door</div>
+                                                        <div class="bp-ticket-value large" id="tkGate">5B / L1</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Zone</div>
+                                                        <div class="bp-ticket-value large" id="tkZone">02</div>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <div class="bp-ticket-label">PNR</div>
+                                                        <div class="bp-ticket-value">X3K9P2</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Date</div>
+                                                        <div class="bp-ticket-value" id="tkDate">25 MAR 2026</div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">Seq</div>
+                                                        <div class="bp-ticket-value" id="tkSeq">004</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
-                                            <!-- 3D Flipping Barcode Container -->
-                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
-                                                <div class="bp-qr-flipper" id="bpQrFlipper">
-                                                    <div class="bp-qr-front">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E2341:004</div>
+                                            <div class="bp-ticket-divider"></div>
+                                            
+                                            <div class="bp-ticket-bottom">
+                                                <div class="bp-ticket-grid-bottom" style="display: flex; flex-direction: column; gap: 16px;">
+                                                    <div>
+                                                        <div class="bp-ticket-label">Baggage</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkBaggage">15kg + 7kg cabin | 1 Piece</div>
                                                     </div>
-                                                    <div class="bp-qr-back">
-                                                        <img src="qr_code.png" class="bp-barcode-img" />
-                                                        <div class="bp-qr-subtitle">SEC. 6E7892:002</div>
+                                                    <div>
+                                                        <div class="bp-ticket-label">SSR</div>
+                                                        <div class="bp-ticket-value" style="font-size: 13px;" id="tkSSR">WCHR, VGML</div>
                                                     </div>
+                                                </div>
+                                                <div class="bp-ticket-qr-block" onclick="openQRModal()" style="margin-left: 16px;">
+                                                    <img src="qr_code.png" />
                                                 </div>
                                             </div>
-
-                                            <!-- Passenger Name -->
-                                            <div class="bp-passenger-name">SHARMA / ROHAN</div>
-                                        </div>
-
-                                        <!-- TOGGLE BUTTONS (Only visible for multi-city) -->
-                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle">
-                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1">LKO ✈ DEL</div>
-                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2">DEL ✈ AMS</div>
-                                        </div>
-
-                                        <!-- TIMELINE SECTION (Sliding wrapper) -->
-                                        <div class="bp-timeline-wrapper">
-                                            <div class="bp-timeline-slider" id="bpTimelineSlider">
-                                                
-                                                <!-- LEG 1 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 2341</div>
-                                                            <div class="lbl">25 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">LKO</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">DEL</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">17:25</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">22:00</div>
-                                                            <div class="desc white">Gate 5B / Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">22:25</div>
-                                                            <div class="desc">Zone 02</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">12F</div>
-                                                            <div class="desc">Economy</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">00:30</div>
-                                                            <div class="desc">Terminal 2</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
-                                                <!-- LEG 2 TIMELINE -->
-                                                <div class="bp-timeline-leg">
-                                                    <div class="bp-timeline-header">
-                                                        <div class="bp-tl-flight">
-                                                            <div class="lbl">Flight</div>
-                                                            <div class="val">6E 7892</div>
-                                                            <div class="lbl">26 MAR 2026</div>
-                                                        </div>
-                                                        <div class="bp-tl-route">
-                                                            <div class="city">DEL</div>
-                                                            <div class="icon">✈</div>
-                                                            <div class="city">AMS</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-timeline-line">
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Bag drop-off limit</div>
-                                                            <div class="time">04:45</div>
-                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
-                                                        </div>
-                                                        <div class="bp-tl-node active">
-                                                            <div class="dot solid"></div>
-                                                            <div class="title white">Boarding</div>
-                                                            <div class="time white">05:45</div>
-                                                            <div class="desc white">Gate 2A / Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow red-dot"></div>
-                                                            <div class="title blue">Gate closed</div>
-                                                            <div class="time">06:10</div>
-                                                            <div class="desc">Zone 01</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Seat</div>
-                                                            <div class="time bold">8F</div>
-                                                            <div class="desc">Economy (SSR: VGML)</div>
-                                                        </div>
-                                                        <div class="bp-tl-node">
-                                                            <div class="dot hollow"></div>
-                                                            <div class="title blue">Arrival</div>
-                                                            <div class="time">07:20</div>
-                                                            <div class="desc">Terminal 1</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="bp-tl-warning">
-                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
-                                                    </div>
-                                                </div>
-
+                                            <div class="bp-ticket-footer">
+                                                Gate is subject to change. Boarding closes 25 min before departure.
                                             </div>
                                         </div>
+                                        
+                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle" style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
+                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">DEL ✈ BOM</div>
+                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2" style="color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">BOM ✈ GOI</div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-                        </div>
+                            </div>
                         
                         
                         <div class="bp-dots" id="bpDots">
