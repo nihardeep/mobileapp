@@ -8111,11 +8111,12 @@ input, button, select, textarea {
 }
 .bp-timeline-slider {
     display: flex;
-    width: 200%;
+    width: 100%;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .bp-timeline-leg {
-    width: 50%;
+    flex: 0 0 100%;
+    width: 100%;
     padding: 0 20px 24px;
 }
 

@@ -6494,7 +6494,7 @@ window.flipToLeg = function(legNum) {
         triggerHaptic('light', 'Switched to Leg 1');
     } else {
         if(flipper) flipper.classList.add('flipped');
-        if(slider) slider.style.transform = 'translateX(-50%)';
+        if(slider) slider.style.transform = 'translateX(-100%)';
         if(btn1) btn1.classList.remove('active');
         if(btn2) btn2.classList.add('active');
         if(document.getElementById('bpQrModalSubtitle')) document.getElementById('bpQrModalSubtitle').innerText = 'SEC. 6E7892:002 (LEG 2)';
@@ -6523,17 +6523,17 @@ window.setBPState = function(state) {
     if (state === 'single') {
         document.getElementById('btnBPSingle').classList.add('active');
         toggles.forEach(t => t.style.display = 'none');
-        if(slider) slider.style.width = '100%';
+        
         flipToLeg(1);
     } else if (state === 'multi') {
         document.getElementById('btnBPMulti').classList.add('active');
         toggles.forEach(t => t.style.display = 'flex');
-        if(slider) slider.style.width = '200%';
+        
         flipToLeg(1);
     } else if (state === 'completed') {
         document.getElementById('btnBPDone').classList.add('active');
         toggles.forEach(t => t.style.display = 'flex');
-        if(slider) slider.style.width = '200%';
+        
         flipToLeg(2);
     }
 }
