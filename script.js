@@ -5,7 +5,7 @@
 
 function setBPState(state) {
     // Update Demo Buttons
-    document.querySelectorAll('.bp-demo-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.dev-trigger-btn').forEach(btn => btn.classList.remove('active'));
     
     const dividers = document.querySelectorAll('.bp-divider.multi-only');
     const leg2s = document.querySelectorAll('.bp-leg.multi-only');
@@ -132,7 +132,7 @@ function closeQRModal() {
 
 // Override the demo state toggles to handle the new timeline structure
 function setBPState(state) {
-    document.querySelectorAll('.bp-demo-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.dev-trigger-btn').forEach(btn => btn.classList.remove('active'));
     
     const toggles = document.querySelectorAll('.bp-leg-toggle');
     const slider = document.getElementById('bpTimelineSlider');

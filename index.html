@@ -113,6 +113,24 @@
             </div>
 
             <div class="dev-state-group">
+                <div class="dev-state-label">Digital Boarding Pass states</div>
+                <div class="dev-btn-stack">
+                    <button class="dev-trigger-btn active" id="btnBPSingle" onclick="setBPState('single')">
+                        🎫 Single City Pass
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnBPMulti" onclick="setBPState('multi')">
+                        🎟️ Multi-City (Connecting)
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnBPDone" onclick="setBPState('completed')">
+                        ✅ Leg 1 Completed
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dev-state-group">
                 <div class="dev-state-label">Atmosphere & Sound overrides</div>
                 <div class="dev-slider-control">
                     <div class="slider-lbl-row">
@@ -2904,12 +2922,7 @@
                     <div class="screen" id="screenTrips" style="background: #f4f6f8; overflow-y: auto; overflow-x: hidden;">
                         
 
-                        <!-- Demo Control Panel -->
-                        <div class="bp-demo-panel">
-                            <button class="bp-demo-btn active" id="btnBPSingle" onclick="setBPState('single')">Single City</button>
-                            <button class="bp-demo-btn" id="btnBPMulti" onclick="setBPState('multi')">Multi-City</button>
-                            <button class="bp-demo-btn" id="btnBPDone" onclick="setBPState('completed')">Leg 1 Done</button>
-                        </div>
+
 
                         <!-- Full Screen QR Modal -->
                         <div id="bpQrFullscreen" class="bp-qr-fullscreen" style="display: none;">
