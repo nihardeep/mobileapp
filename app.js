@@ -1319,7 +1319,7 @@ function renderFlightStateCard(state) {
 
             <div class="action-row-buttons">
                 <button class="btn-glass-action" onclick="triggerHaptic('light', 'Download Pass')">Download Pass</button>
-                <button class="btn-primary-action" onclick="triggerHaptic('success', 'Boarding pass ready')">View Boarding Pass</button>
+                <button class="btn-primary-action" onclick="triggerHaptic('success', 'Boarding pass ready'); navigateTo('trips');">View Boarding Pass</button>
             </div>
         `;
         triggerHaptic('success', 'Companion State: Checked In');
