@@ -6495,49 +6495,53 @@ window.flipToLeg = function(legNum) {
     const dateEls = document.querySelectorAll('#tkDate');
     const seqEls = document.querySelectorAll('#tkSeq');
     const seatEls = document.querySelectorAll('#tkSeat');
-    
+    const cards = document.querySelectorAll('.bp-ticket-card');
+
+    // Trigger flip animation
+    cards.forEach(card => {
+        card.classList.remove('animate-flip');
+        void card.offsetWidth; // trigger reflow
+        card.classList.add('animate-flip');
+    });
+
     if (legNum === 1) {
         toggles1.forEach(t => t.classList.add('active'));
         toggles2.forEach(t => t.classList.remove('active'));
-        
-        // Leg 1 Data: LKO -> DEL
-        city1NameEls.forEach(el => el.innerText = 'DELHI');
-        city1CodeEls.forEach(el => el.innerText = 'DEL');
-        city2NameEls.forEach(el => el.innerText = 'MUMBAI');
-        city2CodeEls.forEach(el => el.innerText = 'BOM');
-        flightEls.forEach(el => el.innerText = '6E 2341');
-        boardingTimeEls.forEach(el => el.innerText = '22:00');
-        gateEls.forEach(el => el.innerText = '5B / L1');
-        zoneEls.forEach(el => el.innerText = '02');
-        dateEls.forEach(el => el.innerText = '25 MAR 2026');
-        // Seat logic: keep as is for 12C, 12D etc. 
-        seatEls.forEach(el => {
-            if(el.innerText === '8F') el.innerText = '12C';
-        });
-        
-        if(document.getElementById('bpQrModalSubtitle')) document.getElementById('bpQrModalSubtitle').innerText = 'SEC. 6E2341:001 (LEG 1)';
         triggerHaptic('light', 'Switched to Leg 1');
+        
+        setTimeout(() => {
+            city1NameEls.forEach(el => el.innerText = 'DELHI');
+            city1CodeEls.forEach(el => el.innerText = 'DEL');
+            city2NameEls.forEach(el => el.innerText = 'MUMBAI');
+            city2CodeEls.forEach(el => el.innerText = 'BOM');
+            flightEls.forEach(el => el.innerText = '6E 2341');
+            boardingTimeEls.forEach(el => el.innerText = '22:00');
+            gateEls.forEach(el => el.innerText = '5B / L1');
+            zoneEls.forEach(el => el.innerText = '02');
+            dateEls.forEach(el => el.innerText = '25 MAR 2026');
+            seatEls.forEach(el => {
+                if(el.innerText === '8F') el.innerText = '12C';
+            });
+            if(document.getElementById('bpQrModalSubtitle')) document.getElementById('bpQrModalSubtitle').innerText = 'SEC. 6E2341:001 (LEG 1)';
+        }, 300);
     } else {
         toggles1.forEach(t => t.classList.remove('active'));
         toggles2.forEach(t => t.classList.add('active'));
-        
-        // Leg 2 Data: DEL -> AMS (or GOA based on Indigo pass)
-        // Let's use MUMBAI -> GOA as per the Indigo pass since it's the second leg
-        city1NameEls.forEach(el => el.innerText = 'MUMBAI');
-        city1CodeEls.forEach(el => el.innerText = 'BOM');
-        city2NameEls.forEach(el => el.innerText = 'GOA');
-        city2CodeEls.forEach(el => el.innerText = 'GOI');
-        flightEls.forEach(el => el.innerText = '6E 7892');
-        boardingTimeEls.forEach(el => el.innerText = '05:45');
-        gateEls.forEach(el => el.innerText = '2A / L2');
-        zoneEls.forEach(el => el.innerText = '01');
-        dateEls.forEach(el => el.innerText = '26 MAR 2026');
-        
-        // Seat logic: change to 8F
-        seatEls.forEach(el => el.innerText = '8F');
-        
-        if(document.getElementById('bpQrModalSubtitle')) document.getElementById('bpQrModalSubtitle').innerText = 'SEC. 6E7892:002 (LEG 2)';
         triggerHaptic('light', 'Switched to Leg 2');
+        
+        setTimeout(() => {
+            city1NameEls.forEach(el => el.innerText = 'MUMBAI');
+            city1CodeEls.forEach(el => el.innerText = 'BOM');
+            city2NameEls.forEach(el => el.innerText = 'GOA');
+            city2CodeEls.forEach(el => el.innerText = 'GOI');
+            flightEls.forEach(el => el.innerText = '6E 7892');
+            boardingTimeEls.forEach(el => el.innerText = '05:45');
+            gateEls.forEach(el => el.innerText = '2A / L2');
+            zoneEls.forEach(el => el.innerText = '01');
+            dateEls.forEach(el => el.innerText = '26 MAR 2026');
+            seatEls.forEach(el => el.innerText = '8F');
+            if(document.getElementById('bpQrModalSubtitle')) document.getElementById('bpQrModalSubtitle').innerText = 'SEC. 6E7892:002 (LEG 2)';
+        }, 300);
     }
 }
 
