@@ -1,0 +1,206 @@
+                                </div>
+                                <div class="offer-circle-arrow-badge">➔</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==========================================================
+                         SCREEN 3: MY TRIPS / BOARDING PASS
+                         ========================================================== -->
+                    <div class="screen" id="screenTrips" style="background: #f4f6f8; overflow-y: auto; overflow-x: hidden;">
+                        
+
+                        <!-- Demo Control Panel -->
+                        <div class="bp-demo-panel">
+                            <button class="bp-demo-btn active" id="btnBPSingle" onclick="setBPState('single')">Single City</button>
+                            <button class="bp-demo-btn" id="btnBPMulti" onclick="setBPState('multi')">Multi-City</button>
+                            <button class="bp-demo-btn" id="btnBPDone" onclick="setBPState('completed')">Leg 1 Done</button>
+                        </div>
+
+                        <!-- Carousel Container -->
+                        <div class="bp-carousel-container" id="bpCarousel">
+                            <div class="bp-carousel-track" id="bpTrack">
+                                
+                                <!-- Passenger 1 -->
+                                <div class="bp-slide">
+                                    <div class="digital-bp">
+                                        <!-- Header -->
+                                        <div class="bp-header">
+                                            <div class="bp-airline">X AIRLINE</div>
+                                            <div class="bp-pnr">PNR: <span class="bp-mono">A82JD9</span></div>
+                                        </div>
+                                        
+                                        <!-- LEG 1 -->
+                                        <div class="bp-leg" id="bpLeg1">
+                                            <div class="bp-route">
+                                                <div class="bp-city">
+                                                    <div class="bp-time">09:45</div>
+                                                    <div class="bp-code">DEL</div>
+                                                </div>
+                                                <div class="bp-flight-icon">✈</div>
+                                                <div class="bp-city right">
+                                                    <div class="bp-time">11:30</div>
+                                                    <div class="bp-code">BOM</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bp-details-grid">
+                                                <div class="bp-detail-item">
+                                                    <label>FLIGHT</label>
+                                                    <div class="val">XA 201</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>GATE</label>
+                                                    <div class="val">24B</div>
+                                                </div>
+                                                <div class="bp-detail-item highlight">
+                                                    <label>SEAT</label>
+                                                    <div class="val">12A</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>BOARDING</label>
+                                                    <div class="val text-red">09:00</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Completed Stamp overlay -->
+                                            <div class="bp-completed-overlay" id="bpCompletedOverlay1">
+                                                <div class="completed-stamp">FLIGHT COMPLETED</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- PERFORATION / NOTCHES (Only visible in multi-city) -->
+                                        <div class="bp-divider multi-only" id="bpDivider">
+                                            <div class="notch left"></div>
+                                            <div class="notch right"></div>
+                                        </div>
+
+                                        <!-- LEG 2 (Only visible in multi-city) -->
+                                        <div class="bp-leg multi-only" id="bpLeg2">
+                                            <div class="bp-route small">
+                                                <div class="bp-city">
+                                                    <div class="bp-time">13:15</div>
+                                                    <div class="bp-code">BOM</div>
+                                                </div>
+                                                <div class="bp-flight-icon">✈</div>
+                                                <div class="bp-city right">
+                                                    <div class="bp-time">15:00</div>
+                                                    <div class="bp-code">BLR</div>
+                                                </div>
+                                            </div>
+                                            <div class="bp-details-grid">
+                                                <div class="bp-detail-item">
+                                                    <label>FLIGHT</label>
+                                                    <div class="val">XA 405</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>GATE</label>
+                                                    <div class="val">TBD</div>
+                                                </div>
+                                                <div class="bp-detail-item highlight">
+                                                    <label>SEAT</label>
+                                                    <div class="val">14F</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>BOARDING</label>
+                                                    <div class="val text-red">12:30</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- QR CODE FOOTER -->
+                                        <div class="bp-footer">
+                                            <div class="bp-qr-container" onclick="openQRModal()">
+                                                <img src="qr_code.png" class="bp-qr bpQrImg" />
+                                                <div class="bp-scan-hint bpScanHint">TAP TO SCAN FOR XA 201</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Passenger 2 -->
+                                <div class="bp-slide">
+                                    <div class="digital-bp">
+                                        <div class="bp-header">
+                                            <div class="bp-airline">X AIRLINE</div>
+                                            <div class="bp-pnr">PNR: <span class="bp-mono">A82JD9</span></div>
+                                        </div>
+                                        
+                                        <div class="bp-leg bpLeg1_2">
+                                            <div class="bp-route">
+                                                <div class="bp-city">
+                                                    <div class="bp-time">09:45</div>
+                                                    <div class="bp-code">DEL</div>
+                                                </div>
+                                                <div class="bp-flight-icon">✈</div>
+                                                <div class="bp-city right">
+                                                    <div class="bp-time">11:30</div>
+                                                    <div class="bp-code">BOM</div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="bp-details-grid">
+                                                <div class="bp-detail-item">
+                                                    <label>FLIGHT</label>
+                                                    <div class="val">XA 201</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>GATE</label>
+                                                    <div class="val">24B</div>
+                                                </div>
+                                                <div class="bp-detail-item highlight">
+                                                    <label>SEAT</label>
+                                                    <div class="val">12B</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>BOARDING</label>
+                                                    <div class="val text-red">09:00</div>
+                                                </div>
+                                            </div>
+                                            <div class="bp-completed-overlay bpCompletedOverlay2">
+                                                <div class="completed-stamp">FLIGHT COMPLETED</div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-divider multi-only bpDivider2">
+                                            <div class="notch left"></div>
+                                            <div class="notch right"></div>
+                                        </div>
+                                        <div class="bp-leg multi-only bpLeg2_2">
+                                            <div class="bp-route small">
+                                                <div class="bp-city">
+                                                    <div class="bp-time">13:15</div>
+                                                    <div class="bp-code">BOM</div>
+                                                </div>
+                                                <div class="bp-flight-icon">✈</div>
+                                                <div class="bp-city right">
+                                                    <div class="bp-time">15:00</div>
+                                                    <div class="bp-code">BLR</div>
+                                                </div>
+                                            </div>
+                                            <div class="bp-details-grid">
+                                                <div class="bp-detail-item">
+                                                    <label>FLIGHT</label>
+                                                    <div class="val">XA 405</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>GATE</label>
+                                                    <div class="val">TBD</div>
+                                                </div>
+                                                <div class="bp-detail-item highlight">
+                                                    <label>SEAT</label>
+                                                    <div class="val">14G</div>
+                                                </div>
+                                                <div class="bp-detail-item">
+                                                    <label>BOARDING</label>
+                                                    <div class="val text-red">12:30</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bp-footer">
+                                            <div class="bp-qr-container" onclick="openQRModal()">
+                                                <img src="qr_code.png" class="bp-qr bpQrImg" />
+                                                <div class="bp-scan-hint bpScanHint">TAP TO SCAN FOR XA 201</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>

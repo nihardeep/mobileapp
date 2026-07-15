@@ -2911,6 +2911,16 @@
                             <button class="bp-demo-btn" id="btnBPDone" onclick="setBPState('completed')">Leg 1 Done</button>
                         </div>
 
+                        <!-- Full Screen QR Modal -->
+                        <div id="bpQrFullscreen" class="bp-qr-fullscreen" style="display: none;">
+                            <div class="bp-qr-modal-content">
+                                <div class="bp-qr-close" onclick="closeQRModal()">✕</div>
+                                <div class="bp-qr-modal-title">Ready to Scan</div>
+                                <img src="qr_code.png" class="bp-qr-modal-img" />
+                                <div class="bp-qr-modal-subtitle" id="bpQrModalSubtitle">SEC. 6E2341:001 (LEG 1)</div>
+                            </div>
+                        </div>
+
                         <!-- Carousel Container -->
                         <div class="bp-carousel-container" id="bpCarousel">
                             <div class="bp-carousel-track" id="bpTrack">
@@ -2918,95 +2928,143 @@
                                 <!-- Passenger 1 -->
                                 <div class="bp-slide">
                                     <div class="digital-bp">
-                                        <!-- Header -->
-                                        <div class="bp-header">
-                                            <div class="bp-airline">X AIRLINE</div>
-                                            <div class="bp-pnr">PNR: <span class="bp-mono">A82JD9</span></div>
-                                        </div>
-                                        
-                                        <!-- LEG 1 -->
-                                        <div class="bp-leg" id="bpLeg1">
-                                            <div class="bp-route">
-                                                <div class="bp-city">
-                                                    <div class="bp-time">09:45</div>
-                                                    <div class="bp-code">DEL</div>
-                                                </div>
-                                                <div class="bp-flight-icon">✈</div>
-                                                <div class="bp-city right">
-                                                    <div class="bp-time">11:30</div>
-                                                    <div class="bp-code">BOM</div>
-                                                </div>
+                                        <!-- TOP: Boarding Pass Header & Barcode -->
+                                        <div class="bp-top-section">
+                                            <div class="bp-header">
+                                                <div class="bp-title-small">Boarding pass</div>
+                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
                                             </div>
                                             
-                                            <div class="bp-details-grid">
-                                                <div class="bp-detail-item">
-                                                    <label>FLIGHT</label>
-                                                    <div class="val">XA 201</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>GATE</label>
-                                                    <div class="val">24B</div>
-                                                </div>
-                                                <div class="bp-detail-item highlight">
-                                                    <label>SEAT</label>
-                                                    <div class="val">12A</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>BOARDING</label>
-                                                    <div class="val text-red">09:00</div>
+                                            <!-- 3D Flipping Barcode Container -->
+                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
+                                                <div class="bp-qr-flipper" id="bpQrFlipper">
+                                                    <div class="bp-qr-front">
+                                                        <img src="qr_code.png" class="bp-barcode-img" />
+                                                        <div class="bp-qr-subtitle">SEC. 6E2341:001</div>
+                                                    </div>
+                                                    <div class="bp-qr-back">
+                                                        <img src="qr_code.png" class="bp-barcode-img" />
+                                                        <div class="bp-qr-subtitle">SEC. 6E7892:002</div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            
-                                            <!-- Completed Stamp overlay -->
-                                            <div class="bp-completed-overlay" id="bpCompletedOverlay1">
-                                                <div class="completed-stamp">FLIGHT COMPLETED</div>
-                                            </div>
+
+                                            <!-- Passenger Name -->
+                                            <div class="bp-passenger-name">SHARMA / RAVI</div>
                                         </div>
 
-                                        <!-- PERFORATION / NOTCHES (Only visible in multi-city) -->
-                                        <div class="bp-divider multi-only" id="bpDivider">
-                                            <div class="notch left"></div>
-                                            <div class="notch right"></div>
+                                        <!-- TOGGLE BUTTONS (Only visible for multi-city) -->
+                                        <div class="bp-leg-toggle multi-only" id="bpLegToggle">
+                                            <div class="bp-toggle-btn active" onclick="flipToLeg(1)" id="btnLeg1">DEL ✈ BOM</div>
+                                            <div class="bp-toggle-btn" onclick="flipToLeg(2)" id="btnLeg2">BOM ✈ GOI</div>
                                         </div>
 
-                                        <!-- LEG 2 (Only visible in multi-city) -->
-                                        <div class="bp-leg multi-only" id="bpLeg2">
-                                            <div class="bp-route small">
-                                                <div class="bp-city">
-                                                    <div class="bp-time">13:15</div>
-                                                    <div class="bp-code">BOM</div>
+                                        <!-- TIMELINE SECTION (Sliding wrapper) -->
+                                        <div class="bp-timeline-wrapper">
+                                            <div class="bp-timeline-slider" id="bpTimelineSlider">
+                                                
+                                                <!-- LEG 1 TIMELINE -->
+                                                <div class="bp-timeline-leg">
+                                                    <div class="bp-timeline-header">
+                                                        <div class="bp-tl-flight">
+                                                            <div class="lbl">Flight</div>
+                                                            <div class="val">6E 2341</div>
+                                                            <div class="lbl">25 MAR 2026</div>
+                                                        </div>
+                                                        <div class="bp-tl-route">
+                                                            <div class="city">DEL</div>
+                                                            <div class="icon">✈</div>
+                                                            <div class="city">BOM</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bp-timeline-line">
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Bag drop-off limit</div>
+                                                            <div class="time">17:25</div>
+                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
+                                                        </div>
+                                                        <div class="bp-tl-node active">
+                                                            <div class="dot solid"></div>
+                                                            <div class="title white">Boarding</div>
+                                                            <div class="time white">22:00</div>
+                                                            <div class="desc white">Gate 5B / Zone 02</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow red-dot"></div>
+                                                            <div class="title blue">Gate closed</div>
+                                                            <div class="time">22:25</div>
+                                                            <div class="desc">Zone 02</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Seat</div>
+                                                            <div class="time bold">12C</div>
+                                                            <div class="desc">Economy (SSR: WCHR)</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Arrival</div>
+                                                            <div class="time">00:30</div>
+                                                            <div class="desc">Terminal 2</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bp-tl-warning">
+                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
+                                                    </div>
                                                 </div>
-                                                <div class="bp-flight-icon">✈</div>
-                                                <div class="bp-city right">
-                                                    <div class="bp-time">15:00</div>
-                                                    <div class="bp-code">BLR</div>
-                                                </div>
-                                            </div>
-                                            <div class="bp-details-grid">
-                                                <div class="bp-detail-item">
-                                                    <label>FLIGHT</label>
-                                                    <div class="val">XA 405</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>GATE</label>
-                                                    <div class="val">TBD</div>
-                                                </div>
-                                                <div class="bp-detail-item highlight">
-                                                    <label>SEAT</label>
-                                                    <div class="val">14F</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>BOARDING</label>
-                                                    <div class="val text-red">12:30</div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <!-- QR CODE FOOTER -->
-                                        <div class="bp-footer">
-                                            <div class="bp-qr-container" onclick="openQRModal()">
-                                                <img src="qr_code.png" class="bp-qr bpQrImg" />
-                                                <div class="bp-scan-hint bpScanHint">TAP TO SCAN FOR XA 201</div>
+                                                <!-- LEG 2 TIMELINE -->
+                                                <div class="bp-timeline-leg">
+                                                    <div class="bp-timeline-header">
+                                                        <div class="bp-tl-flight">
+                                                            <div class="lbl">Flight</div>
+                                                            <div class="val">6E 7892</div>
+                                                            <div class="lbl">26 MAR 2026</div>
+                                                        </div>
+                                                        <div class="bp-tl-route">
+                                                            <div class="city">BOM</div>
+                                                            <div class="icon">✈</div>
+                                                            <div class="city">GOI</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bp-timeline-line">
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Bag drop-off limit</div>
+                                                            <div class="time">04:45</div>
+                                                            <div class="desc">Baggage: 15kg + 7kg cabin</div>
+                                                        </div>
+                                                        <div class="bp-tl-node active">
+                                                            <div class="dot solid"></div>
+                                                            <div class="title white">Boarding</div>
+                                                            <div class="time white">05:45</div>
+                                                            <div class="desc white">Gate 2A / Zone 01</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow red-dot"></div>
+                                                            <div class="title blue">Gate closed</div>
+                                                            <div class="time">06:10</div>
+                                                            <div class="desc">Zone 01</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Seat</div>
+                                                            <div class="time bold">8F</div>
+                                                            <div class="desc">Economy (SSR: VGML)</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Arrival</div>
+                                                            <div class="time">07:20</div>
+                                                            <div class="desc">Terminal 1</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bp-tl-warning">
+                                                        <div class="red-dot-small"></div> Gate is subject to change. Boarding closes 25 min before departure.
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -3015,94 +3073,59 @@
                                 <!-- Passenger 2 -->
                                 <div class="bp-slide">
                                     <div class="digital-bp">
-                                        <div class="bp-header">
-                                            <div class="bp-airline">X AIRLINE</div>
-                                            <div class="bp-pnr">PNR: <span class="bp-mono">A82JD9</span></div>
+                                        <div class="bp-top-section">
+                                            <div class="bp-header">
+                                                <div class="bp-title-small">Boarding pass</div>
+                                                <div class="bp-pnr-tag">PNR X3K9P2</div>
+                                            </div>
+                                            <div class="bp-qr-flipper-wrapper" onclick="openQRModal()">
+                                                <div class="bp-qr-flipper">
+                                                    <div class="bp-qr-front">
+                                                        <img src="qr_code.png" class="bp-barcode-img" />
+                                                        <div class="bp-qr-subtitle">SEC. 6E2341:002</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="bp-passenger-name">SHARMA / ISHIKA</div>
                                         </div>
-                                        
-                                        <div class="bp-leg bpLeg1_2">
-                                            <div class="bp-route">
-                                                <div class="bp-city">
-                                                    <div class="bp-time">09:45</div>
-                                                    <div class="bp-code">DEL</div>
+                                        <div class="bp-timeline-wrapper">
+                                            <div class="bp-timeline-slider">
+                                                <div class="bp-timeline-leg">
+                                                    <div class="bp-timeline-header">
+                                                        <div class="bp-tl-flight">
+                                                            <div class="lbl">Flight</div>
+                                                            <div class="val">6E 2341</div>
+                                                            <div class="lbl">25 MAR 2026</div>
+                                                        </div>
+                                                        <div class="bp-tl-route">
+                                                            <div class="city">DEL</div>
+                                                            <div class="icon">✈</div>
+                                                            <div class="city">BOM</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="bp-timeline-line">
+                                                        <div class="bp-tl-node active">
+                                                            <div class="dot solid"></div>
+                                                            <div class="title white">Boarding</div>
+                                                            <div class="time white">22:00</div>
+                                                            <div class="desc white">Gate 5B / Zone 02</div>
+                                                        </div>
+                                                        <div class="bp-tl-node">
+                                                            <div class="dot hollow"></div>
+                                                            <div class="title blue">Seat</div>
+                                                            <div class="time bold">12D</div>
+                                                            <div class="desc">Economy</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="bp-flight-icon">✈</div>
-                                                <div class="bp-city right">
-                                                    <div class="bp-time">11:30</div>
-                                                    <div class="bp-code">BOM</div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="bp-details-grid">
-                                                <div class="bp-detail-item">
-                                                    <label>FLIGHT</label>
-                                                    <div class="val">XA 201</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>GATE</label>
-                                                    <div class="val">24B</div>
-                                                </div>
-                                                <div class="bp-detail-item highlight">
-                                                    <label>SEAT</label>
-                                                    <div class="val">12B</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>BOARDING</label>
-                                                    <div class="val text-red">09:00</div>
-                                                </div>
-                                            </div>
-                                            <div class="bp-completed-overlay bpCompletedOverlay2">
-                                                <div class="completed-stamp">FLIGHT COMPLETED</div>
-                                            </div>
-                                        </div>
-                                        <div class="bp-divider multi-only bpDivider2">
-                                            <div class="notch left"></div>
-                                            <div class="notch right"></div>
-                                        </div>
-                                        <div class="bp-leg multi-only bpLeg2_2">
-                                            <div class="bp-route small">
-                                                <div class="bp-city">
-                                                    <div class="bp-time">13:15</div>
-                                                    <div class="bp-code">BOM</div>
-                                                </div>
-                                                <div class="bp-flight-icon">✈</div>
-                                                <div class="bp-city right">
-                                                    <div class="bp-time">15:00</div>
-                                                    <div class="bp-code">BLR</div>
-                                                </div>
-                                            </div>
-                                            <div class="bp-details-grid">
-                                                <div class="bp-detail-item">
-                                                    <label>FLIGHT</label>
-                                                    <div class="val">XA 405</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>GATE</label>
-                                                    <div class="val">TBD</div>
-                                                </div>
-                                                <div class="bp-detail-item highlight">
-                                                    <label>SEAT</label>
-                                                    <div class="val">14G</div>
-                                                </div>
-                                                <div class="bp-detail-item">
-                                                    <label>BOARDING</label>
-                                                    <div class="val text-red">12:30</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="bp-footer">
-                                            <div class="bp-qr-container" onclick="openQRModal()">
-                                                <img src="qr_code.png" class="bp-qr bpQrImg" />
-                                                <div class="bp-scan-hint bpScanHint">TAP TO SCAN FOR XA 201</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                         
-                        <!-- Carousel Dots -->
+                        
                         <div class="bp-dots" id="bpDots">
                             <div class="bp-dot active" onclick="scrollToSlide(0)"></div>
                             <div class="bp-dot" onclick="scrollToSlide(1)"></div>
