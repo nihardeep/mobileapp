@@ -887,9 +887,37 @@
 
                                 <!-- Morphing Flight Companion Sub-Card (Inside the PNR Card) -->
                                 <div class="companion-subcard" id="flightCompanionCard">
+                                    
+                                    <!-- NEW: Horizontal Timeline Header -->
+                                    <div class="timeline-header" id="companionTimelineHeader">
+                                        <div class="timeline-track" id="timelineTrack">
+                                            <div class="timeline-track-progress" id="timelineProgress"></div>
+                                            <div style="display: flex; justify-content: space-between; width: 100%; position: relative; z-index: 5;">
+                                                <div class="timeline-node" id="tlNode1"></div>
+                                                <div class="timeline-node" id="tlNode2"></div>
+                                                <div class="timeline-node" id="tlNode3"></div>
+                                                <div class="timeline-node" id="tlNode4"></div>
+                                                <div class="timeline-node" id="tlNode5"></div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-toggle" id="timelineToggleBtn" onclick="toggleTimelineDrawer()">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="6 9 12 15 18 9"></polyline>
+                                            </svg>
+                                        </div>
+                                    </div>
+
                                     <div class="subcard-content" id="companionSubcardContent">
                                         <!-- Will load one of the 8 states -->
                                     </div>
+
+                                    <!-- NEW: Vertical Expandable Drawer -->
+                                    <div class="timeline-drawer" id="companionTimelineDrawer">
+                                        <div class="vertical-timeline" id="verticalTimelineContent">
+                                            <!-- Injected via JS -->
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
