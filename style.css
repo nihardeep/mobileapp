@@ -269,6 +269,7 @@ body {
 /* Status Bar */
 .status-bar {
     height: 48px;
+    pointer-events: none;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -8181,7 +8182,7 @@ input, button, select, textarea {
    NEW TICKET BOARDING PASS DESIGN
    ========================================================================== */
 .bp-ticket-wrapper {
-    padding: 56px 24px 40px;
+    padding: 72px 24px 40px;
     position: relative;
     z-index: 10;
 }
@@ -8201,7 +8202,7 @@ input, button, select, textarea {
 .bp-ticket-route-header .city-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
 .bp-ticket-route-header .city-code { font-size: 40px; font-weight: 800; letter-spacing: 1px; margin-bottom: 2px; }
 .bp-ticket-route-header .city-full { font-size: 11px; font-weight: 400; opacity: 0.8; }
-.bp-ticket-route-header .plane-icon { font-size: 32px; transform: rotate(90deg); margin: 0 20px; opacity: 0.9; }
+.bp-ticket-route-header .plane-icon { font-size: 32px; transform: rotate(-45deg); margin: 0 20px; opacity: 0.9; }
 
 .bp-ticket-card {
     background: #e5e7eb; /* off white/grey */
