@@ -1300,16 +1300,16 @@ function renderFlightStateCard(state) {
     } else if (state === 'connecting') {
         html = `
             <div class="state-title-row">
-                <span class="state-title">Layover in Mumbai</span>
+                <span class="state-title">Layover in Delhi</span>
                 <span class="state-date">Next flight in 2h 15m</span>
             </div>
-            <p class="state-desc">Your flight to Goa boards at Gate 22B.</p>
+            <p class="state-desc">Your flight to London (LON) boards at Gate 22B.</p>
             <div class="action-row-buttons">
                 <button class="btn-primary-action" onclick="alert('Navigating to Gate 22B...')">Get Directions to Gate ➔</button>
             </div>
         `;
         triggerHaptic('light', 'Companion State: Connecting Flight');
-        triggerDynamicIsland('Layover in BOM', 'Next flight to GOI in 2h 15m', 'Connecting');
+        triggerDynamicIsland('Layover in DEL', 'Next flight to LON in 2h 15m', 'Connecting');
         
     } else if (state === 'missed_flight') {
         html = `
@@ -1318,7 +1318,7 @@ function renderFlightStateCard(state) {
                 <span class="state-date" style="color: #ef4444;">Status: Closed</span>
             </div>
             <p class="state-desc" style="color: #991b1b; background: #fef2f2; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 8px; margin-bottom: 12px; font-weight: 500;">
-                You missed the boarding window for your flight to Mumbai. Don't worry, let's look at Plan B.
+                You missed the boarding window for your connecting flight to London. Don't worry, let's look at Plan B.
             </p>
             <div class="action-row-buttons">
                 <button class="btn-primary-action" style="background: #ef4444; border: none; width: 100%; justify-content: center;" onclick="alert('Fetching alternative flights and rebooking options...')">Explore Plan B Options</button>
@@ -6769,7 +6769,7 @@ function renderVerticalTimeline(activeIndex, state) {
         milestones[4].sub = 'Delayed';
         milestones[4].time = '18:15';
     } else if (state === 'connecting') {
-        milestones[2].title = 'Layover in BOM';
+        milestones[2].title = 'Layover in DEL';
         milestones[2].sub = 'Arrived at Terminal 2';
         milestones[3].title = 'Boarding (Next Flight)';
         milestones[3].sub = 'Gate 22B, Terminal 2';
