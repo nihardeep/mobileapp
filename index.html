@@ -45,6 +45,14 @@
                         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
                         <div class="dev-btn-indicator"></div>
                     </button>
+                    <button class="dev-trigger-btn" id="btnStateConnecting" onclick="setFlightState('connecting')">
+                        10. Layover
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateMissed" onclick="setFlightState('missed_flight')">
+                        11. Missed Flight
+                        <div class="dev-btn-indicator"></div>
+                    </button>
                     <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
                         🎓 Student Persona
                         <div class="dev-btn-indicator"></div>
@@ -109,6 +117,14 @@
                         9. Baggage Tracking
                         <div class="dev-btn-indicator"></div>
                     </button>
+                    <button class="dev-trigger-btn" id="btnStateConnecting" onclick="setFlightState('connecting')">
+                        10. Layover
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateMissed" onclick="setFlightState('missed_flight')">
+                        11. Missed Flight
+                        <div class="dev-btn-indicator"></div>
+                    </button>
                     <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
                         🎓 Student Persona
                         <div class="dev-btn-indicator"></div>
@@ -149,6 +165,14 @@
                         <span id="lblHapticVol">80%</span>
                     </div>
                     <input type="range" id="hapticVolumeRange" min="0" max="100" value="80" class="cockpit-range" oninput="changeHapticVolume(this.value)">
+                    <button class="dev-trigger-btn" id="btnStateConnecting" onclick="setFlightState('connecting')">
+                        10. Layover
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnStateMissed" onclick="setFlightState('missed_flight')">
+                        11. Missed Flight
+                        <div class="dev-btn-indicator"></div>
+                    </button>
                     <button class="dev-trigger-btn" id="btnStateStudentPersona" onclick="toggleStudentPersona()">
                         🎓 Student Persona
                         <div class="dev-btn-indicator"></div>

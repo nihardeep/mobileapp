@@ -1222,7 +1222,9 @@ function setFlightState(state) {
         'gate_update': 'btnStateGateUpdate',
         'delayed': 'btnStateDelayed',
         'cancelled': 'btnStateCancelled',
-        'baggage_tracking': 'btnStateBaggage'
+        'baggage_tracking': 'btnStateBaggage',
+        'connecting': 'btnStateConnecting',
+        'missed_flight': 'btnStateMissed'
     }[state];
     
     if (targetBtnId) {
@@ -1294,6 +1296,36 @@ function renderFlightStateCard(state) {
         `;
         triggerHaptic('light', 'Companion State: Check-in Open');
         triggerDynamicIsland('Check-in Open', 'Online check-in closes in 1h 10m', 'Check-in');
+        
+    } else if (state === 'connecting') {
+        html = `
+            <div class="state-title-row">
+                <span class="state-title">Layover in Mumbai</span>
+                <span class="state-date">Next flight in 2h 15m</span>
+            </div>
+            <p class="state-desc">Your flight to Goa boards at Gate 22B.</p>
+            <div class="action-row-buttons">
+                <button class="btn-primary-action" onclick="alert('Navigating to Gate 22B...')">Get Directions to Gate ➔</button>
+            </div>
+        `;
+        triggerHaptic('light', 'Companion State: Connecting Flight');
+        triggerDynamicIsland('Layover in BOM', 'Next flight to GOI in 2h 15m', 'Connecting');
+        
+    } else if (state === 'missed_flight') {
+        html = `
+            <div class="state-title-row">
+                <span class="state-title" style="color: #ef4444;">Flight Missed</span>
+                <span class="state-date" style="color: #ef4444;">Status: Closed</span>
+            </div>
+            <p class="state-desc" style="color: #991b1b; background: #fef2f2; padding: 12px; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 8px; margin-bottom: 12px; font-weight: 500;">
+                You missed the boarding window for your flight to Mumbai. Don't worry, let's look at Plan B.
+            </p>
+            <div class="action-row-buttons">
+                <button class="btn-primary-action" style="background: #ef4444; border: none; width: 100%; justify-content: center;" onclick="alert('Fetching alternative flights and rebooking options...')">Explore Plan B Options</button>
+            </div>
+        `;
+        triggerHaptic('heavy', 'Companion State: Missed Flight');
+        triggerDynamicIsland('Missed Flight', 'Boarding closed', 'Error');
         
     } else if (state === 'baggage_tracking') {
         html = `
@@ -6670,8 +6702,8 @@ function updateTimelineState(state) {
     
     if (['checkin_open'].includes(state)) activeNodeIndex = 1;
     else if (['checked_in', 'airport_checkin', 'go_to_counter'].includes(state)) activeNodeIndex = 2;
-    else if (['gate_open', 'gate_update'].includes(state)) activeNodeIndex = 3;
-    else if (['delayed', 'baggage_tracking'].includes(state)) activeNodeIndex = 4;
+    else if (['gate_open', 'gate_update', 'connecting'].includes(state)) activeNodeIndex = 3;
+    else if (['delayed', 'baggage_tracking', 'missed_flight'].includes(state)) activeNodeIndex = 4;
     else if (['cancelled'].includes(state)) activeNodeIndex = 1; // reset or handle specially
     
     // Update horizontal nodes
@@ -6684,6 +6716,16 @@ function updateTimelineState(state) {
             node.classList.add('completed');
         } else if (i === activeNodeIndex) {
             node.classList.add('active');
+            if (state === 'missed_flight') {
+                node.style.borderColor = '#ef4444';
+                node.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.2)';
+            } else {
+                node.style.borderColor = '';
+                node.style.boxShadow = '';
+            }
+        } else {
+            node.style.borderColor = '';
+            node.style.boxShadow = '';
         }
     }
     
@@ -6726,6 +6768,14 @@ function renderVerticalTimeline(activeIndex, state) {
         milestones[3].sub = 'Estimated 17:30';
         milestones[4].sub = 'Delayed';
         milestones[4].time = '18:15';
+    } else if (state === 'connecting') {
+        milestones[2].title = 'Layover in BOM';
+        milestones[2].sub = 'Arrived at Terminal 2';
+        milestones[3].title = 'Boarding (Next Flight)';
+        milestones[3].sub = 'Gate 22B, Terminal 2';
+    } else if (state === 'missed_flight') {
+        milestones[3].title = 'Missed Boarding';
+        milestones[3].sub = 'Gates closed at 16:15';
     } else if (state === 'gate_update') {
         milestones[2].sub = 'Gate changed to 12C';
     }
