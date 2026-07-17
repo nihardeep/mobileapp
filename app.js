@@ -1275,7 +1275,7 @@ function renderFlightStateCard(state) {
             </div>
 
             <div class="action-row-buttons">
-                <button class="btn-secondary-action" onclick="alert('Manage Booking clicked')" style="width: 100%; justify-content: center; background: #f8fafc; color: var(--xairline-navy); border: 1px solid #e2e8f0;">Manage Booking</button>
+                <button class="btn-primary-action" onclick="alert('Manage Booking clicked')" style="width: 100%; justify-content: center;">Manage Booking</button>
             </div>
         `;
         triggerHaptic('light', 'Companion State: Upcoming Trip');
