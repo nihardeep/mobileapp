@@ -6700,7 +6700,6 @@ function updateTimelineState(state) {
     renderVerticalTimeline(activeNodeIndex, state);
     
     // Auto-adjust drawer height if it's currently open
-    const drawer = document.getElementById('companionTimelineDrawer');
     if (drawer && drawer.style.height !== '0px' && drawer.style.height !== '') {
         setTimeout(() => {
             const content = document.getElementById('verticalTimelineContent');
