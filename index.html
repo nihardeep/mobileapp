@@ -69,6 +69,10 @@
             <div class="dev-state-group">
                 <div class="dev-state-label">Flight Lifecycle States</div>
                 <div class="dev-btn-stack grid-btn-stack">
+                    <button class="dev-trigger-btn" id="btnStateUpcomingTrip" onclick="setFlightState('upcoming_trip')">
+                        0. Upcoming Trip
+                        <div class="dev-btn-indicator"></div>
+                    </button>
                     <button class="dev-trigger-btn active" id="btnStateCheckinOpen" onclick="setFlightState('checkin_open')">
                         1. Check-in Open
                         <div class="dev-btn-indicator"></div>
