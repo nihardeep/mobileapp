@@ -1244,6 +1244,50 @@ function renderFlightStateCard(state) {
     const container = document.getElementById('companionSubcardContent');
     if (!container) return;
     
+    // Dynamic Route Header Logic
+    const routeTxt = document.getElementById('dynamicPnrRouteTxt');
+    const routeDetails = document.getElementById('dynamicPnrRouteDetails');
+    if (routeTxt && routeDetails) {
+        if (state === 'connecting' || state === 'missed_flight') {
+            routeTxt.innerHTML = 'LKO - LON (via DEL)';
+            routeDetails.innerHTML = `
+                <div class="pnr-route-point">
+                    <span class="pnr-time" id="routeDepTime">08:00</span>
+                    <span class="pnr-city-code">LKO <span class="terminal">T1</span></span>
+                    <span class="pnr-date">24 April</span>
+                </div>
+                <div class="pnr-route-line-box">
+                    <div class="pnr-arrow-line"></div>
+                    <span class="pnr-duration"><span class="pnr-city-code" style="color: var(--xairline-blue);">DEL</span> <span style="font-size: 11px; font-weight: 600; color: #64748b;">(1 Stop)</span></span>
+                </div>
+                <div class="pnr-route-point right-aligned">
+                    <span class="pnr-time" id="routeArrTime">17:45</span>
+                    <span class="pnr-city-code">LON <span class="terminal">T3</span></span>
+                    <span class="pnr-date">24 April</span>
+                </div>
+            `;
+        } else {
+            routeTxt.innerHTML = 'DEL - BOM';
+            routeDetails.innerHTML = `
+                <div class="pnr-route-point">
+                    <span class="pnr-time" id="routeDepTime">11:30</span>
+                    <span class="pnr-city-code">DEL <span class="terminal">T1</span></span>
+                    <span class="pnr-date">24 April</span>
+                </div>
+                <div class="pnr-route-line-box">
+                    <div class="pnr-arrow-line"></div>
+                    <span class="pnr-duration">2h 00m</span>
+                </div>
+                <div class="pnr-route-point right-aligned">
+                    <span class="pnr-time" id="routeArrTime">13:30</span>
+                    <span class="pnr-city-code">BOM <span class="terminal">T2</span></span>
+                    <span class="pnr-date">24 April</span>
+                </div>
+            `;
+        }
+    }
+
+    
     let html = '';
     
     if (state === 'upcoming_trip') {
