@@ -6851,6 +6851,11 @@ function toggleTimelineDrawer() {
 }
 
 function updateTimelineState(state) {
+    const promoCard = document.getElementById('upgradePromoCard');
+    if (promoCard) {
+        promoCard.style.display = (state === 'upcoming_trip') ? 'flex' : 'none';
+    }
+
     const header = document.getElementById('companionTimelineHeader');
     const drawer = document.getElementById('companionTimelineDrawer');
     
