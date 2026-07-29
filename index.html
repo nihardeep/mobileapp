@@ -708,6 +708,100 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Universal AI Search Bar -->
+                            <div class="universal-ai-search" id="universalAiSearch" onclick="alert('AI NLP Interface Opening...')">
+                                <div class="ai-search-icon">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </div>
+                                <div class="ai-search-text">Where to next? Or just ask AI...</div>
+                                <div class="ai-search-manual-toggle" onclick="event.stopPropagation(); toggleHomeState('search');">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                                </div>
+                            </div>
+
+                            <!-- Marketplace Grid (Home State) -->
+                            <div class="marketplace-container" id="marketplaceContainer">
+                                <!-- Primary Tier -->
+                                <div class="marketplace-primary-grid">
+                                    <div class="marketplace-item" onclick="toggleHomeState('search')">
+                                        <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg></div>
+                                        <div class="marketplace-label">Flights</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Hotels coming soon')">
+                                        <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11m16-11v11M8 14v-2M12 14v-2M16 14v-2M8 18v-2M12 18v-2M16 18v-2"/></svg>
+                                        <div class="marketplace-pill">25% OFF</div>
+                                        </div>
+                                        <div class="marketplace-label">Hotels</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Cabs coming soon')">
+                                        <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2M7 17v4h2v-4m6 0v4h2v-4m-8-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+                                        <div class="marketplace-pill new">NEW</div>
+                                        </div>
+                                        <div class="marketplace-label">Cabs</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Holiday Packages')">
+                                        <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 20v-7.826a4 4 0 0 0-1.253-2.908l-7.373-6.968a2 2 0 0 0-2.748 0L3.253 9.266A4 4 0 0 0 2 12.174V20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2zM9 22V12h6v10"/></svg></div>
+                                        <div class="marketplace-label">Holiday<br>Packages</div>
+                                    </div>
+                                </div>
+                                <!-- Secondary Tier -->
+                                <div class="marketplace-secondary-grid">
+                                    <div class="marketplace-item" onclick="alert('Sightseeing')">
+                                        <div class="marketplace-icon-circle" style="transform: scale(0.85);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></div>
+                                        <div class="marketplace-label">Sightseeing</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Experiences')">
+                                        <div class="marketplace-icon-circle" style="transform: scale(0.85);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.1 16c-2.15 0-3.9-1.75-3.9-3.9S2.95 8.2 5.1 8.2M18.9 16c2.15 0 3.9-1.75 3.9-3.9S21.05 8.2 18.9 8.2M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 16c-3.31 0-6 2.69-6 6h12c0-3.31-2.69-6-6-6z"/></svg></div>
+                                        <div class="marketplace-label">Experiences</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Shop')">
+                                        <div class="marketplace-icon-circle" style="transform: scale(0.85);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                                        <div class="marketplace-label">Shop</div>
+                                    </div>
+                                    <div class="marketplace-item" onclick="alert('Gift Cards')">
+                                        <div class="marketplace-icon-circle" style="transform: scale(0.85);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 5v14M8 12h8M6 10h1M6 14h1"/></svg>
+                                        <div class="marketplace-pill beta">BETA</div>
+                                        </div>
+                                        <div class="marketplace-label">Gift Cards</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pill-Shaped Dynamic Category Header (Search State) -->
+                            <div class="dynamic-category-header" id="dynamicCategoryHeader">
+                                <div class="dynamic-tab active">Flights</div>
+                                <div class="dynamic-tab">Hotels</div>
+                                <div class="dynamic-tab">Cabs</div>
+                                <div class="dynamic-tab">Deals</div>
+                                <div class="dynamic-tab">More</div>
+                                <div class="dropdown-trigger-tab" onclick="toggleMarketplaceDropdown()">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                </div>
+                                
+                                <!-- Marketplace Dropdown Overlay -->
+                                <div class="marketplace-dropdown-overlay" id="marketplaceDropdownOverlay">
+                                    <div style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 16px;">More from X Airlines</div>
+                                    <div class="marketplace-secondary-grid" style="grid-template-columns: repeat(4, 1fr);">
+                                        <div class="marketplace-item" onclick="toggleMarketplaceDropdown(); alert('Sightseeing')">
+                                            <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg></div>
+                                            <div class="marketplace-label">Sightseeing</div>
+                                        </div>
+                                        <div class="marketplace-item" onclick="toggleMarketplaceDropdown(); alert('Experiences')">
+                                            <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.1 16c-2.15 0-3.9-1.75-3.9-3.9S2.95 8.2 5.1 8.2M18.9 16c2.15 0 3.9-1.75 3.9-3.9S21.05 8.2 18.9 8.2M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 16c-3.31 0-6 2.69-6 6h12c0-3.31-2.69-6-6-6z"/></svg></div>
+                                            <div class="marketplace-label">Experiences</div>
+                                        </div>
+                                        <div class="marketplace-item" onclick="toggleMarketplaceDropdown(); alert('Shop')">
+                                            <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                                            <div class="marketplace-label">Shop</div>
+                                        </div>
+                                        <div class="marketplace-item" onclick="toggleMarketplaceDropdown(); alert('Gift Cards')">
+                                            <div class="marketplace-icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M12 5v14M8 12h8M6 10h1M6 14h1"/></svg></div>
+                                            <div class="marketplace-label">Gift Cards</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <!-- Category Tabs -->
                             <div class="category-tabs-container" id="categoryTabsSection">
@@ -719,7 +813,7 @@
                             </div>
 
                             <!-- Frosted Glass Search Widget -->
-                            <div class="search-widget-panel" id="searchWidgetSection" style="padding-bottom: 24px;">
+                            <div class="search-widget-panel dynamic-hidden" id="searchWidgetSection" style="padding-bottom: 24px;">
 
     <div id="manualSearchView" class="search-view-container active-view" style="display: block;">
 

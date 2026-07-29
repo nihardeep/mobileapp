@@ -6886,6 +6886,26 @@ function updateTimelineState(state) {
         promoCard.style.display = (state === 'upcoming_trip') ? 'flex' : 'none';
     }
 
+    // Trip Companion Mode logic
+    const isTripActive = ['upcoming_trip', 'connection_risk', 'missed_flight'].includes(state) || 
+                         ['checkin_open', 'checked_in', 'airport_checkin', 'go_to_counter', 'gate_open', 'gate_update', 'connecting', 'delayed', 'baggage_tracking', 'cancelled'].includes(state);
+                         
+    if (isTripActive && state !== 'default') {
+        const marketplace = document.getElementById('marketplaceContainer');
+        const aiSearch = document.getElementById('universalAiSearch');
+        if (marketplace) marketplace.style.display = 'none';
+        if (aiSearch) aiSearch.style.display = 'none';
+    } else if (state === 'default') {
+        // Return to marketplace view if going back to default
+        const marketplace = document.getElementById('marketplaceContainer');
+        const aiSearch = document.getElementById('universalAiSearch');
+        if (marketplace) {
+             marketplace.style.display = 'block';
+             marketplace.classList.remove('hidden');
+        }
+        if (aiSearch) aiSearch.style.display = 'flex';
+    }
+
     const header = document.getElementById('companionTimelineHeader');
     const drawer = document.getElementById('companionTimelineDrawer');
     
@@ -7034,4 +7054,57 @@ function renderVerticalTimeline(activeIndex, state) {
     });
     
     container.innerHTML = html;
+}
+
+
+// --- Marketplace & Dynamic Search Logic ---
+window.currentHomeState = 'marketplace';
+
+function toggleHomeState(state) {
+    if (window.currentHomeState === state) return;
+    window.currentHomeState = state;
+    
+    const marketplace = document.getElementById('marketplaceContainer');
+    const searchWidget = document.getElementById('searchWidgetSection');
+    const dynamicHeader = document.getElementById('dynamicCategoryHeader');
+    const aiSearch = document.getElementById('universalAiSearch');
+    
+    if (state === 'search') {
+        if(marketplace) marketplace.classList.add('hidden');
+        if(aiSearch) aiSearch.style.display = 'none';
+        
+        setTimeout(() => {
+            if(dynamicHeader) dynamicHeader.classList.add('visible');
+            if(searchWidget) searchWidget.classList.remove('dynamic-hidden');
+        }, 150); // slight delay for smooth sequence
+    } else {
+        if(dynamicHeader) dynamicHeader.classList.remove('visible');
+        if(searchWidget) searchWidget.classList.add('dynamic-hidden');
+        
+        // Ensure dropdown is closed
+        if(dynamicHeader) dynamicHeader.classList.remove('dropdown-open');
+        const overlay = document.getElementById('marketplaceDropdownOverlay');
+        if(overlay) overlay.classList.remove('visible');
+        
+        setTimeout(() => {
+            if(marketplace) marketplace.classList.remove('hidden');
+            if(aiSearch) aiSearch.style.display = 'flex';
+        }, 150);
+    }
+}
+
+function toggleMarketplaceDropdown() {
+    triggerHaptic('light', 'Toggle Dropdown');
+    const header = document.getElementById('dynamicCategoryHeader');
+    const overlay = document.getElementById('marketplaceDropdownOverlay');
+    
+    if (header && overlay) {
+        if (header.classList.contains('dropdown-open')) {
+            header.classList.remove('dropdown-open');
+            overlay.classList.remove('visible');
+        } else {
+            header.classList.add('dropdown-open');
+            overlay.classList.add('visible');
+        }
+    }
 }
