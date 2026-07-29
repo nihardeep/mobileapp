@@ -6892,18 +6892,18 @@ function updateTimelineState(state) {
                          
     if (isTripActive && state !== 'default') {
         const marketplace = document.getElementById('marketplaceContainer');
-        const aiSearch = document.getElementById('universalAiSearch');
+        
         if (marketplace) marketplace.style.display = 'none';
-        if (aiSearch) aiSearch.style.display = 'none';
+        
     } else if (state === 'default') {
         // Return to marketplace view if going back to default
         const marketplace = document.getElementById('marketplaceContainer');
-        const aiSearch = document.getElementById('universalAiSearch');
+        
         if (marketplace) {
              marketplace.style.display = 'block';
              marketplace.classList.remove('hidden');
         }
-        if (aiSearch) aiSearch.style.display = 'flex';
+        
     }
 
     const header = document.getElementById('companionTimelineHeader');
@@ -7068,7 +7068,7 @@ function toggleHomeState(state) {
     const marketplace = document.getElementById('marketplaceContainer');
     const searchWidget = document.getElementById('searchWidgetSection');
     const dynamicHeader = document.getElementById('dynamicCategoryHeader');
-    const aiSearch = document.getElementById('universalAiSearch');
+    
     
     if (state === 'search') {
         if(marketplace) marketplace.classList.add('hidden');
