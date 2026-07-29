@@ -8768,3 +8768,7 @@ input, button, select, textarea {
 #universalAiSearch { order: 2; }
 #marketplaceContainer { order: 3; }
 #dynamicCategoryHeader { order: 4; }
+
+#marketplaceContainer.hidden {
+    display: none !important;
+}
