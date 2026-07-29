@@ -7072,7 +7072,7 @@ function toggleHomeState(state) {
     
     if (state === 'search') {
         if(marketplace) marketplace.classList.add('hidden');
-        if(aiSearch) aiSearch.style.display = 'none';
+
         
         setTimeout(() => {
             if(dynamicHeader) dynamicHeader.classList.add('visible');
@@ -7089,7 +7089,7 @@ function toggleHomeState(state) {
         
         setTimeout(() => {
             if(marketplace) marketplace.classList.remove('hidden');
-            if(aiSearch) aiSearch.style.display = 'flex';
+
         }, 150);
     }
 }
