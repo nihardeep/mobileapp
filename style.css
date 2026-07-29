@@ -8605,11 +8605,19 @@ input, button, select, textarea {
 }
 
 .market-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 36px;
     height: 36px;
     margin-bottom: 6px;
 }
 
+.market-icon svg {
+    width: 24px;
+    height: 24px;
+    color: #005FA9;
+}
 .market-icon img {
     width: 100%;
     height: 100%;
@@ -8645,12 +8653,20 @@ input, button, select, textarea {
 }
 
 .grid-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 32px;
     height: 32px;
     margin-bottom: 6px;
     position: relative;
 }
 
+.grid-icon svg {
+    width: 20px;
+    height: 20px;
+    color: #005FA9;
+}
 .grid-icon img {
     width: 100%;
     height: 100%;
