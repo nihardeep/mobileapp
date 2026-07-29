@@ -8515,12 +8515,40 @@ input, button, select, textarea {
     flex-direction: column;
 }
 
-@keyframes runningUrgency {
-    0% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-3px) rotate(8deg); }
-    100% { transform: translateY(0) rotate(0deg); }
+@keyframes bodyBobbing {
+    0% { transform: translateY(0) rotate(5deg); }
+    100% { transform: translateY(-3px) rotate(8deg); }
 }
 
-.timeline-node.running-risk svg {
-    animation: runningUrgency 0.6s infinite alternate;
+@keyframes limbSwingFront {
+    0% { transform: rotate(-35deg); }
+    100% { transform: rotate(45deg); }
 }
+
+@keyframes limbSwingBack {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(-35deg); }
+}
+
+@keyframes speedLine {
+    0% { transform: translateX(0); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateX(-15px); opacity: 0; }
+}
+
+.running-risk-body {
+    animation: bodyBobbing 0.25s infinite alternate ease-in-out;
+}
+
+.run-arm-left, .run-leg-right {
+    animation: limbSwingBack 0.25s infinite alternate ease-in-out;
+}
+
+.run-arm-right, .run-leg-left {
+    animation: limbSwingFront 0.25s infinite alternate ease-in-out;
+}
+
+.speed-lines .line1 { animation: speedLine 0.5s infinite linear; }
+.speed-lines .line2 { animation: speedLine 0.7s infinite linear; animation-delay: 0.2s; }
+.speed-lines .line3 { animation: speedLine 0.6s infinite linear; animation-delay: 0.1s; }
+

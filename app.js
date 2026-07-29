@@ -1372,14 +1372,26 @@ function renderFlightStateCard(state) {
                         </div>
                     </div>
                     <!-- Running Person Animation -->
-                    <div style="margin-right: 8px;">
-                        <svg class="running-risk" style="animation: runningUrgency 0.6s infinite alternate;" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <div style="margin-right: 8px; position: relative;">
+                        <!-- Speed lines -->
+                        <svg class="speed-lines" viewBox="0 0 24 24" width="48" height="48" style="position: absolute; top:0; left: -10px; z-index: 0; opacity: 0.5;">
+                            <line x1="12" y1="8" x2="2" y2="8" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" class="line1" />
+                            <line x1="10" y1="14" x2="0" y2="14" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" class="line2" />
+                            <line x1="14" y1="19" x2="4" y2="19" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" class="line3" />
+                        </svg>
+                        
+                        <svg class="running-risk-body" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#ea580c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: relative; z-index: 1;">
                             <circle cx="12" cy="5" r="2" fill="#1e293b" stroke="#1e293b"></circle>
-                            <path d="M12 7 L12 13" stroke="#ea580c" stroke-width="4"></path>
-                            <path d="M12 9 L8 11 L6 8" stroke="#ea580c" stroke-width="3"></path>
-                            <path d="M12 9 L15 11 L18 10" stroke="#ea580c" stroke-width="3"></path>
-                            <path d="M12 13 L10 18 L12 21" stroke="#1e293b" stroke-width="3"></path>
-                            <path d="M12 13 L15 16 L17 14" stroke="#1e293b" stroke-width="3"></path>
+                            <!-- Torso -->
+                            <path d="M12 7 L14 13" stroke="#ea580c" stroke-width="4"></path>
+                            <!-- Left Arm (Back) -->
+                            <path class="run-arm-left" d="M12 8 L8 9 L6 6" stroke="#ea580c" stroke-width="3" style="transform-origin: 12px 8px;"></path>
+                            <!-- Right Arm (Front) -->
+                            <path class="run-arm-right" d="M12 8 L17 10 L20 7" stroke="#ea580c" stroke-width="3" style="transform-origin: 12px 8px;"></path>
+                            <!-- Left Leg (Back) -->
+                            <path class="run-leg-left" d="M14 13 L11 17 L8 17" stroke="#1e293b" stroke-width="3.5" style="transform-origin: 14px 13px;"></path>
+                            <!-- Right Leg (Front) -->
+                            <path class="run-leg-right" d="M14 13 L17 18 L19 22" stroke="#1e293b" stroke-width="3.5" style="transform-origin: 14px 13px;"></path>
                         </svg>
                     </div>
                 </div>
