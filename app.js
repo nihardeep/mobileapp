@@ -7058,7 +7058,8 @@ function renderVerticalTimeline(activeIndex, state) {
 
 
 // --- Marketplace & Dynamic Search Logic ---
-window.currentHomeState = 'marketplace';
+window.currentHomeState = null;
+    toggleHomeState('marketplace');
 
 function toggleHomeState(state) {
     if (window.currentHomeState === state) return;
