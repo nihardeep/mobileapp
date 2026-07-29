@@ -8514,3 +8514,13 @@ input, button, select, textarea {
     display: flex;
     flex-direction: column;
 }
+
+@keyframes runningUrgency {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(8deg); }
+    100% { transform: translateY(0) rotate(0deg); }
+}
+
+.timeline-node.running-risk svg {
+    animation: runningUrgency 0.6s infinite alternate;
+}
