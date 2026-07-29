@@ -8626,6 +8626,10 @@ input, button, select, textarea {
 /* Marketplace Grid Container */
 .marketplace-container {
     padding: 0 20px;
+    width: 100%;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 10;
     margin-bottom: 24px;
     transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 1;
