@@ -432,7 +432,7 @@ body {
 
 /* Reordering indexes */
 #homeHeaderSection { order: 1; }
-#categoryTabsSection { order: 2; }
+
 
 #recentSearchesSection { order: 4; }
 #loyaltySection { order: 5; }
@@ -510,30 +510,9 @@ body {
 }
 
 /* Category Tabs */
-.category-tabs-container {
-    display: flex;
-    justify-content: space-between;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 22px;
-    padding: 3px;
-    margin-bottom: 16px;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    box-shadow: 0 4px 12px rgba(0, 31, 84, 0.02);
-}
 
-.category-tab {
-    flex: 1;
-    text-align: center;
-    padding: 8px 0;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    cursor: pointer;
-    border-radius: 19px;
-    transition: all 0.25s ease;
-}
+
+
 
 .category-tab.active {
     background: var(--xairline-navy);
@@ -8761,9 +8740,7 @@ input, button, select, textarea {
 }
 
 /* Overriding old category tabs to completely hide them */
-#categoryTabsSection {
-    display: none !important;
-}
+
 
 
 #universalAiSearch { order: 2; }
