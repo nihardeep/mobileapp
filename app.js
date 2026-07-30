@@ -2855,7 +2855,6 @@ function closeAllDrawers() {
     const originalContainer = document.getElementById('homeContentContainer');
     const searchWidget = document.getElementById('searchWidgetSection');
     const categoryTabs = document.getElementById('categoryTabsSection');
-    if (!categoryTabs) return;
     if (originalContainer && searchWidget && searchWidget.parentElement && searchWidget.parentElement.id === 'flightSearchDrawerContent') {
         if (categoryTabs && categoryTabs.nextSibling) {
             originalContainer.insertBefore(searchWidget, categoryTabs.nextSibling);
