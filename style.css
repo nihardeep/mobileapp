@@ -432,6 +432,9 @@ body {
 
 /* Reordering indexes */
 #homeHeaderSection { order: 1; }
+#marketplaceContainer { order: 2; }
+#dynamicCategoryHeader { order: 2; }
+#searchWidgetSection { order: 3; }
 
 
 #recentSearchesSection { order: 4; }
