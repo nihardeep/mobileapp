@@ -433,7 +433,7 @@ body {
 /* Reordering indexes */
 #homeHeaderSection { order: 1; }
 #categoryTabsSection { order: 2; }
-#searchWidgetSection { order: 3; }
+
 #recentSearchesSection { order: 4; }
 #loyaltySection { order: 5; }
 #featureBannerSection { order: 6; }
@@ -8768,11 +8768,9 @@ input, button, select, textarea {
 
 #universalAiSearch { order: 2; }
 #marketplaceContainer { order: 3; }
-#dynamicCategoryHeader { order: 4; }
 
-#marketplaceContainer.hidden {
-    display: none !important;
-}
+
+
 
 /* Restored Dropdown CSS */
 .marketplace-secondary-grid {
@@ -8836,4 +8834,47 @@ input, button, select, textarea {
     transform: translateY(0);
     pointer-events: auto;
     z-index: 99;
+}
+
+/* Force exact layout order for Home Content */
+#homeHeaderSection { order: 1 !important; }
+#dynamicCategoryHeader { order: 2 !important; }
+#searchWidgetSection { order: 3 !important; }
+
+/* Folding Animations */
+.search-widget-panel {
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s ease, padding 0.4s ease;
+    max-height: 800px;
+    transform-origin: top;
+    overflow: hidden;
+}
+
+.search-widget-panel.dynamic-hidden {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    transform: scaleY(0.9) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border-width: 0 !important;
+    display: block !important;
+}
+
+#marketplaceContainer {
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), margin 0.4s ease, padding 0.4s ease;
+    max-height: 800px;
+    transform-origin: top;
+    overflow: hidden;
+}
+
+#marketplaceContainer.hidden {
+    max-height: 0 !important;
+    opacity: 0 !important;
+    transform: scaleY(0.9) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: block !important;
 }
