@@ -806,7 +806,7 @@ function switchCategory(index) {
     });
     
     // Ripple haptic effect
-    triggerHaptic('light', `Category Tab changed: ${tabs[index].innerText}`);
+    triggerHaptic('light', `Category Tab changed`);
 
     // If changing category to "Deals" via home tabs
     if (index === 3) {
