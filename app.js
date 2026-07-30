@@ -679,7 +679,8 @@ function navigateTo(screenName) {
     } else if (screenName === 'deals') {
         document.getElementById('screenDeals').classList.add('active');
         document.getElementById('navFlights').classList.remove('active'); // Deals is active
-        document.getElementById('categoryTabsSection').querySelectorAll('.category-tab').forEach((t, idx) => {
+        const categorySection = document.getElementById('categoryTabsSection');
+        if (categorySection) categorySection.querySelectorAll('.category-tab').forEach((t, idx) => {
             if (idx === 3) t.classList.add('active');
             else t.classList.remove('active');
         });
@@ -793,7 +794,8 @@ function navigateTo(screenName) {
 function switchCategory(index) {
     appState.activeCategoryIndex = index;
     
-    const tabs = document.getElementById('categoryTabsSection').querySelectorAll('.category-tab');
+    const categorySection = document.getElementById('categoryTabsSection');
+    const tabs = categorySection ? categorySection.querySelectorAll('.category-tab') : [];
     
     tabs.forEach((tab, idx) => {
         if (idx === index) {
@@ -2843,6 +2845,7 @@ function closeAllDrawers() {
     const originalContainer = document.getElementById('homeContentContainer');
     const searchWidget = document.getElementById('searchWidgetSection');
     const categoryTabs = document.getElementById('categoryTabsSection');
+    if (!categoryTabs) return;
     if (originalContainer && searchWidget && searchWidget.parentElement && searchWidget.parentElement.id === 'flightSearchDrawerContent') {
         if (categoryTabs && categoryTabs.nextSibling) {
             originalContainer.insertBefore(searchWidget, categoryTabs.nextSibling);
