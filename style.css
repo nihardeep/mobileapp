@@ -8562,7 +8562,7 @@ input, button, select, textarea {
    ========================================================= */
 #marketplaceContainer {
     padding: 0 16px;
-    margin-bottom: 24px;
+    margin-bottom: 8px;
     margin-top: 16px;
     
     z-index: 10;
