@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=1150">
+    <link rel="stylesheet" href="style.css?v=1785387335">
 </head>
 <body>
 
@@ -1090,6 +1090,85 @@
                             </div>
 
                         </div>
+
+<!-- ADD MORE TO YOUR JOURNEY -->
+<div id="addMoreJourneySection" style="display: none; margin-top: 24px; margin-bottom: 8px; padding: 0 4px; order: 3;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <span style="font-size: 16px; font-weight: 800; color: #0f172a;">Add more to your journey</span>
+        <span style="font-size: 13px; font-weight: 700; color: var(--xairline-blue); cursor: pointer;" onclick="triggerHaptic('light'); alert('See all clicked')">See all</span>
+    </div>
+    
+    <div style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; -ms-overflow-style: none;">
+        <style>
+            #addMoreJourneySection::-webkit-scrollbar { display: none; }
+            .journey-add-on-card {
+                display: flex; flex-direction: column; align-items: center; min-width: 72px; gap: 10px; cursor: pointer;
+            }
+            .journey-squircle {
+                width: 64px; height: 64px; background: #ffffff; border-radius: 20px; 
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.03);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .journey-add-on-card:active .journey-squircle {
+                transform: scale(0.95);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            }
+            .journey-label {
+                font-size: 11px; font-weight: 600; color: #64748b; text-align: center; line-height: 1.2;
+            }
+            .journey-icon {
+                color: #1e1b4b; /* Deep navy */
+            }
+        </style>
+        
+        <div class="journey-add-on-card" onclick="triggerHaptic('light')">
+            <div class="journey-squircle">
+                <svg class="journey-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <div class="journey-label">Fast<br>Forward</div>
+        </div>
+        
+        <div class="journey-add-on-card" onclick="triggerHaptic('light')">
+            <div class="journey-squircle">
+                <svg class="journey-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 13V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v5"/><path d="M3 13v6a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-6"/><path d="M3 15h18"/><path d="M7 21v2"/><path d="M17 21v2"/></svg>
+            </div>
+            <div class="journey-label">Seat<br>Selection</div>
+        </div>
+        
+        <div class="journey-add-on-card" onclick="triggerHaptic('light')">
+            <div class="journey-squircle">
+                <svg class="journey-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6" width="16" height="14" rx="2" ry="2"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 6v14"/><path d="M8 6v14"/><path d="M16 6v14"/></svg>
+            </div>
+            <div class="journey-label">Extra<br>Baggage</div>
+        </div>
+        
+        <div class="journey-add-on-card" onclick="triggerHaptic('light')">
+            <div class="journey-squircle">
+                <!-- Crossed Utensils -->
+                <svg class="journey-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- Fork pointing top right -->
+                    <path d="M3 21L11 13" />
+                    <path d="M7 9L11 13" />
+                    <path d="M9 7L13 11" />
+                    <path d="M11 5L15 9" />
+                    <!-- Knife pointing top left -->
+                    <path d="M21 21L13 13" />
+                    <path d="M19 5C17 3 13 7 13 7l2 2s4-4 4-9z" />
+                </svg>
+            </div>
+            <div class="journey-label">In-flight<br>Meals</div>
+        </div>
+        
+        <div class="journey-add-on-card" onclick="triggerHaptic('light')">
+            <div class="journey-squircle">
+                <!-- Trophy -->
+                <svg class="journey-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10c.83 0 1.5.67 1.5 1.5S17.83 7 17 7H7c-.83 0-1.5-.67-1.5-1.5S6.17 4 7 4z"/><path d="M4 7h16"/><path d="M5 7c0 3.87 3.13 7 7 7s7-3.13 7-7"/></svg>
+            </div>
+            <div class="journey-label">Lounge<br>Finder</div>
+        </div>
+    </div>
+</div>
 
 <!-- COMPANION CAB DEALS -->
 <div id="companionCabDeals" style="margin-top: 16px; display: none; padding: 0 4px; order: 4;">
@@ -5234,7 +5313,7 @@
 </div>
     </div>
     
-    <script src="app.js?v=1150"></script>
+    <script src="app.js?v=1785387335"></script>
 
     <!-- Haptic audio simulation nodes -->
     <audio id="sndTap" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>

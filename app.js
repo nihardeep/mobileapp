@@ -1236,6 +1236,16 @@ function setFlightState(state) {
 
     // Render the custom content based on state
     renderFlightStateCard(state);
+    // Toggle Add More Journey Section
+    const addMoreJourney = document.getElementById('addMoreJourneySection');
+    if (addMoreJourney) {
+        if (state === 'upcoming_trip' || state === 'checkin_open') {
+            addMoreJourney.style.display = 'block';
+        } else {
+            addMoreJourney.style.display = 'none';
+        }
+    }
+
     
     // Update the timeline milestones
     if (typeof updateTimelineState === 'function') {
