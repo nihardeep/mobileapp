@@ -448,7 +448,7 @@ window.addEventListener('DOMContentLoaded', () => {
     updateTime();
     setInterval(updateTime, 1000 * 60); // Update time every minute
     switchCategory(0); // Set initial category tab
-    setFlightState('checkin_open'); // Set initial flight state
+    setFlightState('default'); // Set initial flight state
     
     // Set default date to tomorrow
     const tomorrow = new Date();
