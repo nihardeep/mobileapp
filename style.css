@@ -543,6 +543,7 @@ body {
 
 /* Search widget panel */
 .search-widget-panel {
+    order: 4;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
@@ -8811,4 +8812,28 @@ input, button, select, textarea {
     color: #475569;
     text-align: center;
     line-height: 1.2;
+}
+
+.marketplace-dropdown-overlay {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 24px 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+}
+
+.marketplace-dropdown-overlay.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 99;
 }
