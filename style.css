@@ -8561,7 +8561,7 @@ input, button, select, textarea {
     padding: 0 16px;
     margin-bottom: 24px;
     margin-top: 16px;
-    order: 2;
+    
     z-index: 10;
 }
 
@@ -8813,10 +8813,7 @@ input, button, select, textarea {
     z-index: 99;
 }
 
-/* Force exact layout order for Home Content */
-#homeHeaderSection { order: 1 !important; }
-#dynamicCategoryHeader { order: 2 !important; }
-#searchWidgetSection { order: 3 !important; }
+
 
 /* Folding Animations */
 .search-widget-panel {
