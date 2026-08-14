@@ -400,7 +400,8 @@ let appState = {
     airportSelectorTarget: 'from', // from, to
     activeCategoryIndex: 0,
     tripType: 'oneway',
-    hasComplimentaryPerks: false
+    hasComplimentaryPerks: false,
+    isMegaSaleClaimed: false
 };
 
 window.toggleComplimentaryPerks = function() {
@@ -3498,6 +3499,11 @@ function renderFlightResults() {
         }
     }
 
+    const srpBanner = document.getElementById('srpPromoBanner');
+    if (srpBanner) {
+        srpBanner.style.display = appState.isMegaSaleClaimed ? 'flex' : 'none';
+    }
+
     list.innerHTML = '';
     
     // Mock Data for Flights
@@ -3531,6 +3537,14 @@ function renderFlightResults() {
             
             ecoPriceHtml = `<span class="price-strikethrough">₹${f.price}</span> ₹${discountedStr}`;
             ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--xairline-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
+        } else if (appState.isMegaSaleClaimed) {
+            ecoColClass = "fc-price-col";
+            const originalPriceNum = parseInt(f.price.replace(',', ''));
+            const discountedPriceNum = Math.floor(originalPriceNum * 0.8);
+            const discountedStr = discountedPriceNum.toLocaleString('en-IN');
+            
+            ecoPriceHtml = `<span class="price-strikethrough" style="color: #94a3b8; font-size: 11px; text-decoration: line-through; display: block; margin-bottom: 2px;">₹${f.price}</span><span style="color: #059669; font-weight: 800;">₹${discountedStr}</span>`;
+            ecoTagHtml = '<span style="font-size: 9px; background: rgba(245, 158, 11, 0.1); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.2); display: inline-block;">MEGA SALE - 20% OFF</span>';
         }
 
         let edgeBadgeHtml = "";
@@ -6228,8 +6242,24 @@ function initPaymentsScreen() {
     let finalTotal = subtotal;
     let discountApplied = 0;
     
-    // Check if cohort discount is active
-    if (seatMapState.cohortDiscount) {
+    // Check if MEGA SALE is claimed
+    if (appState.isMegaSaleClaimed) {
+        const discountAmount = Math.round(baseFare * 0.2);
+        discountApplied = discountAmount;
+        finalTotal -= discountAmount;
+        
+        const discountRow = document.getElementById('paymentDiscountRow');
+        const discountAmountEl = document.getElementById('paymentDiscountAmount');
+        const couponCodeEl = document.getElementById('paymentCouponCode');
+        const originalTotalEl = document.getElementById('paymentOriginalTotal');
+        
+        discountRow.style.display = 'block';
+        discountAmountEl.innerText = `-₹${discountAmount.toLocaleString('en-IN')}`;
+        couponCodeEl.innerText = "MEGA20 Applied";
+        
+        originalTotalEl.style.display = 'block';
+        originalTotalEl.innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+    } else if (seatMapState.cohortDiscount) {
         const discountAmount = Math.round(seatTotal * seatMapState.cohortDiscount);
         discountApplied = discountAmount;
         finalTotal -= discountAmount;
@@ -7121,3 +7151,46 @@ function toggleMarketplaceDropdown() {
         }
     }
 }
+
+// ==========================================
+// PROMO MODAL LOGIC
+// ==========================================
+function showPromoModal() {
+    const modal = document.getElementById('promoClaimModal');
+    const content = document.getElementById('promoClaimModalContent');
+    if(modal && !appState.isMegaSaleClaimed) {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            content.style.transform = 'translateY(0)';
+            content.style.opacity = '1';
+        }, 50);
+        triggerHaptic('heavy', 'Promo Modal Shown');
+    }
+}
+
+function closePromoModal() {
+    const modal = document.getElementById('promoClaimModal');
+    const content = document.getElementById('promoClaimModalContent');
+    if(modal) {
+        content.style.transform = 'translateY(20px)';
+        content.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
+
+function claimPromo() {
+    appState.isMegaSaleClaimed = true;
+    triggerHaptic('success', 'Promo Claimed');
+    closePromoModal();
+}
+
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        if (appState.currentScreen === 'home') {
+            showPromoModal();
+        }
+    }, 1500);
+});
