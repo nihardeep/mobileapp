@@ -7184,6 +7184,17 @@ function closePromoModal() {
 function claimPromo() {
     appState.isMegaSaleClaimed = true;
     triggerHaptic('success', 'Promo Claimed');
+    
+    // UI Updates on Homepage
+    const flightsIcon = document.getElementById('marketplaceFlightsIcon');
+    if(flightsIcon && !document.getElementById('marketplaceFlightsPill')) {
+        flightsIcon.innerHTML += '<div class="clean-pill pill-green" id="marketplaceFlightsPill">20% OFF</div>';
+    }
+    const globalBanner = document.getElementById('globalPromoBannerContainer');
+    if(globalBanner) {
+        globalBanner.style.display = 'block';
+    }
+    
     closePromoModal();
 }
 
