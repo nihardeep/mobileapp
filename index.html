@@ -740,19 +740,19 @@
 <div class="marketplace-container" id="marketplaceContainer">
     <style>
         .marketplace-container {
-            margin: 16px 16px 28px 16px; /* Increased bottom margin for Recent Search gap */
-            padding: 44px 24px 48px 24px; /* Significantly increased padding to keep panel size large while icons group closer */
+            margin: 16px 16px 28px 16px;
+            padding: 60px 16px 64px 16px; /* Dramatically increased top and bottom padding */
             background: rgba(255, 255, 255, 0.45);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
+            border-radius: 36px; /* Slightly rounder to match the huge padding */
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
         }
         .clean-marketplace-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px 8px; /* Reduced gaps to pull icons together */
+            gap: 12px 4px; /* Dramatically reduced gaps */
         }
         .clean-market-item {
             display: flex;
