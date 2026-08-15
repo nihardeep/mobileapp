@@ -7173,11 +7173,11 @@ function closePromoModal() {
     const modal = document.getElementById('promoClaimModal');
     const content = document.getElementById('promoClaimModalContent');
     if(modal) {
-        content.style.transform = 'translateY(20px)';
+        content.style.transform = 'translateY(100%)';
         content.style.opacity = '0';
         setTimeout(() => {
             modal.style.display = 'none';
-        }, 300);
+        }, 400);
     }
 }
 
@@ -7199,9 +7199,7 @@ function claimPromo() {
 }
 
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        if (appState.currentScreen === 'home') {
-            showPromoModal();
-        }
-    }, 1500);
+    if (appState.currentScreen === 'home') {
+        showPromoModal();
+    }
 });
