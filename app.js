@@ -7260,6 +7260,13 @@ function simulateFilterRefresh() {
             list.appendChild(cards[j]);
         }
         
+        // Move recommended card to 3rd position
+        const recommendedCard = list.querySelector('.flight-card.recommended');
+        if (recommendedCard && list.children.length > 2) {
+            // list.children[3] ensures it gets inserted before the 4th element, making it the 3rd element (index 2)
+            list.insertBefore(recommendedCard, list.children[3]);
+        }
+        
         allCards.forEach(card => card.classList.remove('shimmering'));
         triggerHaptic('success', 'Filter applied');
     }, 800);
