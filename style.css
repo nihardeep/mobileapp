@@ -3869,12 +3869,20 @@ body {
     background: rgba(0, 95, 169, 0.05);
 }
 
+.results-sticky-bottom {
+    background: #fff;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+    z-index: 20;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
 .results-sort-row {
     display: flex;
     background: #fff;
     border-top: 1px solid rgba(0,0,0,0.05);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-    margin-bottom: 8px;
 }
 
 .sort-col {

@@ -593,7 +593,7 @@ function navigateTo(screenName) {
     // Hide footer explicitly for some screens
     const bottomNav = document.querySelector('.bottom-nav');
     if (bottomNav) {
-        bottomNav.style.display = (screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap' || screenName === 'seatmap_loading' || screenName === 'payments') ? 'none' : '';
+        bottomNav.style.display = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap' || screenName === 'seatmap_loading' || screenName === 'payments') ? 'none' : '';
     }
 
     if (screenName === 'seatmap_loading') {
@@ -669,7 +669,7 @@ function navigateTo(screenName) {
     // Show/hide bottom nav — hide it for full-screen overlay pages
     const bottomNav = document.querySelector('.bottom-nav');
     if (bottomNav) {
-        bottomNav.style.display = (screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap') ? 'none' : '';
+        bottomNav.style.display = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap') ? 'none' : '';
     }
     
     if (screenName === 'home') {
