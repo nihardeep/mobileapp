@@ -38,7 +38,7 @@
 html, body {
     overflow-x: hidden;
     width: 100%;
-    overscroll-behavior-x: none; /* Prevent iOS bounce/swipe */
+    overscroll-behavior: none; /* Prevent iOS bounce/swipe */
 }
 
 body {
@@ -3837,7 +3837,7 @@ body {
     flex: 1;
     overflow-y: auto;
     background: #f8f9fa;
-    padding-bottom: 100px;
+    padding-bottom: 16px;
 }
 
 .results-filters-row {
