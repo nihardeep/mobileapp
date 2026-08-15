@@ -7195,6 +7195,12 @@ function claimPromo() {
         globalBanner.style.display = 'block';
     }
     
+    // Smooth scroll to top to show the new banner
+    const appContent = document.getElementById('appContent');
+    if (appContent) {
+        appContent.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
     closePromoModal();
 }
 
