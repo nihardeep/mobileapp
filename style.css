@@ -54,16 +54,37 @@ body {
     box-sizing: border-box;
 }
 
-/* Ensure mobile view doesn't cause horizontal overflow */
+/* Ensure mobile view makes the prototype a true full-screen app */
 @media (max-width: 480px) {
-    .iphone-frame {
-        transform: scale(0.85);
-        transform-origin: top center;
-        margin-bottom: -100px;
-    }
     body {
-        padding: 10px;
+        padding: 0;
+        margin: 0;
         align-items: flex-start;
+        height: 100dvh;
+        overflow: hidden;
+    }
+    .iphone-frame {
+        width: 100vw;
+        height: 100dvh;
+        border-radius: 0;
+        padding: 0;
+        box-shadow: none;
+        transform: none;
+        margin: 0;
+    }
+    .iphone-screen {
+        border-radius: 0;
+    }
+    .prototype-container {
+        padding: 0;
+        margin: 0;
+        gap: 0;
+    }
+    .dev-simulator-console {
+        display: none; /* Hide dev console on real mobile device */
+    }
+    .dynamic-island-container, .status-bar {
+        display: none !important;
     }
 }
 
