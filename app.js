@@ -7225,3 +7225,42 @@ window.addEventListener('load', () => {
         showPromoModal();
     }
 });
+
+// ==========================================
+// FILTER AND SORT LOGIC
+// ==========================================
+function toggleFilter(el) {
+    el.classList.toggle('active');
+    simulateFilterRefresh();
+}
+
+function toggleSort(el) {
+    const sortCols = document.querySelectorAll('.sort-col');
+    sortCols.forEach(col => col.classList.remove('active'));
+    el.classList.add('active');
+    simulateFilterRefresh();
+}
+
+function simulateFilterRefresh() {
+    triggerHaptic('light', 'Applying filter');
+    const list = document.getElementById('flightResultsList');
+    if (!list) return;
+    
+    const cards = Array.from(list.querySelectorAll('.flight-card:not(.recommended)'));
+    
+    // Add shimmering state to all cards
+    const allCards = list.querySelectorAll('.flight-card');
+    allCards.forEach(card => card.classList.add('shimmering'));
+    
+    // Simulate network delay and shuffle slightly to show change
+    setTimeout(() => {
+        // Randomize DOM order slightly for visual effect
+        for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            list.appendChild(cards[j]);
+        }
+        
+        allCards.forEach(card => card.classList.remove('shimmering'));
+        triggerHaptic('success', 'Filter applied');
+    }, 800);
+}
