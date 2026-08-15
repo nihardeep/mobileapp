@@ -592,8 +592,15 @@ function navigateTo(screenName) {
     
     // Hide footer explicitly for some screens
     const bottomNav = document.querySelector('.bottom-nav');
+    const isFullScreen = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap' || screenName === 'seatmap_loading' || screenName === 'payments');
     if (bottomNav) {
-        bottomNav.style.display = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap' || screenName === 'seatmap_loading' || screenName === 'payments') ? 'none' : '';
+        bottomNav.style.display = isFullScreen ? 'none' : '';
+    }
+    
+    // Adjust app-content padding so there is no empty black space when bottom nav is hidden
+    const appContent = document.getElementById('appContent');
+    if (appContent) {
+        appContent.style.paddingBottom = isFullScreen ? '0px' : '85px';
     }
 
     if (screenName === 'seatmap_loading') {
@@ -668,8 +675,14 @@ function navigateTo(screenName) {
 
     // Show/hide bottom nav — hide it for full-screen overlay pages
     const bottomNav = document.querySelector('.bottom-nav');
+    const isFullScreen2 = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap');
     if (bottomNav) {
-        bottomNav.style.display = (screenName === 'results' || screenName === 'addons' || screenName === 'passenger' || screenName === 'seatmap') ? 'none' : '';
+        bottomNav.style.display = isFullScreen2 ? 'none' : '';
+    }
+    
+    const appContent2 = document.getElementById('appContent');
+    if (appContent2) {
+        appContent2.style.paddingBottom = isFullScreen2 ? '0px' : '85px';
     }
     
     if (screenName === 'home') {
@@ -4684,6 +4697,9 @@ window.goToPassengerDetails = function() {
     // Hide bottom nav for full-screen overlay
     const bottomNav = document.querySelector('.bottom-nav');
     if (bottomNav) bottomNav.style.display = 'none';
+    
+    const appContent3 = document.getElementById('appContent');
+    if (appContent3) appContent3.style.paddingBottom = '0px';
 
     // Scroll passenger body to top
     const pBody = document.querySelector('.passenger-body');
