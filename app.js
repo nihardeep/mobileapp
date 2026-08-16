@@ -7407,9 +7407,12 @@ function devToggleExclusiveOffers() {
     const btn = document.getElementById('btnToggleExclusiveOffers');
     const isActive = btn.classList.toggle('active');
     
-    const container = document.getElementById('dynamicTierProgressContainer'); // we can just append it here
+    // Set global state and re-render flight cards immediately
+    window.isTier2Active = isActive;
+    generateFlightCards();
+    
+    // If active, also show the drawer once just for the demo flow
     if (isActive) {
-        // Just trigger the drawer for now as the demo of the offer
         toggleTierDrawer();
     }
 }
