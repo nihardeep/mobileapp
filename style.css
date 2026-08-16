@@ -3123,9 +3123,23 @@ body {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 
         0 15px 35px rgba(0,0,0,0.8),
         0 0 15px rgba(139, 92, 246, 0.1);
+}
+
+/* Custom Scrollbar for Dev Console */
+.dev-simulator-console::-webkit-scrollbar {
+    width: 6px;
+}
+.dev-simulator-console::-webkit-scrollbar-track {
+    background: transparent;
+}
+.dev-simulator-console::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 10px;
 }
 
 .dev-console-title {
