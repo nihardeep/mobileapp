@@ -77,6 +77,20 @@
                     </button>
                 </div>
             </div>
+            
+            <div class="dev-state-group">
+                <div class="dev-state-label">Marketing & Tiers</div>
+                <div class="dev-btn-stack">
+                    <button class="dev-trigger-btn" id="btnToggleGamifiedTier" onclick="devToggleGamifiedTier()">
+                        🎯 Gamified Tier Upgrade
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                    <button class="dev-trigger-btn" id="btnToggleExclusiveOffers" onclick="devToggleExclusiveOffers()">
+                        💳 Exclusive Tier Offers
+                        <div class="dev-btn-indicator"></div>
+                    </button>
+                </div>
+            </div>
 
             <div class="dev-state-group">
                 <div class="dev-state-label">Flight Lifecycle States</div>
@@ -1541,21 +1555,12 @@
                                                         <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                                                     </span>
                                                 </span>
-                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleTierDrawer();">View Offers <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
+                                                <span style="font-size: 9.5px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;" onclick="event.stopPropagation(); toggleLoyaltyMenu(this.closest('.loyalty-3d-wrapper'));">View Options <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></span>
                                             </div>
                                         </div>
-                                        
-                                        <!-- Gamified Tier Upgrade Progress -->
-                                        <div style="margin-top: 16px; padding: 10px 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                                <span style="font-size: 11px; font-weight: 700; color: #cbd5e1;">Next: Tier 3 Status</span>
-                                                <span style="font-size: 11px; font-weight: 700; color: #fbbf24;">1 Flight Away</span>
-                                            </div>
-                                            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; position: relative;">
-                                                <div style="width: 85%; height: 100%; background: linear-gradient(90deg, #f59e0b, #fbbf24); border-radius: 4px; position: absolute; left: 0; top: 0; box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);"></div>
-                                            </div>
-                                            <div style="font-size: 9.5px; color: #94a3b8; margin-top: 6px;">Book any flight today to instantly unlock exclusive benefits.</div>
-                                        </div>
+
+                                        <!-- Dynamic Tier Progress Container -->
+                                        <div id="dynamicTierProgressContainer"></div>
 
                                         <div class="loyalty-divider"></div>
 

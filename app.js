@@ -7364,3 +7364,36 @@ function toggleStretchPopover(event, price, flightId, fromTime, toTime, fromCode
     drawer.classList.add('active');
     triggerHaptic('medium', 'Stretch Drawer Opened');
 }
+
+function devToggleGamifiedTier() {
+    const btn = document.getElementById('btnToggleGamifiedTier');
+    const isActive = btn.classList.toggle('active');
+    
+    const container = document.getElementById('dynamicTierProgressContainer');
+    if (isActive) {
+        container.innerHTML = `
+        <div style="margin-top: 16px; padding: 10px 12px; background: rgba(255,255,255,0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); animation: slideUpFade 0.4s ease forwards;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-size: 11px; font-weight: 700; color: #cbd5e1;">Next: Tier 3 Status</span>
+                <span style="font-size: 11px; font-weight: 700; color: #fbbf24;">1 Flight Away</span>
+            </div>
+            <div style="width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 4px; overflow: hidden; position: relative;">
+                <div style="width: 85%; height: 100%; background: linear-gradient(90deg, #f59e0b, #fbbf24); border-radius: 4px; position: absolute; left: 0; top: 0; box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);"></div>
+            </div>
+            <div style="font-size: 9.5px; color: #94a3b8; margin-top: 6px;">Book any flight today to instantly unlock exclusive benefits.</div>
+        </div>`;
+    } else {
+        container.innerHTML = '';
+    }
+}
+
+function devToggleExclusiveOffers() {
+    const btn = document.getElementById('btnToggleExclusiveOffers');
+    const isActive = btn.classList.toggle('active');
+    
+    const container = document.getElementById('dynamicTierProgressContainer'); // we can just append it here
+    if (isActive) {
+        // Just trigger the drawer for now as the demo of the offer
+        toggleTierDrawer();
+    }
+}
