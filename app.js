@@ -4428,10 +4428,26 @@ window.renderPopupCards = function(options, className) {
             `;
         }
         
+        let tierPromoHtml = '';
+        if (window.isTier2Active && className === 'Stretch') {
+            tierPromoHtml = `
+                <div style="margin: 12px 16px 0 16px; padding: 0; background: transparent; display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 800; color: #0f172a; letter-spacing: -0.3px;">
+                        <span>Unlock 20,000 extra points <span style="display:inline-block; padding:2px 6px; background:#fbbf24; color:#000; font-size:9px; border-radius:4px; margin-left:4px; vertical-align: middle;">PROMO</span></span>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#64748b" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                    <div style="width: 100%; height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden;">
+                        <div style="width: 100%; height: 100%; background: #10b981; border-radius: 2px;"></div>
+                    </div>
+                </div>
+            `;
+        }
+        
         html += `
             <div class="cp-3d-card ${className === 'Stretch' ? 'stretch-mode' : ''}" data-fare="${totalFare}" ${origFareAttr} data-id="${opt.id}">
                 <div class="cp-card-header">${opt.name}</div>
                 ${popularHtml}
+                ${tierPromoHtml}
                 <div class="cp-card-features">
                     ${featuresHtml}
                 </div>
