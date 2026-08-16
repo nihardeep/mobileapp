@@ -3558,6 +3558,14 @@ function renderFlightResults() {
             
             ecoPriceHtml = `<span class="price-strikethrough" style="color: #94a3b8; font-size: 11px; text-decoration: line-through; display: block; margin-bottom: 2px;">₹${f.price}</span><span style="color: #059669; font-weight: 800;">₹${discountedStr}</span>`;
             ecoTagHtml = '<span style="font-size: 9px; background: rgba(245, 158, 11, 0.1); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.2); display: inline-block;">MEGA SALE - 20% OFF</span>';
+        } else if (window.isTier2Active) {
+            ecoColClass = "fc-price-col";
+            const originalPriceNum = parseInt(f.price.replace(',', ''));
+            const discountedPriceNum = Math.floor(originalPriceNum * 0.9);
+            const discountedStr = discountedPriceNum.toLocaleString('en-IN');
+            
+            ecoPriceHtml = `<span class="price-strikethrough" style="color: #94a3b8; font-size: 11px; text-decoration: line-through; display: block; margin-bottom: 2px;">₹${f.price}</span><span style="color: #059669; font-weight: 800;">₹${discountedStr}</span>`;
+            ecoTagHtml = '<span style="font-size: 9px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; font-weight: 800;">TIER 2 - 10% OFF</span>';
         }
 
         let edgeBadgeHtml = "";
@@ -3617,7 +3625,7 @@ function renderFlightResults() {
                     <div class="fc-price-val">${ecoPriceHtml} <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
                     ${ecoTagHtml}
                 </div>
-                <div class="fc-price-col">
+                <div class="fc-price-col" onclick="toggleStretchPopover(event, '${f.stretch}', '${f.id}', '${f.from}', '${f.to}', 'DEL, T1', 'BOM, T2', '${f.dur}')">
                     <div class="fc-class-name">Stretch / Business</div>
                     <div class="fc-price-val" style="color: #666; font-size: 14px;">₹ ${f.stretch} <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
                 </div>
@@ -6342,12 +6350,55 @@ function processPayment() {
         
         setTimeout(() => {
             showToast('Booking Confirmed! ✈️');
+            
+            // Gamified Tier Upgrade Celebration
             setTimeout(() => {
-                // reset and go home
-                btn.style.background = '#000';
-                btn.innerHTML = originalText;
-                navigateTo('home');
-            }, 1500);
+                const celebration = document.createElement('div');
+                celebration.style.position = 'fixed';
+                celebration.style.top = '0';
+                celebration.style.left = '0';
+                celebration.style.width = '100vw';
+                celebration.style.height = '100vh';
+                celebration.style.background = 'rgba(0, 0, 0, 0.85)';
+                celebration.style.zIndex = '9999';
+                celebration.style.display = 'flex';
+                celebration.style.flexDirection = 'column';
+                celebration.style.alignItems = 'center';
+                celebration.style.justifyContent = 'center';
+                celebration.style.backdropFilter = 'blur(10px)';
+                
+                celebration.innerHTML = `
+                    <div style="font-size: 64px; margin-bottom: 24px; animation: scaleUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);">🎉</div>
+                    <h2 style="color: #fbbf24; font-size: 28px; font-weight: 900; margin: 0 0 12px 0; text-align: center; animation: slideUpFade 0.6s ease 0.2s both;">Tier 3 Unlocked!</h2>
+                    <p style="color: #fff; font-size: 16px; text-align: center; max-width: 80%; line-height: 1.5; animation: slideUpFade 0.6s ease 0.4s both;">Congratulations! This booking has instantly upgraded you to Tier 3 Status.</p>
+                `;
+                
+                if (!document.getElementById('scaleUpAnim')) {
+                    const style = document.createElement('style');
+                    style.id = 'scaleUpAnim';
+                    style.innerHTML = `@keyframes scaleUp { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }`;
+                    document.head.appendChild(style);
+                }
+                
+                document.body.appendChild(celebration);
+                triggerHaptic('success', 'Tier Unlocked');
+                
+                setTimeout(() => {
+                    celebration.style.opacity = '0';
+                    celebration.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => {
+                        celebration.remove();
+                        // reset and go home
+                        btn.style.background = '#000';
+                        btn.innerHTML = originalText;
+                        navigateTo('home');
+                        
+                        // Update Home Page Progress Bar
+                        const tierText = document.querySelector('.loyalty-balance-text');
+                        if (tierText) tierText.innerHTML = `28,440 <span class="loyalty-sub-logo" style="background: linear-gradient(135deg, #fbbf24, #d97706); color: #000;">Tier 3</span>`;
+                    }, 500);
+                }, 3000);
+            }, 1000);
         }, 500);
     }, 2000);
 }
@@ -7270,4 +7321,46 @@ function simulateFilterRefresh() {
         allCards.forEach(card => card.classList.remove('shimmering'));
         triggerHaptic('success', 'Filter applied');
     }, 800);
+}
+
+function toggleTierDrawer() {
+    const drawer = document.getElementById('tierBenefitsDrawer');
+    const backdrop = document.getElementById('bottomSheetBackdrop');
+    if (!drawer) return;
+    
+    // Close others
+    closeAllDrawers();
+    
+    backdrop.classList.add('active');
+    drawer.classList.add('active');
+    triggerHaptic('medium', 'Tier Drawer Opened');
+}
+
+function activateTierOffer() {
+    triggerHaptic('success', 'Tier Offer Activated');
+    closeAllDrawers();
+    window.isTier2Active = true;
+    generateFlightCards();
+    alert('Tier 2 Exclusive Offer Activated! 10% off has been applied to all flights.');
+}
+
+
+function toggleStretchPopover(event, price, flightId, fromTime, toTime, fromCode, toCode, dur) {
+    if (event) event.stopPropagation();
+    const drawer = document.getElementById('stretchRewardsPopover');
+    const backdrop = document.getElementById('bottomSheetBackdrop');
+    if (!drawer) return;
+    
+    // Close others
+    closeAllDrawers();
+    
+    // Inject dynamic flight data into the "Claim Reward" button
+    const claimBtn = drawer.querySelector('button');
+    if (claimBtn) {
+        claimBtn.setAttribute('onclick', `closeAllDrawers(); openFarePopup(event, 'Stretch', '${price}', '${flightId}', '${fromTime}', '${toTime}', '${fromCode}', '${toCode}', '${dur}')`);
+    }
+    
+    backdrop.classList.add('active');
+    drawer.classList.add('active');
+    triggerHaptic('medium', 'Stretch Drawer Opened');
 }
