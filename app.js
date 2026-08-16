@@ -3542,30 +3542,45 @@ function renderFlightResults() {
         let ecoColClass = "fc-price-col";
         let ecoTagHtml = "";
         
+        let originalPriceNum = parseInt(f.price.replace(',', ''));
+        let finalPriceNum = originalPriceNum;
+        let activeBadges = [];
+
+        // 1. Cohort Discounts
         if (isStudentMode) {
             ecoColClass = "fc-price-col student-fare-search-active";
-            const originalPriceNum = parseInt(f.price.replace(',', ''));
-            const discountedPriceNum = Math.floor(originalPriceNum * 0.9);
-            const discountedStr = discountedPriceNum.toLocaleString('en-IN');
-            
-            ecoPriceHtml = `<span class="price-strikethrough">₹${f.price}</span> ₹${discountedStr}`;
-            ecoTagHtml = '<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--xairline-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>';
-        } else if (appState.isMegaSaleClaimed) {
-            ecoColClass = "fc-price-col";
-            const originalPriceNum = parseInt(f.price.replace(',', ''));
-            const discountedPriceNum = Math.floor(originalPriceNum * 0.8);
-            const discountedStr = discountedPriceNum.toLocaleString('en-IN');
-            
+            finalPriceNum *= 0.9;
+            activeBadges.push('<span onclick="openStudentBenefitsDrawer(event)" style="font-size: 9px; background: rgba(14, 165, 233, 0.08); color: var(--xairline-blue); padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(14, 165, 233, 0.2); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">Extra benefits <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 8h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>');
+        } else if (window.activeCohort === 'senior') {
+            finalPriceNum *= 0.9;
+            activeBadges.push('<span style="font-size: 9px; background: rgba(34, 197, 94, 0.1); color: #16a34a; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(34, 197, 94, 0.2); display: inline-block; font-weight: 800;">👵 SENIOR - 10% OFF</span>');
+        } else if (window.activeCohort === 'armed_forces') {
+            finalPriceNum *= 0.75;
+            activeBadges.push('<span style="font-size: 9px; background: rgba(234, 88, 12, 0.1); color: #c2410c; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(234, 88, 12, 0.2); display: inline-block; font-weight: 800;">🪖 ARMED FORCES - 25% OFF</span>');
+        } else if (window.activeCohort === 'solo_female') {
+            activeBadges.push('<span style="font-size: 9px; background: rgba(236, 72, 153, 0.1); color: #db2777; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(236, 72, 153, 0.2); display: inline-block; font-weight: 800;">👩 SOLO FEMALE - 20% OFF SEATS</span>');
+        }
+
+        // 2. Mega Sale Discount (Combinable)
+        if (appState.isMegaSaleClaimed) {
+            finalPriceNum *= 0.8;
+            activeBadges.push('<span style="font-size: 9px; background: rgba(245, 158, 11, 0.1); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.2); display: inline-block;">MEGA SALE - 20% OFF</span>');
+        } 
+        
+        // 3. Tier 2 Exclusive Offer (Combinable)
+        if (window.isTier2Active) {
+            finalPriceNum *= 0.9;
+            activeBadges.push('<span style="font-size: 9px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; font-weight: 800;">TIER 2 - 10% OFF</span>');
+        }
+
+        finalPriceNum = Math.floor(finalPriceNum);
+        
+        if (finalPriceNum < originalPriceNum) {
+            const discountedStr = finalPriceNum.toLocaleString('en-IN');
             ecoPriceHtml = `<span class="price-strikethrough" style="color: #94a3b8; font-size: 11px; text-decoration: line-through; display: block; margin-bottom: 2px;">₹${f.price}</span><span style="color: #059669; font-weight: 800;">₹${discountedStr}</span>`;
-            ecoTagHtml = '<span style="font-size: 9px; background: rgba(245, 158, 11, 0.1); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.2); display: inline-block;">MEGA SALE - 20% OFF</span>';
-        } else if (window.isTier2Active) {
-            ecoColClass = "fc-price-col";
-            const originalPriceNum = parseInt(f.price.replace(',', ''));
-            const discountedPriceNum = Math.floor(originalPriceNum * 0.9);
-            const discountedStr = discountedPriceNum.toLocaleString('en-IN');
-            
-            ecoPriceHtml = `<span class="price-strikethrough" style="color: #94a3b8; font-size: 11px; text-decoration: line-through; display: block; margin-bottom: 2px;">₹${f.price}</span><span style="color: #059669; font-weight: 800;">₹${discountedStr}</span>`;
-            ecoTagHtml = '<span style="font-size: 9px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; font-weight: 800;">TIER 2 - 10% OFF</span>';
+            ecoTagHtml = `<div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end; margin-top: 4px;">${activeBadges.join('')}</div>`;
+        } else if (activeBadges.length > 0) {
+            ecoTagHtml = `<div style="display: flex; flex-direction: column; gap: 4px; align-items: flex-end; margin-top: 4px;">${activeBadges.join('')}</div>`;
         }
 
         let edgeBadgeHtml = "";
@@ -5555,6 +5570,11 @@ function createSeat(row, letter) {
         basePrice = 750;
     }
     
+    // Apply Solo Female cohort discount (20% on standard seats)
+    if (window.activeCohort === 'solo_female' && type === 'standard') {
+        basePrice = Math.floor(basePrice * 0.8);
+    }
+    
     // Randomly occupy some seats (deterministic based on seatId)
     const seed = (row * 31 + letter.charCodeAt(0)) % 100;
     const isOccupied = seed < 25; // 25% occupied
@@ -5779,8 +5799,27 @@ function evaluateSeatCohorts() {
     
     container.innerHTML = '';
     
+    // Check if Solo Female cohort is active from search widget
+    if (window.activeCohort === 'solo_female') {
+        container.style.display = 'flex';
+        container.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="background: linear-gradient(135deg, #db2777, #be185d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; font-size: 15px; font-style: italic; letter-spacing: -0.3px; white-space: nowrap;">Solo Female</div>
+                <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #db2777; white-space: nowrap;">
+                    Standard Seats
+                    <span style="background: #fdf2f8; border: 1px solid #fbcfe8; color: #be185d; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 6px; display: flex; align-items: center; gap: 4px; letter-spacing: 0.2px; line-height: 1.2;">
+                        <span style="color: #fbbf24; font-size: 10px; line-height: 1;">✨</span> 20% OFF
+                    </span>
+                </div>
+            </div>
+            <div onclick="autoAssignCohortSeats('solo-female')" style="font-size: 10px; font-weight: 900; color: #db2777; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
+                ADD
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#db2777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+        `;
+    }
     // Family/Group Cohort: 2 or more passengers
-    if (seatMapState.paxList.length >= 2) {
+    else if (seatMapState.paxList.length >= 2) {
         container.style.display = 'flex';
         container.innerHTML = `
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -5793,20 +5832,6 @@ function evaluateSeatCohorts() {
                 </div>
             </div>
             <div onclick="autoAssignCohortSeats('family')" style="font-size: 10px; font-weight: 900; color: #4338ca; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px; white-space: nowrap;">
-                ADD
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4338ca" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-        `;
-    }
-    // Solo Female Cohort: 1 passenger who is Female
-    else if (seatMapState.paxList.length === 1 && seatMapState.paxList[0].gender === 'Female') {
-        container.style.display = 'flex';
-        container.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="background: linear-gradient(135deg, #001b94, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; font-size: 15px; font-style: italic; letter-spacing: -0.3px;">Solo Female</div>
-                <div style="font-size: 11px; font-weight: 700; color: #4338ca;">Sit with a female pax</div>
-            </div>
-            <div onclick="autoAssignCohortSeats('solo-female')" style="font-size: 10px; font-weight: 900; color: #4338ca; text-transform: uppercase; letter-spacing: 0.8px; cursor: pointer; display: flex; align-items: center; gap: 4px;">
                 ADD
                 <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#4338ca" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
@@ -7414,5 +7439,41 @@ function devToggleExclusiveOffers() {
     // If active, also show the drawer once just for the demo flow
     if (isActive) {
         toggleTierDrawer();
+    }
+}
+
+window.activeCohort = null;
+
+function setCohort(type) {
+    // Deselect if already active
+    if (window.activeCohort === type) {
+        window.activeCohort = null;
+        document.getElementById(`cohort-${type}`).style.background = '';
+        document.getElementById(`cohort-${type}`).style.color = '';
+    } else {
+        // Clear all previous
+        ['student', 'senior', 'armed_forces', 'solo_female'].forEach(c => {
+            const el = document.getElementById(`cohort-${c}`);
+            if(el) {
+                el.style.background = '';
+                el.style.color = '';
+            }
+        });
+        
+        // Set new active
+        window.activeCohort = type;
+        const el = document.getElementById(`cohort-${type}`);
+        if(el) {
+            el.style.background = 'rgba(0,27,148,0.1)';
+            el.style.color = 'var(--xairline-blue)';
+        }
+    }
+    
+    // Sync with legacy isStudentMode boolean
+    window.isStudentMode = (window.activeCohort === 'student');
+    
+    // If we are currently showing flight results, re-render them to apply discounts immediately
+    if (document.getElementById('screenResults').classList.contains('active')) {
+        generateFlightCards();
     }
 }

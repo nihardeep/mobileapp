@@ -1102,10 +1102,10 @@
                 }
                 .shortcut-pill:active { transform: scale(0.95); background: rgba(0,27,148,0.08); }
             </style>
-            <div class="shortcut-pill" onclick="triggerHaptic('light')">🎓 Student</div>
-            <div class="shortcut-pill" onclick="triggerHaptic('light')">👵 Senior Citizen</div>
-            <div class="shortcut-pill" onclick="triggerHaptic('light')">🪖 Armed Forces</div>
-            <div class="shortcut-pill" onclick="triggerHaptic('light')">👩 Solo Female</div>
+            <div class="shortcut-pill" id="cohort-student" onclick="setCohort('student'); triggerHaptic('light');">🎓 Student</div>
+            <div class="shortcut-pill" id="cohort-senior" onclick="setCohort('senior'); triggerHaptic('light');">👵 Senior Citizen</div>
+            <div class="shortcut-pill" id="cohort-armed_forces" onclick="setCohort('armed_forces'); triggerHaptic('light');">🪖 Armed Forces</div>
+            <div class="shortcut-pill" id="cohort-solo_female" onclick="setCohort('solo_female'); triggerHaptic('light');">👩 Solo Female</div>
         </div>
         
         <div class="search-btn-container" id="searchBtnContainer">
