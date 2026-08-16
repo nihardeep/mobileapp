@@ -498,6 +498,22 @@
 </div>
 
 <!-- Student Benefits Drawer -->
+<!-- Promo Breakdown Drawer -->
+<div class="bottom-sheet-drawer" id="promoBreakdownDrawer">
+    <div class="drawer-header">
+        <h3 style="font-weight: 800; color: #1e293b;">Applied Offers</h3>
+        <button class="drawer-close" onclick="closePromoBreakdownDrawer()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
+    <div class="drawer-content" style="padding-top: 10px;">
+        <div id="promoBreakdownList" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Javascript will inject list of offers here -->
+        </div>
+        <button class="primary-btn" onclick="closePromoBreakdownDrawer()" style="margin-top: 24px; padding: 14px; border-radius: 30px; font-weight: 800; font-size: 16px;">Got it</button>
+    </div>
+</div>
+
 <div class="bottom-sheet-drawer" id="studentBenefitsDrawer">
                     <div class="drawer-drag-handle" style="width: 36px; height: 4px; background: #E0E0E0; border-radius: 2px; margin: 12px auto 20px auto;"></div>
 
@@ -976,15 +992,14 @@
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
     </style>
-    <div style="background: #ffffff; border-radius: 10px; padding: 6px 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); cursor: pointer;" onclick="triggerHaptic('light', 'View Promo Details')">
+    <div style="background: #ffffff; border-radius: 10px; padding: 6px 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); cursor: pointer;" onclick="openPromoBreakdownDrawer(); triggerHaptic('light', 'View Promo Details')">
         <div style="display: flex; align-items: center; gap: 10px;">
             <div style="position: relative; display: flex; align-items: center; justify-content: center;">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: iconColorPulse 3s infinite alternate;"><path d="M4 7h16v3.42a2 2 0 0 0 0 3.16V17H4v-3.42a2 2 0 0 0 0-3.16V7z"></path><line x1="9" y1="7" x2="9" y2="17" stroke-dasharray="2 2"></line></svg>
                 <div style="position: absolute; top: -1px; right: -3px; width: 5px; height: 5px; background: #ef4444; border-radius: 50%; border: 1px solid #ffffff; animation: dotPulse 2s infinite;"></div>
             </div>
             <span id="globalPromoBannerText" style="font-size: 13px; font-weight: 700; color: #1e293b;">
-                <span style="background: linear-gradient(90deg, #10b981 0%, #0ea5e9 50%, #10b981 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmerText 2s linear infinite;">20% off</span> 
-                Coupon code applied
+                <!-- Updated dynamically via JS -->
             </span>
         </div>
         <span style="font-size: 13px; font-weight: 800; color: #2563eb;">View</span>

@@ -7298,10 +7298,8 @@ function claimPromo() {
     if(flightsIcon && !document.getElementById('marketplaceFlightsPill')) {
         flightsIcon.innerHTML += '<div class="clean-pill pill-green" id="marketplaceFlightsPill">20% OFF</div>';
     }
-    const globalBanner = document.getElementById('globalPromoBannerContainer');
-    if(globalBanner) {
-        globalBanner.style.display = 'block';
-    }
+    
+    updateGlobalPromoBanner();
     
     // Smooth scroll to top to show the new banner
     const appContent = document.getElementById('appContent');
@@ -7476,4 +7474,91 @@ function setCohort(type) {
     if (document.getElementById('screenResults').classList.contains('active')) {
         generateFlightCards();
     }
+    
+    updateGlobalPromoBanner();
+}
+
+function updateGlobalPromoBanner() {
+    const bannerContainer = document.getElementById('globalPromoBannerContainer');
+    const bannerText = document.getElementById('globalPromoBannerText');
+    if (!bannerContainer || !bannerText) return;
+    
+    let activeOffers = [];
+    
+    if (appState.isMegaSaleClaimed) {
+        activeOffers.push({
+            id: 'mega',
+            title: 'MEGA SALE',
+            discount: '20% off',
+            desc: 'Coupon code applied to base fare',
+            icon: '🎟️'
+        });
+    }
+    
+    if (window.activeCohort === 'senior') {
+        activeOffers.push({ id: 'senior', title: 'Senior Citizen', discount: '10% off', desc: 'Special discount unlocked', icon: '👵' });
+    } else if (window.activeCohort === 'armed_forces') {
+        activeOffers.push({ id: 'armed', title: 'Armed Forces', discount: '25% off', desc: 'Special discount unlocked', icon: '🪖' });
+    } else if (window.activeCohort === 'student') {
+        activeOffers.push({ id: 'student', title: 'Student', discount: '10% off', desc: 'Extra baggage & free seat', icon: '🎓' });
+    } else if (window.activeCohort === 'solo_female') {
+        activeOffers.push({ id: 'solo', title: 'Solo Female', discount: '20% off', desc: 'Discount on standard seats', icon: '👩' });
+    }
+    
+    window.currentActiveOffers = activeOffers;
+    
+    if (activeOffers.length === 0) {
+        bannerContainer.style.display = 'none';
+        return;
+    }
+    
+    bannerContainer.style.display = 'block';
+    
+    if (activeOffers.length === 1) {
+        const offer = activeOffers[0];
+        if (offer.id === 'mega') {
+            bannerText.innerHTML = `<span style="background: linear-gradient(90deg, #10b981 0%, #0ea5e9 50%, #10b981 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmerText 2s linear infinite;">${offer.discount}</span> Coupon code applied`;
+        } else {
+            bannerText.innerHTML = `${offer.icon} <span style="background: linear-gradient(90deg, #10b981 0%, #0ea5e9 50%, #10b981 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmerText 2s linear infinite;">${offer.discount}</span> ${offer.title} unlocked`;
+        }
+    } else {
+        // Multiple Offers Stacked
+        bannerText.innerHTML = `✨ <span style="background: linear-gradient(90deg, #10b981 0%, #0ea5e9 50%, #10b981 100%); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: shimmerText 2s linear infinite;">${activeOffers.length} Offers Applied</span> (View savings)`;
+    }
+}
+
+function openPromoBreakdownDrawer() {
+    const drawer = document.getElementById('promoBreakdownDrawer');
+    const backdrop = document.getElementById('bottomSheetBackdrop');
+    const list = document.getElementById('promoBreakdownList');
+    
+    if (!drawer || !backdrop || !list) return;
+    
+    if (typeof triggerHaptic === 'function') triggerHaptic('medium', 'Promo Drawer Opened');
+    
+    const offers = window.currentActiveOffers || [];
+    list.innerHTML = offers.map(o => `
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 12px;">
+            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e0f2fe; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                ${o.icon}
+            </div>
+            <div style="flex-grow: 1;">
+                <div style="font-size: 14px; font-weight: 800; color: #0f172a;">${o.title}</div>
+                <div style="font-size: 11px; font-weight: 600; color: #64748b; margin-top: 2px;">${o.desc}</div>
+            </div>
+            <div style="font-size: 14px; font-weight: 900; color: #059669; text-align: right;">
+                ${o.discount}
+            </div>
+        </div>
+    `).join('');
+    
+    drawer.classList.add('visible');
+    backdrop.classList.add('visible');
+}
+
+function closePromoBreakdownDrawer() {
+    const drawer = document.getElementById('promoBreakdownDrawer');
+    const backdrop = document.getElementById('bottomSheetBackdrop');
+    if (drawer) drawer.classList.remove('visible');
+    if (backdrop) backdrop.classList.remove('visible');
 }
