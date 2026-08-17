@@ -3497,6 +3497,20 @@ function renderFlightResults() {
     const list = document.getElementById('flightResultsList');
     if (!list) return;
     
+    // Update SRP Tier Banner text initially
+    const tierBannerContainer = document.getElementById('srpTierBannerContainer');
+    const tierBannerTitle = document.getElementById('srpTierBannerTitle');
+    const tierBannerDesc = document.getElementById('srpTierBannerDesc');
+    
+    if (tierBannerContainer && tierBannerTitle && tierBannerDesc) {
+        if (window.isTier2Active) {
+            tierBannerTitle.innerHTML = 'Tier 2 Exclusive: 10% OFF all flights';
+            tierBannerDesc.innerHTML = 'Book any flight today to upgrade instantly.';
+        } else {
+            tierBannerTitle.innerHTML = 'Unlock Tier 3 Status';
+            tierBannerDesc.innerHTML = 'Book any flight today to upgrade instantly.';
+        }
+    }
     
     // Update header dynamically based on selection
     if (appState.selectedFrom && appState.selectedTo) {
@@ -3570,7 +3584,7 @@ function renderFlightResults() {
         // 3. Tier 2 Exclusive Offer (Combinable)
         if (window.isTier2Active) {
             finalPriceNum *= 0.9;
-            activeBadges.push('<span style="font-size: 9px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%); color: #d97706; padding: 2px 6px; border-radius: 4px; border: 1px solid rgba(251, 191, 36, 0.3); display: inline-block; font-weight: 800;">TIER 2 - 10% OFF</span>');
+            // Badge removed from individual cards; communicated via upper SRP banner instead.
         }
 
         finalPriceNum = Math.floor(finalPriceNum);
@@ -7433,6 +7447,21 @@ function devToggleExclusiveOffers() {
     // Set global state and re-render flight cards immediately
     window.isTier2Active = isActive;
     generateFlightCards();
+    
+    // Update SRP Tier Banner text
+    const tierBannerContainer = document.getElementById('srpTierBannerContainer');
+    const tierBannerTitle = document.getElementById('srpTierBannerTitle');
+    const tierBannerDesc = document.getElementById('srpTierBannerDesc');
+    
+    if (tierBannerContainer && tierBannerTitle && tierBannerDesc) {
+        if (isActive) {
+            tierBannerTitle.innerHTML = 'Tier 2 Exclusive: 10% OFF all flights';
+            tierBannerDesc.innerHTML = 'Book any flight today to upgrade instantly.';
+        } else {
+            tierBannerTitle.innerHTML = 'Unlock Tier 3 Status';
+            tierBannerDesc.innerHTML = 'Book any flight today to upgrade instantly.';
+        }
+    }
     
     // If active, also show the drawer once just for the demo flow
     if (isActive) {
