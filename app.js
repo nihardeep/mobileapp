@@ -7606,10 +7606,15 @@ function updatePassengerPromoBanner() {
     let promoContext = 'default';
     if (appState.isMegaSaleClaimed) {
         promoContext = 'mega_sale';
-    } 
-    // Add additional appState checks here for tier upgrade or cohorts if needed
-    // e.g., if (appState.activeCohort === 'student') promoContext = 'student';
-    // e.g., if (appState.tierUpgradeActive) promoContext = 'tier_upgrade';
+    } else if (window.activeCohort === 'senior') {
+        promoContext = 'senior';
+    } else if (window.activeCohort === 'student') {
+        promoContext = 'student';
+    } else if (window.activeCohort === 'armed_forces') {
+        promoContext = 'armed_forces';
+    } else if (window.activeCohort === 'solo_female') {
+        promoContext = 'solo_female';
+    }
 
     let code = '';
     let title = '';
@@ -7630,6 +7635,21 @@ function updatePassengerPromoBanner() {
             code = 'STUDENT';
             title = '🎓 Use code ' + code + ' — Student Exclusive applied';
             desc = 'Click the ' + code + ' promocode in your wallet to apply your special student discount. Valid ID required at check-in. T&Cs apply.';
+            break;
+        case 'senior':
+            code = 'SENIOR10';
+            title = '👵 Use code ' + code + ' — Senior Citizen Discount';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply a 10% discount on base fare. Valid ID required. T&Cs apply.';
+            break;
+        case 'armed_forces':
+            code = 'DEFENCE25';
+            title = '🪖 Use code ' + code + ' — Armed Forces Discount';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply a 25% discount. Valid ID required. T&Cs apply.';
+            break;
+        case 'solo_female':
+            code = 'SOLO20';
+            title = '👩 Use code ' + code + ' — Solo Female Discount';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply a 20% discount on standard seats. T&Cs apply.';
             break;
         default:
             code = 'FLYINDIA';
