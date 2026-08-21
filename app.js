@@ -7596,16 +7596,15 @@ function closePromoBreakdownDrawer() {
 
 // Passenger Contextual Promo Banner Logic
 function updatePassengerPromoBanner() {
-    const banner = document.getElementById('passengerPromoBanner');
-    const titleEl = document.getElementById('passengerPromoTitle');
-    const descEl = document.getElementById('passengerPromoDesc');
-    
-    if (!banner || !titleEl || !descEl) return;
+    const bannerContainer = document.getElementById('passengerPromoBannerContainer');
+    if (!bannerContainer) return;
     
     // Check contexts based on appState
     let promoContext = 'default';
     if (appState.isMegaSaleClaimed) {
         promoContext = 'mega_sale';
+    } else if (window.isTier2Active) {
+        promoContext = 'tier_upgrade';
     } else if (window.activeCohort === 'senior') {
         promoContext = 'senior';
     } else if (window.activeCohort === 'student') {
@@ -7614,6 +7613,22 @@ function updatePassengerPromoBanner() {
         promoContext = 'armed_forces';
     } else if (window.activeCohort === 'solo_female') {
         promoContext = 'solo_female';
+    }
+
+    if (promoContext === 'tier_upgrade') {
+        bannerContainer.innerHTML = `
+            <div style="background: #fef6e5; border: 1px solid #fde68a; border-radius: 12px; padding: 16px; position: relative; display: flex; align-items: center; gap: 16px;">
+                <div style="background: #fbbf24; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="#000"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                </div>
+                <div>
+                    <div style="font-size: 16px; font-weight: 900; color: #1e293b; margin-bottom: 4px;">Unlock Tier 3 Status</div>
+                    <div style="font-size: 14px; color: #475569; font-weight: 500;">Book any flight today to upgrade instantly.</div>
+                </div>
+            </div>
+        `;
+        bannerContainer.style.display = 'block';
+        return;
     }
 
     let code = '';
@@ -7625,11 +7640,6 @@ function updatePassengerPromoBanner() {
             code = 'MEGASALE20';
             title = '🏷️ Use code ' + code + ' — Flat 20% off';
             desc = 'Click the ' + code + ' promocode in your wallet to apply a flat 20% discount instantly at checkout. T&Cs apply.';
-            break;
-        case 'tier_upgrade':
-            code = 'TIERUP';
-            title = '⭐ Use code ' + code + ' — Unlock Premium Status';
-            desc = 'Click the ' + code + ' promocode in your wallet to unlock your next tier status and enjoy premium perks instantly. T&Cs apply.';
             break;
         case 'student':
             code = 'STUDENT';
@@ -7658,7 +7668,25 @@ function updatePassengerPromoBanner() {
             break;
     }
 
-    titleEl.innerHTML = title;
-    descEl.innerHTML = desc;
-    banner.style.display = 'block';
+    bannerContainer.innerHTML = `
+        <div style="background: #eaf5ec; border-radius: 12px; padding: 16px; position: relative;">
+            <div style="position: absolute; top: 16px; right: 16px; cursor: pointer; color: #166534;" onclick="this.parentElement.style.display = 'none'">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </div>
+            <div style="display: flex; align-items: flex-start; gap: 12px;">
+                <div style="color: #16a34a; margin-top: 2px;">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                </div>
+                <div style="padding-right: 24px;">
+                    <div style="font-size: 15px; font-weight: 800; color: #166534; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                        ${title}
+                    </div>
+                    <div style="font-size: 13px; color: #15803d; line-height: 1.4; font-weight: 500;">
+                        ${desc}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    bannerContainer.style.display = 'block';
 }
