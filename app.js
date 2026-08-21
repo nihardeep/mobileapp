@@ -715,6 +715,7 @@ function navigateTo(screenName) {
     } else if (screenName === 'passenger') {
         const passengerScreen = document.getElementById('screenPassenger');
         if (passengerScreen) passengerScreen.classList.add('active');
+        if (typeof updatePassengerPromoBanner === 'function') updatePassengerPromoBanner();
     }
     
     // Globally hide passenger form when navigating away from passenger screen
@@ -4746,6 +4747,7 @@ window.goToPassengerDetails = function() {
     document.querySelectorAll('.screen').forEach(scr => scr.classList.remove('active'));
     document.getElementById('screenPassenger').classList.add('active');
     if (typeof appState !== 'undefined') appState.currentScreen = 'passenger';
+    if (typeof updatePassengerPromoBanner === 'function') updatePassengerPromoBanner();
 
     // Hide bottom nav for full-screen overlay
     const bottomNav = document.querySelector('.bottom-nav');
@@ -7590,4 +7592,53 @@ function closePromoBreakdownDrawer() {
     const backdrop = document.getElementById('bottomSheetBackdrop');
     if (drawer) drawer.classList.remove('visible');
     if (backdrop) backdrop.classList.remove('visible');
+}
+
+// Passenger Contextual Promo Banner Logic
+function updatePassengerPromoBanner() {
+    const banner = document.getElementById('passengerPromoBanner');
+    const titleEl = document.getElementById('passengerPromoTitle');
+    const descEl = document.getElementById('passengerPromoDesc');
+    
+    if (!banner || !titleEl || !descEl) return;
+    
+    // Check contexts based on appState
+    let promoContext = 'default';
+    if (appState.isMegaSaleClaimed) {
+        promoContext = 'mega_sale';
+    } 
+    // Add additional appState checks here for tier upgrade or cohorts if needed
+    // e.g., if (appState.activeCohort === 'student') promoContext = 'student';
+    // e.g., if (appState.tierUpgradeActive) promoContext = 'tier_upgrade';
+
+    let code = '';
+    let title = '';
+    let desc = '';
+
+    switch (promoContext) {
+        case 'mega_sale':
+            code = 'MEGASALE20';
+            title = '🏷️ Use code ' + code + ' — Flat 20% off';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply a flat 20% discount instantly at checkout. T&Cs apply.';
+            break;
+        case 'tier_upgrade':
+            code = 'TIERUP';
+            title = '⭐ Use code ' + code + ' — Unlock Premium Status';
+            desc = 'Click the ' + code + ' promocode in your wallet to unlock your next tier status and enjoy premium perks instantly. T&Cs apply.';
+            break;
+        case 'student':
+            code = 'STUDENT';
+            title = '🎓 Use code ' + code + ' — Student Exclusive applied';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply your special student discount. Valid ID required at check-in. T&Cs apply.';
+            break;
+        default:
+            code = 'FLYINDIA';
+            title = '🇮🇳 Use code ' + code + ' — up to ₹850 off';
+            desc = 'Click the ' + code + ' promocode in your wallet to apply up to ₹850 off instantly at checkout. T&Cs apply.';
+            break;
+    }
+
+    titleEl.innerHTML = title;
+    descEl.innerHTML = desc;
+    banner.style.display = 'block';
 }
