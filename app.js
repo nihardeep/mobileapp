@@ -4570,7 +4570,7 @@ window.openCompareFaresModal = function(event, className) {
     // 1. Sticky Features Column
     html += `
         <div class="pricing-col features-col">
-            <div class="pricing-header">Package Details</div>
+            <div class="pricing-header">Fare Types</div>
             <div class="pricing-row price-row">Regular Price</div>
     `;
     rowLabels.forEach(label => {

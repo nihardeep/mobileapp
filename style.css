@@ -6138,7 +6138,7 @@ input.nlp-placeholder::placeholder {
     z-index: 10;
     background: #477a67; /* Dark Green from screenshot */
     color: #fff;
-    flex: 0 0 140px; /* Slightly wider for labels */
+    flex: 0 0 115px; /* Reduced for more viewport space */
     box-shadow: 2px 0 8px rgba(0,0,0,0.1); /* shadow for depth */
 }
 
@@ -6156,7 +6156,7 @@ input.nlp-placeholder::placeholder {
 
 .features-col .pricing-header {
     background: #3B6B5E; /* Slightly darker top left corner */
-    font-size: 13px;
+    font-size: 12px;
     color: #fff;
 }
 
@@ -6200,11 +6200,11 @@ input.nlp-placeholder::placeholder {
 
 .features-col .pricing-row {
     justify-content: flex-start;
-    padding-left: 12px;
+    padding-left: 8px;
     background: #477a67;
     border-bottom: 1px solid rgba(255,255,255,0.1);
     font-weight: 500;
-    font-size: 12px;
+    font-size: 11px;
     color: #e2e8f0;
 }
 
