@@ -4557,9 +4557,21 @@ window.openCompareFaresModal = function(event, className) {
     // Define rows based on class
     let rowLabels = [];
     if (className === 'Economy') {
-        rowLabels = ['Cabin Baggage', 'Check-in Baggage', 'Meals', 'Seat Selection', 'Date Change', 'Cancellation'];
+        rowLabels = [
+            { text: 'Cabin Baggage', icon: svgIcons.bag },
+            { text: 'Check-in Baggage', icon: svgIcons.luggage },
+            { text: 'Meals', icon: svgIcons.meal },
+            { text: 'Seat Selection', icon: svgIcons.seat },
+            { text: 'Date Change', icon: svgIcons.date },
+            { text: 'Cancellation', icon: svgIcons.cancel }
+        ];
     } else {
-        rowLabels = ['Leg Room', 'Meals', 'Seat Selection', 'Plan Change'];
+        rowLabels = [
+            { text: 'Leg Room', icon: svgIcons.fast },
+            { text: 'Meals', icon: svgIcons.meal },
+            { text: 'Seat Selection', icon: svgIcons.seat },
+            { text: 'Plan Change', icon: svgIcons.date }
+        ];
     }
     
     const tickIcon = '<svg class="matrix-icon tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -4582,8 +4594,8 @@ window.openCompareFaresModal = function(event, className) {
             <div class="pricing-header">Fare Types</div>
             <div class="pricing-row price-row">Regular Price</div>
     `;
-    rowLabels.forEach(label => {
-        html += `<div class="pricing-row">${label}</div>`;
+    rowLabels.forEach(row => {
+        html += `<div class="pricing-row" style="gap: 6px;"><div style="opacity: 0.65; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px;">${row.icon.replace(/width="16" height="16"/, 'width="14" height="14"')}</div><div>${row.text}</div></div>`;
     });
     html += `
             <div class="pricing-row action-row"></div>
