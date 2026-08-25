@@ -4592,7 +4592,7 @@ window.openCompareFaresModal = function(event, className) {
     html += `
         <div class="pricing-col features-col">
             <div class="pricing-header">Fare Types</div>
-            <div class="pricing-row price-row">Regular Price</div>
+            <div class="pricing-row price-row">Price</div>
     `;
     rowLabels.forEach(row => {
         html += `<div class="pricing-row" style="gap: 6px;"><div style="opacity: 0.65; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px;">${row.icon.replace(/width="16" height="16"/, 'width="14" height="14"')}</div><div>${row.text}</div></div>`;
