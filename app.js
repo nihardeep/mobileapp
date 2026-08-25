@@ -4546,103 +4546,56 @@ window.openCompareFaresModal = function(event, className) {
     const tableContainer = document.getElementById('compareTableContainer');
     if (!modal || !tableContainer) return;
     
-    let tableHtml = '';
-    
-    if (className === 'Economy') {
-        tableHtml = `
-            <table class="compare-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Lite</th>
-                        <th>Saver</th>
-                        <th class="compare-highlight">Flexi (Popular)</th>
-                        <th>Upfront</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="feature-name">Cabin Baggage</td>
-                        <td>7 kg</td>
-                        <td>7 kg</td>
-                        <td class="compare-highlight">7 kg</td>
-                        <td>7 kg</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Check-in Baggage</td>
-                        <td>Paid</td>
-                        <td>15 kg</td>
-                        <td class="compare-highlight">15 kg</td>
-                        <td>15 kg</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Meals</td>
-                        <td>❌</td>
-                        <td>❌</td>
-                        <td class="compare-highlight">✔️ Free Meal (Extra)</td>
-                        <td>❌</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Seat Selection</td>
-                        <td>Paid</td>
-                        <td>Paid</td>
-                        <td class="compare-highlight">✔️ Free Standard Seat (Extra)</td>
-                        <td>Paid</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Date Change</td>
-                        <td>Paid</td>
-                        <td>Paid</td>
-                        <td class="compare-highlight">✔️ Free Date Change (Extra)</td>
-                        <td>Paid</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Cancellation</td>
-                        <td>Paid</td>
-                        <td>Standard Fee</td>
-                        <td class="compare-highlight">✔️ Free Cancellation (Extra)</td>
-                        <td>Standard Fee</td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
-    } else {
-        tableHtml = `
-            <table class="compare-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Stretch</th>
-                        <th class="compare-highlight" style="color: #D4AF37;">Stretch+ (Popular)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="feature-name">Leg Room</td>
-                        <td>Extra</td>
-                        <td class="compare-highlight">Extra</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Meals</td>
-                        <td>❌</td>
-                        <td class="compare-highlight">✔️ Free Veg Meal (Extra)</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Seat Selection</td>
-                        <td>❌</td>
-                        <td class="compare-highlight">✔️ Free Premium Seat (Extra)</td>
-                    </tr>
-                    <tr>
-                        <td class="feature-name">Plan Change</td>
-                        <td>Paid</td>
-                        <td class="compare-highlight">✔️ Free Plan Change (Extra)</td>
-                    </tr>
-                </tbody>
-            </table>
-        `;
+    // Retrieve base price (fallback to 3000 if not found)
+    let basePrice = 3000;
+    if (window.appState && window.appState.selectedFlight && window.appState.selectedFlight.price) {
+        basePrice = window.appState.selectedFlight.price;
     }
     
-    tableContainer.innerHTML = tableHtml;
+    const options = window.fareOptions[className] || [];
+    
+    let html = '<div class="compare-cards-container">';
+    
+    options.forEach(option => {
+        const isPopular = option.isPopular;
+        const cardClass = isPopular ? 'compare-fare-card popular' : 'compare-fare-card';
+        const badgeHtml = isPopular ? '<span class="compare-badge">POPULAR</span>' : '';
+        const totalPrice = basePrice + option.priceAdd;
+        
+        let featuresHtml = '';
+        option.features.forEach(feat => {
+            const iconClass = feat.type === 'tick' ? 'tick' : 'cross';
+            const svgIcon = feat.type === 'tick' 
+                ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+                : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+                
+            featuresHtml += `
+                <div class="compare-fare-feature">
+                    <div class="compare-feature-icon ${iconClass}">
+                        ${svgIcon}
+                    </div>
+                    <div>${feat.text}</div>
+                </div>
+            `;
+        });
+        
+        html += `
+            <div class="${cardClass}">
+                <div class="compare-fare-header">
+                    <div class="compare-fare-name">${option.name} ${badgeHtml}</div>
+                    <div class="compare-fare-price">₹${totalPrice.toLocaleString('en-IN')}</div>
+                </div>
+                <div class="compare-fare-features">
+                    ${featuresHtml}
+                </div>
+                <button class="compare-select-btn" onclick="closeCompareModal();">Back to Selection</button>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    tableContainer.innerHTML = html;
     modal.classList.add('active');
 };
 

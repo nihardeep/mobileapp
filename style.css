@@ -6104,38 +6104,125 @@ input.nlp-placeholder::placeholder {
     padding-bottom: 8px; /* Breathing room for scrollbar */
 }
 
-.compare-table {
+.compare-cards-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-left: 16px;
+}
+
+.compare-cards-container::-webkit-scrollbar {
+    display: none;
+}
+
+.compare-fare-card {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    background: #fff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.compare-fare-card.popular {
+    border: 2px solid #22c55e;
+    background: #f0fdf4;
+}
+
+.compare-fare-header {
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+
+.compare-fare-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+}
+
+.compare-fare-card.popular .compare-fare-name {
+    color: #166534;
+}
+
+.compare-fare-price {
+    font-size: 20px;
+    font-weight: 900;
+    color: #0f172a;
+}
+
+.compare-fare-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.compare-fare-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.4;
+}
+
+.compare-feature-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+}
+
+.compare-feature-icon.tick {
+    color: #16a34a;
+}
+
+.compare-feature-icon.cross {
+    color: #ef4444;
+}
+
+.compare-select-btn {
+    margin-top: 20px;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 16px;
-    font-size: 11px;
+    padding: 12px;
+    border-radius: 24px;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    background: #f1f5f9;
+    color: #0f172a;
+    transition: all 0.2s ease;
 }
 
-.compare-table th, .compare-table td {
-    border: 1px solid #E0E0E0;
-    padding: 8px 4px;
-    text-align: center;
-    word-wrap: break-word;
-    hyphens: auto;
+.compare-select-btn:active {
+    transform: scale(0.96);
 }
 
-.compare-table th {
-    background: #F5F5F5;
-    font-weight: 700;
-    color: #333;
+.compare-fare-card.popular .compare-select-btn {
+    background: #16a34a;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
-.compare-table td.feature-name {
-    text-align: left;
-    font-weight: 700;
-    color: #555;
-    background: #FAFAFA;
-}
-
-.compare-highlight {
-    background: rgba(76, 175, 80, 0.1) !important;
-    color: #2E7D32;
-    font-weight: 700;
+.compare-badge {
+    display: inline-block;
+    background: #22c55e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 12px;
+    margin-left: 8px;
+    vertical-align: middle;
 }
 
 
