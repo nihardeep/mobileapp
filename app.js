@@ -4636,6 +4636,17 @@ window.openCompareFaresModal = function(event, className) {
     
     tableContainer.innerHTML = html;
     modal.classList.add('active');
+    
+    // One-time peek animation to show scrollability
+    setTimeout(() => {
+        const matrixContainer = tableContainer.querySelector('.pricing-matrix-container');
+        if (matrixContainer && matrixContainer.scrollWidth > matrixContainer.clientWidth) {
+            matrixContainer.scrollBy({ left: 80, behavior: 'smooth' });
+            setTimeout(() => {
+                matrixContainer.scrollBy({ left: -80, behavior: 'smooth' });
+            }, 500); 
+        }
+    }, 400); 
 };
 
 window.closeCompareModal = function() {
