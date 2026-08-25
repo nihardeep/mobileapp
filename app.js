@@ -4565,7 +4565,16 @@ window.openCompareFaresModal = function(event, className) {
     const tickIcon = '<svg class="matrix-icon tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
     const crossIcon = '<svg class="matrix-icon cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
 
-    let html = '<div class="pricing-matrix-container">';
+    let html = `
+        <div style="display: flex; justify-content: flex-end; align-items: center; padding-bottom: 12px; color: #64748b; font-size: 11px; font-weight: 600; padding-right: 4px;">
+            Swipe to compare
+            <svg style="margin-left: 4px;" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </div>
+        <div class="pricing-matrix-container">
+    `;
     
     // 1. Sticky Features Column
     html += `

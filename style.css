@@ -6116,7 +6116,14 @@ input.nlp-placeholder::placeholder {
 }
 
 .pricing-matrix-container::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+}
+.pricing-matrix-container::-webkit-scrollbar-track {
+    background: transparent; 
+}
+.pricing-matrix-container::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.15); 
+    border-radius: 4px;
 }
 
 .pricing-col {
