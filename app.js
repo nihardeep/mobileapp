@@ -4554,41 +4554,71 @@ window.openCompareFaresModal = function(event, className) {
     
     const options = window.fareOptions[className] || [];
     
-    let html = '<div class="compare-cards-container">';
+    // Define rows based on class
+    let rowLabels = [];
+    if (className === 'Economy') {
+        rowLabels = ['Cabin Baggage', 'Check-in Baggage', 'Meals', 'Seat Selection', 'Date Change', 'Cancellation'];
+    } else {
+        rowLabels = ['Leg Room', 'Meals', 'Seat Selection', 'Plan Change'];
+    }
     
-    options.forEach(option => {
-        const isPopular = option.isPopular;
-        const cardClass = isPopular ? 'compare-fare-card popular' : 'compare-fare-card';
-        const badgeHtml = isPopular ? '<span class="compare-badge">POPULAR</span>' : '';
-        const totalPrice = basePrice + option.priceAdd;
+    const tickIcon = '<svg class="matrix-icon tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    const crossIcon = '<svg class="matrix-icon cross" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+
+    let html = '<div class="pricing-matrix-container">';
+    
+    // 1. Sticky Features Column
+    html += `
+        <div class="pricing-col features-col">
+            <div class="pricing-header">Package Details</div>
+            <div class="pricing-row price-row">Regular Price</div>
+    `;
+    rowLabels.forEach(label => {
+        html += `<div class="pricing-row">${label}</div>`;
+    });
+    html += `
+            <div class="pricing-row action-row"></div>
+        </div>
+    `;
+    
+    // 2. Data Columns
+    options.forEach((opt, idx) => {
+        const totalPrice = basePrice + opt.priceAdd;
         
-        let featuresHtml = '';
-        option.features.forEach(feat => {
-            const iconClass = feat.type === 'tick' ? 'tick' : 'cross';
-            const svgIcon = feat.type === 'tick' 
-                ? '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'
-                : '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
-                
-            featuresHtml += `
-                <div class="compare-fare-feature">
-                    <div class="compare-feature-icon ${iconClass}">
-                        ${svgIcon}
-                    </div>
-                    <div>${feat.text}</div>
-                </div>
-            `;
+        // Map feature icons manually to ensure perfect alignment
+        let colValues = [];
+        if (className === 'Economy') {
+            if (opt.id === 'lite') {
+                colValues = [tickIcon, 'Paid', crossIcon, 'Paid', 'Paid', 'Paid'];
+            } else if (opt.id === 'saver') {
+                colValues = [tickIcon, tickIcon, crossIcon, 'Paid', 'Paid', 'Standard Fee'];
+            } else if (opt.id === 'flexi') {
+                colValues = [tickIcon, tickIcon, tickIcon, tickIcon, tickIcon, tickIcon];
+            } else if (opt.id === 'upfront') {
+                colValues = [tickIcon, tickIcon, crossIcon, 'Paid', 'Paid', 'Standard Fee'];
+            }
+        } else {
+            if (opt.id === 'stretch-base') {
+                colValues = [tickIcon, crossIcon, crossIcon, 'Paid'];
+            } else if (opt.id === 'stretch-plus') {
+                colValues = [tickIcon, tickIcon, tickIcon, tickIcon];
+            }
+        }
+        
+        html += `
+            <div class="pricing-col col-tier-${idx % 4}">
+                <div class="pricing-header">${opt.name}</div>
+                <div class="pricing-row price-row">₹${totalPrice.toLocaleString('en-IN')}</div>
+        `;
+        
+        colValues.forEach(val => {
+            html += `<div class="pricing-row">${val}</div>`;
         });
         
         html += `
-            <div class="${cardClass}">
-                <div class="compare-fare-header">
-                    <div class="compare-fare-name">${option.name} ${badgeHtml}</div>
-                    <div class="compare-fare-price">₹${totalPrice.toLocaleString('en-IN')}</div>
+                <div class="pricing-row action-row">
+                    <button class="matrix-select-btn" onclick="closeCompareModal();">Select</button>
                 </div>
-                <div class="compare-fare-features">
-                    ${featuresHtml}
-                </div>
-                <button class="compare-select-btn" onclick="closeCompareModal();">Back to Selection</button>
             </div>
         `;
     });
