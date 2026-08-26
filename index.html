@@ -4768,10 +4768,7 @@
             </div>
         </div>
 
-        <!-- Dynamic Passenger Selector -->
-        <div style="padding: 12px 24px 16px; display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none;" id="addonPaxCartContainer">
-            <!-- Populated via JS with .compact-pax-chip -->
-        </div>
+        <!-- Dynamic Passenger Selector (Removed for Accordion layout) -->
 
         <!-- Scroll-Spy Category Tabs -->
         <div class="addon-spy-tabs">
@@ -4783,6 +4780,12 @@
 
     <!-- Main Scrollable Feed -->
     <div class="addons-main-feed" id="addonsMainFeed" style="flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; padding: 16px 24px 32px; -webkit-overflow-scrolling: touch;">
+
+        <!-- Container for Accordions -->
+        <div id="pax-accordions-container"></div>
+
+        <!-- Template for Addon Items (Moved into active accordion via JS) -->
+        <div id="addon-items-template" style="display: none;">
 
         <!-- Complimentary Meal Banner (Hidden by default) -->
         <div id="complimentaryMealBanner" style="display: none; margin-bottom: 24px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 16px; padding: 16px; box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2); color: white; align-items: center; justify-content: space-between;">
@@ -4825,7 +4828,7 @@
                             <div style="font-size: 12px; color: #64748b; text-decoration: line-through; font-weight: 600;">₹ 1,499</div>
                             <div style="font-size: 24px; font-weight: 800; color: #ffffff;">₹ 999</div>
                         </div>
-                        <button class="neon-add-btn" onclick="toggleAddonCart(this, 'GoFlex', 999)">Add to Cart</button>
+                        <button class="neon-add-btn" data-addon-name="GoFlex" onclick="toggleAddonCart(this, 'GoFlex', 999)">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -4849,7 +4852,7 @@
                         <div style="font-size: 12px; color: #94a3b8; text-decoration: line-through; font-weight: 600;">₹ 1,000</div>
                         <div style="font-size: 20px; font-weight: 800; color: #0f172a;">₹ 699</div>
                     </div>
-                    <button class="standard-add-btn" onclick="toggleAddonCart(this, 'GoSmart', 699)">Add</button>
+                    <button class="standard-add-btn" data-addon-name="GoSmart" onclick="toggleAddonCart(this, 'GoSmart', 699)">Add</button>
                 </div>
             </div>
         </div>
@@ -4889,7 +4892,7 @@
                             <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 2px;">Includes beverage</div>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
                                 <div class="glass-price" id="veg-meal-price">₹ 370</div>
-                                <button class="glass-add-btn" id="veg-meal-btn" onclick="toggleAddonCart(this, 'Paneer Tikka Meal', 370)">Add</button>
+                                <button class="glass-add-btn" id="veg-meal-btn" data-addon-name="Paneer Tikka Meal" onclick="toggleAddonCart(this, 'Paneer Tikka Meal', 370)">Add</button>
                             </div>
                         </div>
                     </div>
@@ -4907,7 +4910,7 @@
                             <div style="font-size: 11px; color: rgba(255,255,255,0.8); margin-top: 2px;">Includes beverage</div>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px;">
                                 <div class="glass-price">₹ 420</div>
-                                <button class="glass-add-btn" onclick="toggleAddonCart(this, 'Chicken Meal', 420)">Add</button>
+                                <button class="glass-add-btn" data-addon-name="Chicken Meal" onclick="toggleAddonCart(this, 'Chicken Meal', 420)">Add</button>
                             </div>
                         </div>
                     </div>
@@ -4951,6 +4954,8 @@
                 </div>
             </div>
         </div>
+        
+        </div> <!-- End addon-items-template -->
 
     </div> <!-- End Main Feed -->
 

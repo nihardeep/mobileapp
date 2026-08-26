@@ -9066,3 +9066,41 @@ input, button, select, textarea {
     box-shadow: 0 6px 12px rgba(0,0,0,0.06);
     z-index: -1;
 }
+
+/* Accordion Passenger Layout */
+.pax-accordion {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    overflow: hidden;
+}
+.pax-accordion-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: #ffffff;
+    transition: background 0.2s ease;
+}
+.pax-accordion-body {
+    display: none;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    padding: 16px 0;
+}
+.pax-accordion.open .pax-accordion-body {
+    display: block;
+}
+.pax-accordion.open .pax-accordion-header {
+    background: #f8fafc;
+}
+.pax-acc-chevron {
+    color: #94a3b8;
+    transition: transform 0.3s ease;
+}
+.pax-accordion.open .pax-acc-chevron {
+    transform: rotate(180deg);
+}

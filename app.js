@@ -5060,8 +5060,8 @@ function initAddonsScreen() {
     if (mealBanner) mealBanner.style.display = appState.hasComplimentaryPerks ? 'flex' : 'none';
     if (loungeTag) loungeTag.style.display = appState.hasComplimentaryPerks ? 'flex' : 'none';
 
-    // 1. Populate Passenger Cart Headers
-    const paxContainer = document.getElementById('addonPaxCartContainer');
+    // 1. Populate Passenger Accordions
+    const paxContainer = document.getElementById('pax-accordions-container');
     if (paxContainer) {
         paxContainer.innerHTML = '';
         const completedPax = document.querySelectorAll('.passenger-card.completed');
@@ -5085,12 +5085,17 @@ function initAddonsScreen() {
 
         paxList.forEach((pax, idx) => {
             if (!addonCart[idx]) {
-                addonCart[idx] = { total: 0, items: [] };
+                addonCart[idx] = { total: 0, items: [], baggage: 0 };
             }
-            const chip = document.createElement('div');
-            chip.className = `compact-pax-chip ${idx === 0 ? 'active' : ''}`;
-            chip.id = `addon-person-${idx}`;
-            chip.onclick = () => selectAddonPax(idx, chip);
+            
+            // Ensure baggage property exists on old cart sessions
+            if (addonCart[idx].baggage === undefined) {
+                addonCart[idx].baggage = 0;
+            }
+            
+            const acc = document.createElement('div');
+            acc.className = `pax-accordion ${idx === 0 ? 'open' : ''}`;
+            acc.id = `pax-accordion-${idx}`;
             
             // Extract initials
             let initials = pax.name.substring(0,2).toUpperCase();
@@ -5099,16 +5104,38 @@ function initAddonsScreen() {
                 initials = parts[0][0] + (parts[1] ? parts[1][0] : '');
             }
             
-            chip.innerHTML = `
-                <div class="compact-pax-avatar">${initials}</div>
-                <div class="compact-pax-info">
-                    <div class="compact-pax-name">${pax.name}</div>
-                    <div class="compact-pax-status">₹<span class="pax-chip-total">${addonCart[idx].total}</span> &bull; <span class="pax-chip-items">${addonCart[idx].items.length}</span> items</div>
+            acc.innerHTML = `
+                <div class="pax-accordion-header" onclick="togglePaxAccordion(${idx})">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="background: #eef2ff; color: #4338ca; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: 800; font-size: 14px;">${initials}</div>
+                        <div>
+                            <div style="font-size: 15px; font-weight: 800; color: #0f172a;">${pax.name}</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-top: 2px;">₹<span class="pax-acc-total">${addonCart[idx].total}</span> added</div>
+                        </div>
+                    </div>
+                    <div class="pax-acc-chevron">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </div>
                 </div>
+                <div class="pax-accordion-body" id="pax-body-${idx}"></div>
             `;
-            paxContainer.appendChild(chip);
+            paxContainer.appendChild(acc);
         });
+        
         currentAddonPax = 0;
+        
+        // Move template into first passenger's body
+        const template = document.getElementById('addon-items-template');
+        const body0 = document.getElementById('pax-body-0');
+        if (template && body0) {
+            template.style.display = 'block';
+            body0.appendChild(template);
+        }
+        
+        // Sync UI for the first passenger
+        if (typeof syncAddonUI === 'function') {
+            syncAddonUI();
+        }
     }
 
     // 2. Setup Scroll-Spy
@@ -5153,16 +5180,57 @@ function initAddonsScreen() {
 // Ensure initAddonsScreen is called from navigateTo
 // (This was already added in the previous step's teardown/rebuild logic)
 
-function selectAddonPax(index, chipEl) {
+function togglePaxAccordion(index) {
+    if (currentAddonPax === index) return;
+    
+    // Close old
+    const oldAcc = document.getElementById(`pax-accordion-${currentAddonPax}`);
+    if (oldAcc) oldAcc.classList.remove('open');
+    
     currentAddonPax = index;
-    document.querySelectorAll('.compact-pax-chip').forEach(c => c.classList.remove('active'));
-    chipEl.classList.add('active');
-    const container = chipEl.parentElement;
-    if (container) {
-        const scrollLeftTarget = chipEl.offsetLeft - (container.offsetWidth / 2) + (chipEl.offsetWidth / 2);
-        container.scrollTo({ left: scrollLeftTarget, behavior: 'smooth' });
+    
+    // Open new
+    const newAcc = document.getElementById(`pax-accordion-${index}`);
+    if (newAcc) newAcc.classList.add('open');
+    
+    // Move template
+    const template = document.getElementById('addon-items-template');
+    const newBody = document.getElementById(`pax-body-${index}`);
+    if (template && newBody) {
+        newBody.appendChild(template);
     }
+    
+    syncAddonUI();
     triggerHaptic('light', 'Switched passenger');
+}
+
+function syncAddonUI() {
+    if (!addonCart[currentAddonPax]) return;
+    const currentItems = addonCart[currentAddonPax].items || [];
+    
+    // Sync regular add buttons
+    const btns = document.querySelectorAll('.glass-add-btn, .neon-add-btn, .standard-add-btn');
+    btns.forEach(btn => {
+        if (btn.innerText === 'Included') return;
+        
+        const addonName = btn.getAttribute('data-addon-name');
+        if (!addonName) return;
+        
+        if (currentItems.includes(addonName)) {
+            btn.classList.add('added');
+            btn.innerHTML = 'Added ✓';
+        } else {
+            btn.classList.remove('added');
+            btn.innerHTML = btn.classList.contains('neon-add-btn') ? 'Add to Cart' : 'Add';
+        }
+    });
+    
+    // Sync baggage stepper
+    const baggageVal = addonCart[currentAddonPax].baggage || 0;
+    const valEl = document.getElementById('baggage-val');
+    const costEl = document.getElementById('baggage-cost');
+    if (valEl) valEl.innerText = baggageVal;
+    if (costEl) costEl.innerText = `₹ ${baggageVal * 100}`;
 }
 
 function toggleAddonCart(btn, itemName, price) {
@@ -5187,14 +5255,14 @@ function toggleAddonCart(btn, itemName, price) {
         triggerHaptic('success', 'Added');
     }
     
-    // Update individual passenger chip
-    const chip = document.getElementById(`addon-person-${currentAddonPax}`);
+    // Update individual passenger accordion total
+    const acc = document.getElementById(`pax-accordion-${currentAddonPax}`);
     let paxFirstName = "Passenger";
-    if (chip) {
-        chip.querySelector('.pax-chip-total').innerText = addonCart[currentAddonPax].total;
-        chip.querySelector('.pax-chip-items').innerText = addonCart[currentAddonPax].items.length;
+    if (acc) {
+        const tot = acc.querySelector('.pax-acc-total');
+        if (tot) tot.innerText = addonCart[currentAddonPax].total;
         
-        const fullName = chip.querySelector('.compact-pax-name').innerText;
+        const fullName = acc.querySelector('.pax-accordion-header').innerText;
         paxFirstName = fullName.split(' ')[0];
     }
     
@@ -5278,35 +5346,29 @@ function filterMeals(type, filterBtn) {
 }
 
 // BAGGAGE STEPPER
-let baggageExtra = 0;
 function updateBaggage(change) {
-    const valEl = document.getElementById('baggage-val');
-    const costEl = document.getElementById('baggage-cost');
+    if (addonCart[currentAddonPax].baggage === undefined) addonCart[currentAddonPax].baggage = 0;
     
-    if (!valEl || !costEl) return;
-    
-    let currentVal = parseInt(valEl.innerText);
-    currentVal += change;
-    if (currentVal < 0) currentVal = 0;
+    let currentVal = addonCart[currentAddonPax].baggage;
+    let newVal = currentVal + change;
+    if (newVal < 0) newVal = 0;
     
     // Calculate difference
-    const diff = currentVal - baggageExtra;
-    baggageExtra = currentVal;
-    
-    valEl.innerText = baggageExtra;
-    
-    const cost = baggageExtra * 100; // 100 rs per kg
-    costEl.innerText = `₹ ${cost}`;
+    const diff = newVal - currentVal;
+    addonCart[currentAddonPax].baggage = newVal;
     
     // Update master cart directly for baggage
     addonCart[currentAddonPax].total += (diff * 100);
     if (change > 0) showToast('Added ' + change + 'kg Extra Baggage');
-
     
-    const chip = document.getElementById(`pax-chip-${currentAddonPax}`);
-    if (chip) {
-        chip.querySelector('.pax-chip-total').innerText = addonCart[currentAddonPax].total;
+    syncAddonUI();
+    
+    const acc = document.getElementById(`pax-accordion-${currentAddonPax}`);
+    if (acc) {
+        const tot = acc.querySelector('.pax-acc-total');
+        if (tot) tot.innerText = addonCart[currentAddonPax].total;
     }
+    
     updateMasterTotal();
     triggerHaptic('light', 'Baggage updated');
 }
