@@ -5082,11 +5082,6 @@ function initAddonsScreen() {
                 { name: 'Abhay', type: 'Senior Citizen' }
             ];
         }
-        
-        const scrollHint = document.getElementById('addonPaxScrollHint');
-        if (scrollHint) {
-            scrollHint.style.display = paxList.length > 2 ? 'flex' : 'none';
-        }
 
         paxList.forEach((pax, idx) => {
             if (!addonCart[idx]) {
