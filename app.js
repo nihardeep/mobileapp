@@ -5082,6 +5082,11 @@ function initAddonsScreen() {
                 { name: 'Abhay', type: 'Senior Citizen' }
             ];
         }
+        
+        const scrollHint = document.getElementById('addonPaxScrollHint');
+        if (scrollHint) {
+            scrollHint.style.display = paxList.length > 2 ? 'flex' : 'none';
+        }
 
         paxList.forEach((pax, idx) => {
             if (!addonCart[idx]) {
@@ -5185,15 +5190,23 @@ function toggleAddonCart(btn, itemName, price) {
         addonCart[currentAddonPax].total += actualPrice;
         addonCart[currentAddonPax].items.push(itemName);
         triggerHaptic('success', 'Added');
-        
-        // Fly animation could go here
     }
     
     // Update individual passenger chip
-    const chip = document.getElementById(`pax-chip-${currentAddonPax}`);
+    const chip = document.getElementById(`addon-person-${currentAddonPax}`);
+    let paxFirstName = "Passenger";
     if (chip) {
         chip.querySelector('.pax-chip-total').innerText = addonCart[currentAddonPax].total;
         chip.querySelector('.pax-chip-items').innerText = addonCart[currentAddonPax].items.length;
+        
+        const fullName = chip.querySelector('.compact-pax-name').innerText;
+        paxFirstName = fullName.split(' ')[0];
+    }
+    
+    if (isAdded) {
+        showToast(`Removed ${itemName} from ${paxFirstName}`);
+    } else {
+        showToast(`Added ${itemName} for ${paxFirstName}`);
     }
     
     updateMasterTotal();
