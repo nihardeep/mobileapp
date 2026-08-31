@@ -5839,6 +5839,42 @@
                 </div>
             </div>
             
+            <!-- AR View Container (Inside Mobile Screen) -->
+            <div id="arViewContainer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; display: none; background: #000; overflow: hidden; perspective: 1000px;">
+                <!-- Fake AR Background Image instead of live camera -->
+                <img id="arBackground" src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=2000&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);" />
+                
+                <!-- UI Overlays in AR -->
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 40px 20px;">
+                    <!-- Top HUD -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; z-index: 1001; pointer-events: auto;">
+                        <button onclick="exitFakeAR()" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 20px; border-radius: 24px; font-weight: 700; backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Exit AR
+                        </button>
+                        <div style="background: rgba(16, 185, 129, 0.9); padding: 12px 20px; border-radius: 24px; color: white; font-weight: 800; text-align: right; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);">
+                            <div style="font-size: 11px; opacity: 0.9;">Destination</div>
+                            <div style="font-size: 16px;" id="arDestName">Gate 32</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom HUD Instructions -->
+                    <div style="text-align: center; margin-bottom: 60px; z-index: 1001;">
+                        <div style="background: rgba(0,0,0,0.7); display: inline-block; padding: 12px 24px; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; backdrop-filter: blur(10px);">
+                            Follow the blue path ahead
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3D AR Path Overlay -->
+                <div style="position: absolute; bottom: -10%; left: 50%; transform-origin: bottom center; transform: translateX(-50%) rotateX(60deg); width: 100px; height: 60vh; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                    <!-- Glowing AR Arrow -->
+                    <div class="ar-arrow-pulse" style="width: 60px; height: 100%; border-left: 8px dashed rgba(59, 130, 246, 0.8); border-right: 8px dashed rgba(59, 130, 246, 0.8); position: relative;">
+                        <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 60px solid rgba(59, 130, 246, 0.9); filter: drop-shadow(0 0 12px rgba(59, 130, 246, 1));"></div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         
         </div>
@@ -5855,42 +5891,6 @@
     </div>
     
     <script src="app.js?v=1785396836"></script>
-
-    <!-- AR View Container (Hidden by default) -->
-    <div id="arViewContainer" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1000; display: none; background: #000; overflow: hidden; perspective: 1000px;">
-        <!-- Fake AR Background Image instead of live camera -->
-        <img id="arBackground" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2000&auto=format&fit=crop" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.8);" />
-        
-        <!-- UI Overlays in AR -->
-        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 40px 20px;">
-            <!-- Top HUD -->
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; z-index: 1001; pointer-events: auto;">
-                <button onclick="exitFakeAR()" style="background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 20px; border-radius: 24px; font-weight: 700; backdrop-filter: blur(10px); cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    Exit AR
-                </button>
-                <div style="background: rgba(16, 185, 129, 0.9); padding: 12px 20px; border-radius: 24px; color: white; font-weight: 800; text-align: right; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);">
-                    <div style="font-size: 11px; opacity: 0.9;">Destination</div>
-                    <div style="font-size: 16px;" id="arDestName">Gate 32</div>
-                </div>
-            </div>
-            
-            <!-- Bottom HUD Instructions -->
-            <div style="text-align: center; margin-bottom: 60px; z-index: 1001;">
-                <div style="background: rgba(0,0,0,0.7); display: inline-block; padding: 12px 24px; border-radius: 20px; color: white; font-size: 14px; font-weight: 700; backdrop-filter: blur(10px);">
-                    Follow the blue path ahead
-                </div>
-            </div>
-        </div>
-        
-        <!-- 3D AR Path Overlay -->
-        <div style="position: absolute; bottom: -10%; left: 50%; transform-origin: bottom center; transform: translateX(-50%) rotateX(60deg); width: 100px; height: 60vh; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
-            <!-- Glowing AR Arrow -->
-            <div class="ar-arrow-pulse" style="width: 60px; height: 100%; border-left: 8px dashed rgba(59, 130, 246, 0.8); border-right: 8px dashed rgba(59, 130, 246, 0.8); position: relative;">
-                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 40px solid transparent; border-right: 40px solid transparent; border-bottom: 60px solid rgba(59, 130, 246, 0.9); filter: drop-shadow(0 0 12px rgba(59, 130, 246, 1));"></div>
-            </div>
-        </div>
-    </div>
 
     <!-- Haptic audio simulation nodes -->
     <audio id="sndTap" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
