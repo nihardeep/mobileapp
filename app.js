@@ -7752,7 +7752,7 @@ function startIndoorNavigation() {
         }
         
         // Auto-route for connection risk
-        if (window.currentHomeState === 'connection_risk') {
+        if (appState.flightState === 'connection_risk') {
             setTimeout(() => {
                 const gate32Pin = document.getElementById('pin-gate32');
                 if (gate32Pin) {
