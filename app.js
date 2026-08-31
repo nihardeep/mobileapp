@@ -7737,6 +7737,33 @@ function closeLocationPermission() {
     }
 }
 
+// Map UI Overhaul Logic
+function openSearchOverlay() {
+    triggerHaptic('light', 'Search Opened');
+    const overlay = document.getElementById('navSearchOverlay');
+    const input = document.getElementById('navSearchInput');
+    if (overlay) overlay.style.display = 'flex';
+    if (input) input.focus();
+}
+
+function closeSearchOverlay() {
+    const overlay = document.getElementById('navSearchOverlay');
+    if (overlay) overlay.style.display = 'none';
+}
+
+function handleMapSearch(query) {
+    // Basic stub for search input handling
+    console.log("Searching for: " + query);
+}
+
+function filterMap(category) {
+    triggerHaptic('medium', 'Filtered ' + category);
+    showToast("Filtering by " + category);
+    
+    // In a real app, this would toggle visibility of pins
+    // For prototype, we'll just show a visual feedback toast
+}
+
 let arCameraStream = null;
 
 async function startFakeAR() {
