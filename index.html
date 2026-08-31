@@ -5820,19 +5820,23 @@
             </div>
 
             <!-- Route Info Bar (Hidden initially) -->
-            <div id="navRouteInfoBar" style="position: absolute; top: 110px; left: 20px; right: 20px; background: #001b94; border-radius: 16px; padding: 16px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 12px 24px rgba(0,27,148,0.3); z-index: 25;">
-                <div>
-                    <div style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 2px;">Route to <span id="routeDestName">...</span></div>
+            <div id="navRouteInfoBar" style="position: absolute; bottom: 30px; left: 20px; right: 20px; background: rgba(255,255,255,0.95); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-radius: 24px; padding: 20px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 16px 40px rgba(0,0,0,0.15); border: 1px solid rgba(255,255,255,0.5); z-index: 25;">
+                <div style="display: flex; flex-direction: column;">
+                    <div style="font-size: 14px; font-weight: 700; color: #64748b; margin-bottom: 4px;">Route to <span id="routeDestName" style="color: #0f172a;">...</span></div>
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#10b981" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <span style="font-size: 16px; font-weight: 800; color: #fff;">15-20 min</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#10b981" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span style="font-size: 24px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">15-20<span style="font-size: 16px; font-weight: 700; color: #64748b;">m</span></span>
                     </div>
                 </div>
-                <button onclick="startFakeAR()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(10px);">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                    AR View
-                </button>
-                <button onclick="endNavigation()" style="background: rgba(255,255,255,0.1); border: none; padding: 8px 16px; border-radius: 8px; color: white; font-weight: 700; cursor: pointer;">End</button>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <button onclick="startFakeAR()" style="background: var(--xairline-blue); color: white; border: none; padding: 12px 20px; border-radius: 20px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,27,148,0.2);">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        AR
+                    </button>
+                    <button onclick="endNavigation()" style="background: #f1f5f9; color: #ef4444; border: none; width: 44px; height: 44px; border-radius: 50%; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
             </div>
             
         </div>
