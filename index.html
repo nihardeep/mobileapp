@@ -5594,10 +5594,36 @@
 
             <!-- Side Controls (Map controls) -->
             <div style="position: absolute; bottom: 200px; right: 20px; display: flex; flex-direction: column; gap: 8px; z-index: 20;">
-                <div class="nav-control-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
-                <div class="nav-control-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></div>
-                <div class="nav-control-btn"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
-                <div class="nav-control-btn" style="margin-top: 8px;" onclick="centerMap()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div>
+                <!-- 1. Location / You are here -->
+                <div class="nav-control-btn" onclick="centerMap()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></div>
+                <!-- 2. Share Location -->
+                <div class="nav-control-btn" onclick="shareLocation()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg></div>
+                <!-- 3. Accessibility / Man icon -->
+                <div class="nav-control-btn" onclick="showToast('Accessibility mode enabled')"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"></circle><path d="M16 11l-2-2V7a2 2 0 0 0-4 0v2l-2 2"></path><path d="M12 11v6"></path><path d="M10 22l2-5 2 5"></path></svg></div>
+                <!-- 4. Feedback / Message -->
+                <div class="nav-control-btn" style="margin-top: 8px;" onclick="openMapFeedback()"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div>
+            </div>
+
+            <!-- Feedback Popup Overlay -->
+            <div id="navFeedbackPopup" style="display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 300; align-items: center; justify-content: center; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);">
+                <div style="background: #fff; border-radius: 20px; padding: 24px; width: 300px; text-align: center; box-shadow: 0 12px 32px rgba(0,0,0,0.2);">
+                    <div style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">How was your experience?</div>
+                    <div style="font-size: 13px; font-weight: 500; color: #64748b; margin-bottom: 24px;">Your feedback helps us improve navigation at T3.</div>
+                    
+                    <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 24px;">
+                        <div onclick="submitMapFeedback('sad')" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 36px; line-height: 1; transition: transform 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">😞</div>
+                        </div>
+                        <div onclick="submitMapFeedback('ok')" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 36px; line-height: 1; transition: transform 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">😐</div>
+                        </div>
+                        <div onclick="submitMapFeedback('happy')" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+                            <div style="font-size: 36px; line-height: 1; transition: transform 0.2s;" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">😁</div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="closeMapFeedback()" style="background: #f1f5f9; color: #0f172a; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%;">Maybe Later</button>
+                </div>
             </div>
 
             <!-- Filters Bottom Sheet -->

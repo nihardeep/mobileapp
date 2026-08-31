@@ -7822,3 +7822,36 @@ function endNavigation() {
     
     triggerHaptic('light', 'Ended Navigation Route');
 }
+
+function shareLocation() {
+    triggerHaptic('medium', 'Share Location');
+    showToast("Sharing your location at T3...");
+}
+
+function openMapFeedback() {
+    const popup = document.getElementById('navFeedbackPopup');
+    if (popup) {
+        popup.style.display = 'flex';
+    }
+    triggerHaptic('light', 'Feedback Opened');
+}
+
+function closeMapFeedback() {
+    const popup = document.getElementById('navFeedbackPopup');
+    if (popup) {
+        popup.style.display = 'none';
+    }
+}
+
+function submitMapFeedback(type) {
+    triggerHaptic('success', 'Feedback Submitted');
+    closeMapFeedback();
+    
+    const messages = {
+        'sad': 'Sorry to hear that! We will improve.',
+        'ok': 'Thanks for your feedback!',
+        'happy': 'Glad you loved it!'
+    };
+    
+    showToast(messages[type] || 'Feedback received!');
+}
