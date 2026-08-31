@@ -5601,10 +5601,11 @@
             </div>
 
             <!-- Filters Bottom Sheet -->
-            <div id="navFiltersSheet" style="position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 24px 24px 0 0; padding: 20px 20px 32px; box-shadow: 0 -8px 24px rgba(0,0,0,0.08); z-index: 20; transition: transform 0.3s ease;">
-                <div style="width: 40px; height: 4px; background: #e2e8f0; border-radius: 2px; margin: 0 auto 20px;"></div>
+            <div id="navFiltersSheet" onclick="this.classList.toggle('expanded')" style="position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 24px 24px 0 0; padding: 16px 20px 32px; box-shadow: 0 -8px 24px rgba(0,0,0,0.08); z-index: 20; transition: transform 0.3s ease; cursor: pointer;">
+                <div style="width: 40px; height: 4px; background: #e2e8f0; border-radius: 2px; margin: 0 auto 16px;"></div>
+                <div style="font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 16px;">Quick Access</div>
                 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
+                <div class="nav-filters-grid">
                     <div class="nav-filter-item">
                         <div class="nav-filter-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
                         <div class="nav-filter-label">Toilet</div>
