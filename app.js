@@ -1363,7 +1363,6 @@ function renderFlightStateCard(state) {
             </div>
             <p class="state-desc">Check-in closes in 1h 10m – act fast</p>
             <div class="action-row-buttons" style="display: flex; gap: 8px;">
-                <button class="btn-secondary-action" onclick="openLocationPermission()" style="flex: 1; justify-content: center; background: #f1f5f9; color: #0f172a;">Get Directions</button>
                 <button class="btn-primary-action" onclick="runCheckinVerify()" style="flex: 1; justify-content: center;">Check in ➔</button>
             </div>
         `;
@@ -1656,7 +1655,7 @@ function renderFlightStateCard(state) {
             </div>
 
             <div class="action-row-buttons">
-                <button class="btn-glass-action" onclick="triggerHaptic('light', 'Download Pass')">Download Pass</button>
+                <button class="btn-primary-action" onclick="openLocationPermission()" style="width: 100%; justify-content: center;">Get Directions ➔</button>
             </div>
         `;
         triggerHaptic('heavy', 'Companion State: Boarding Gate 43 Open');
