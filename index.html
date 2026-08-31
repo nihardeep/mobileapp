@@ -5543,37 +5543,44 @@
         <div class="screen" id="screenIndoorNav" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #e2e8f0; z-index: 240; overflow: hidden; display: none; flex-direction: column;">
             
             <!-- Map View Container (Isometric Mock) -->
-            <div id="indoorNavMapContainer" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; background: #f1f5f9;">
-                <div id="indoorNavMapGrid" style="position: absolute; width: 200%; height: 200%; top: -50%; left: -50%; background-image: linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px); background-size: 60px 60px; transform: rotateX(60deg) rotateZ(-45deg); opacity: 0.5;"></div>
+            <div id="indoorNavMapContainer" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; background: #f1f5f9; touch-action: none;">
                 
-                <!-- Floor plan mock overlay -->
-                <div id="indoorNavFloorplan" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; transform: scale(1); transform-origin: center center; transition: transform 0.4s ease;">
+                <!-- Master Pan/Zoom Container -->
+                <div id="navPanZoomContainer" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; transform-origin: center center; transition: transform 0.1s ease-out;">
                     
-                    <!-- Route Line SVG Container -->
-                    <svg id="navRouteSvg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10;">
-                        <polyline id="navRouteLine" points="" fill="none" stroke="#3b82f6" stroke-width="4" stroke-dasharray="10,6" stroke-linecap="round" stroke-linejoin="round" style="display: none;"></polyline>
-                    </svg>
-
-                    <!-- Mock Pins -->
-                    <div class="nav-pin" id="pin-you" style="top: 60%; left: 30%; z-index: 15;">
-                        <div class="nav-pin-pulse"></div>
-                        <div class="nav-pin-dot"></div>
-                    </div>
+                    <!-- 3D Grid Background -->
+                    <div id="indoorNavMapGrid" style="position: absolute; width: 400%; height: 400%; top: -150%; left: -150%; background-image: linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px); background-size: 80px 80px; transform: rotateX(60deg) rotateZ(-45deg); opacity: 0.5;"></div>
                     
-                    <div class="nav-pin poi" id="pin-pharmacy" onclick="plotRouteTo(this, 'Apollo Pharmacy')" style="top: 40%; left: 70%;">
-                        <div class="poi-icon">💊</div>
-                        <div class="poi-label">Apollo Pharmacy</div>
+                    <!-- Floor plan mock overlay (Pins & Routes) -->
+                    <div id="indoorNavFloorplan" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0;">
+                        
+                        <!-- Route Line SVG Container -->
+                        <svg id="navRouteSvg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 10; overflow: visible;">
+                            <polyline id="navRouteLine" points="" fill="none" stroke="#3b82f6" stroke-width="6" stroke-dasharray="12,8" stroke-linecap="round" stroke-linejoin="round" style="display: none;"></polyline>
+                        </svg>
+
+                        <!-- Mock Pins (Spread out to test panning) -->
+                        <div class="nav-pin" id="pin-you" style="top: 60%; left: 30%; z-index: 15;">
+                            <div class="nav-pin-pulse"></div>
+                            <div class="nav-pin-dot"></div>
+                        </div>
+                        
+                        <div class="nav-pin poi" id="pin-pharmacy" onclick="plotRouteTo(this, 'Apollo Pharmacy')" style="top: 20%; left: 85%;">
+                            <div class="poi-icon">💊</div>
+                            <div class="poi-label">Apollo Pharmacy</div>
+                        </div>
+
+                        <div class="nav-pin poi" id="pin-lounge" onclick="plotRouteTo(this, 'Rupay Lounge')" style="top: 85%; left: 80%;">
+                            <div class="poi-icon">☕</div>
+                            <div class="poi-label">Rupay Lounge</div>
+                        </div>
+
+                        <div class="nav-pin poi" id="pin-toilet" onclick="plotRouteTo(this, 'Toilet')" style="top: 15%; left: 15%;">
+                            <div class="poi-icon">🚻</div>
+                            <div class="poi-label">Toilet</div>
+                        </div>
                     </div>
 
-                    <div class="nav-pin poi" id="pin-lounge" onclick="plotRouteTo(this, 'Rupay Lounge')" style="top: 25%; left: 40%;">
-                        <div class="poi-icon">☕</div>
-                        <div class="poi-label">Rupay Lounge</div>
-                    </div>
-
-                    <div class="nav-pin poi" id="pin-toilet" onclick="plotRouteTo(this, 'Toilet')" style="top: 50%; left: 55%;">
-                        <div class="poi-icon">🚻</div>
-                        <div class="poi-label">Toilet</div>
-                    </div>
                 </div>
             </div>
 

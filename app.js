@@ -7764,7 +7764,30 @@ function closeIndoorNavigation() {
     triggerHaptic('light', 'Closed Map');
 }
 
+let mapPanX = 0;
+let mapPanY = 0;
+let mapScale = 1;
+let isPanning = false;
+let startX = 0;
+let startY = 0;
+
+function updateMapTransform(animate = true) {
+    const container = document.getElementById('navPanZoomContainer');
+    if (!container) return;
+    
+    if (animate) {
+        container.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    } else {
+        container.style.transition = 'none';
+    }
+    container.style.transform = `translate(${mapPanX}px, ${mapPanY}px) scale(${mapScale})`;
+}
+
 function centerMap() {
+    mapPanX = 0;
+    mapPanY = 0;
+    mapScale = 1;
+    updateMapTransform(true);
     triggerHaptic('light', 'Centered Map');
     showToast("Centering on your location...");
 }
@@ -7777,33 +7800,61 @@ function plotRouteTo(poiElement, destName) {
     
     if (destNameEl) destNameEl.innerText = destName;
     
-    // Hide search & filters, show route info
     if (searchBar) searchBar.style.display = 'none';
     if (filtersSheet) filtersSheet.style.transform = 'translateY(100%)';
     if (infoBar) infoBar.style.display = 'flex';
     
-    // Draw line from You (30%, 60%) to clicked POI
     const line = document.getElementById('navRouteLine');
     if (line) {
-        // Calculate coordinates based on container size
         const mapArea = document.getElementById('indoorNavMapContainer');
-        const w = mapArea.offsetWidth;
-        const h = mapArea.offsetHeight;
+        const w = mapArea.offsetWidth || window.innerWidth;
+        const h = mapArea.offsetHeight || window.innerHeight;
         
-        // You are at 30% left, 60% top
-        const startX = w * 0.3;
-        const startY = h * 0.6;
+        // "You are here" is at 30% left, 60% top
+        const startX_px = w * 0.3;
+        const startY_px = h * 0.6;
         
-        // POI location from inline styles
         const poiLeft = parseFloat(poiElement.style.left) / 100 * w;
         const poiTop = parseFloat(poiElement.style.top) / 100 * h;
         
-        // Create an elbow line to look more "indoor routing" like
-        const midX = startX;
+        const midX = startX_px;
         const midY = poiTop;
         
-        line.setAttribute('points', `${startX},${startY} ${midX},${midY} ${poiLeft},${poiTop}`);
+        line.setAttribute('points', `${startX_px},${startY_px} ${midX},${midY} ${poiLeft},${poiTop}`);
         line.style.display = 'block';
+        
+        // Auto-framing logic
+        // Calculate the bounding box of the route
+        const minX = Math.min(startX_px, poiLeft);
+        const maxX = Math.max(startX_px, poiLeft);
+        const minY = Math.min(startY_px, poiTop);
+        const maxY = Math.max(startY_px, poiTop);
+        
+        const routeWidth = maxX - minX;
+        const routeHeight = maxY - minY;
+        
+        // Add padding (percentage of screen)
+        const padding = 100; 
+        
+        // Calculate required scale to fit the route
+        const scaleX = w / (routeWidth + padding * 2);
+        const scaleY = (h - 200) / (routeHeight + padding * 2); // 200px reserved for UI
+        
+        // Zoom out (scale < 1) if route is too big, max scale 1
+        mapScale = Math.min(1, scaleX, scaleY);
+        // Minimum zoom limit so it doesn't get ridiculously small
+        mapScale = Math.max(0.5, mapScale);
+        
+        // Calculate the center of the route
+        const centerX = minX + routeWidth / 2;
+        const centerY = minY + routeHeight / 2;
+        
+        // Calculate pan required to bring the center of the route to the center of the screen
+        // (Assuming transform-origin is center center)
+        mapPanX = -(centerX - w / 2) * mapScale;
+        mapPanY = -(centerY - h / 2) * mapScale;
+        
+        updateMapTransform(true);
     }
     
     triggerHaptic('success', 'Route Plotted');
@@ -7820,8 +7871,59 @@ function endNavigation() {
     if (filtersSheet) filtersSheet.style.transform = 'translateY(0)';
     if (line) line.style.display = 'none';
     
+    // Reset map pan/zoom
+    centerMap();
     triggerHaptic('light', 'Ended Navigation Route');
 }
+
+// Touch/Mouse Panning Logic Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        const container = document.getElementById('indoorNavMapContainer');
+        if (!container) return;
+        
+        // Mouse events
+        container.addEventListener('mousedown', (e) => {
+            isPanning = true;
+            startX = e.clientX - mapPanX;
+            startY = e.clientY - mapPanY;
+            container.style.cursor = 'grabbing';
+        });
+        
+        window.addEventListener('mousemove', (e) => {
+            if (!isPanning) return;
+            mapPanX = e.clientX - startX;
+            mapPanY = e.clientY - startY;
+            updateMapTransform(false);
+        });
+        
+        window.addEventListener('mouseup', () => {
+            isPanning = false;
+            if(container) container.style.cursor = 'grab';
+        });
+        
+        // Touch events
+        container.addEventListener('touchstart', (e) => {
+            if(e.touches.length === 1) {
+                isPanning = true;
+                startX = e.touches[0].clientX - mapPanX;
+                startY = e.touches[0].clientY - mapPanY;
+            }
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+            if (!isPanning || e.touches.length !== 1) return;
+            mapPanX = e.touches[0].clientX - startX;
+            mapPanY = e.touches[0].clientY - startY;
+            updateMapTransform(false);
+        });
+        
+        window.addEventListener('touchend', () => {
+            isPanning = false;
+        });
+        
+    }, 1000); // init after dom ready
+});
 
 function shareLocation() {
     triggerHaptic('medium', 'Share Location');
