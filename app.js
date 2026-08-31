@@ -7764,12 +7764,12 @@ function closeIndoorNavigation() {
     triggerHaptic('light', 'Closed Map');
 }
 
-let mapPanX = 0;
-let mapPanY = 0;
-let mapScale = 1;
-let isPanning = false;
-let startX = 0;
-let startY = 0;
+let indoorMapPanX = 0;
+let indoorMapPanY = 0;
+let indoorMapScale = 1;
+let indoorIsPanning = false;
+let indoorStartX = 0;
+let indoorStartY = 0;
 
 function updateMapTransform(animate = true) {
     const container = document.getElementById('navPanZoomContainer');
@@ -7780,13 +7780,13 @@ function updateMapTransform(animate = true) {
     } else {
         container.style.transition = 'none';
     }
-    container.style.transform = `translate(${mapPanX}px, ${mapPanY}px) scale(${mapScale})`;
+    container.style.transform = `translate(${indoorMapPanX}px, ${indoorMapPanY}px) scale(${indoorMapScale})`;
 }
 
 function centerMap() {
-    mapPanX = 0;
-    mapPanY = 0;
-    mapScale = 1;
+    indoorMapPanX = 0;
+    indoorMapPanY = 0;
+    indoorMapScale = 1;
     updateMapTransform(true);
     triggerHaptic('light', 'Centered Map');
     showToast("Centering on your location...");
@@ -7841,9 +7841,9 @@ function plotRouteTo(poiElement, destName) {
         const scaleY = (h - 200) / (routeHeight + padding * 2); // 200px reserved for UI
         
         // Zoom out (scale < 1) if route is too big, max scale 1
-        mapScale = Math.min(1, scaleX, scaleY);
+        indoorMapScale = Math.min(1, scaleX, scaleY);
         // Minimum zoom limit so it doesn't get ridiculously small
-        mapScale = Math.max(0.5, mapScale);
+        indoorMapScale = Math.max(0.5, indoorMapScale);
         
         // Calculate the center of the route
         const centerX = minX + routeWidth / 2;
@@ -7851,8 +7851,8 @@ function plotRouteTo(poiElement, destName) {
         
         // Calculate pan required to bring the center of the route to the center of the screen
         // (Assuming transform-origin is center center)
-        mapPanX = -(centerX - w / 2) * mapScale;
-        mapPanY = -(centerY - h / 2) * mapScale;
+        indoorMapPanX = -(centerX - w / 2) * indoorMapScale;
+        indoorMapPanY = -(centerY - h / 2) * indoorMapScale;
         
         updateMapTransform(true);
     }
@@ -7884,42 +7884,42 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Mouse events
         container.addEventListener('mousedown', (e) => {
-            isPanning = true;
-            startX = e.clientX - mapPanX;
-            startY = e.clientY - mapPanY;
+            indoorIsPanning = true;
+            indoorStartX = e.clientX - indoorMapPanX;
+            indoorStartY = e.clientY - indoorMapPanY;
             container.style.cursor = 'grabbing';
         });
         
         window.addEventListener('mousemove', (e) => {
-            if (!isPanning) return;
-            mapPanX = e.clientX - startX;
-            mapPanY = e.clientY - startY;
+            if (!indoorIsPanning) return;
+            indoorMapPanX = e.clientX - indoorStartX;
+            indoorMapPanY = e.clientY - indoorStartY;
             updateMapTransform(false);
         });
         
         window.addEventListener('mouseup', () => {
-            isPanning = false;
+            indoorIsPanning = false;
             if(container) container.style.cursor = 'grab';
         });
         
         // Touch events
         container.addEventListener('touchstart', (e) => {
             if(e.touches.length === 1) {
-                isPanning = true;
-                startX = e.touches[0].clientX - mapPanX;
-                startY = e.touches[0].clientY - mapPanY;
+                indoorIsPanning = true;
+                indoorStartX = e.touches[0].clientX - indoorMapPanX;
+                indoorStartY = e.touches[0].clientY - indoorMapPanY;
             }
         });
         
         window.addEventListener('touchmove', (e) => {
-            if (!isPanning || e.touches.length !== 1) return;
-            mapPanX = e.touches[0].clientX - startX;
-            mapPanY = e.touches[0].clientY - startY;
+            if (!indoorIsPanning || e.touches.length !== 1) return;
+            indoorMapPanX = e.touches[0].clientX - indoorStartX;
+            indoorMapPanY = e.touches[0].clientY - indoorStartY;
             updateMapTransform(false);
         });
         
         window.addEventListener('touchend', () => {
-            isPanning = false;
+            indoorIsPanning = false;
         });
         
     }, 1000); // init after dom ready
