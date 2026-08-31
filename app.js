@@ -7782,17 +7782,7 @@ async function startFakeAR() {
         arContainer.style.display = 'block';
     }
     
-    try {
-        arCameraStream = await navigator.mediaDevices.getUserMedia({ 
-            video: { facingMode: 'environment' } 
-        });
-        if (arVideo) {
-            arVideo.srcObject = arCameraStream;
-        }
-    } catch (err) {
-        console.error("Camera access denied or unavailable", err);
-        showToast("Camera access required for AR view.");
-    }
+    // Using a fake static image now instead of live camera for presentation purposes
 }
 
 function exitFakeAR() {
