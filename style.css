@@ -9181,3 +9181,12 @@ input, button, select, textarea {
 #navFiltersSheet.expanded .nav-filters-grid {
     max-height: 250px;
 }
+
+.ar-arrow-pulse {
+    animation: arPulse 1.5s infinite alternate ease-in-out;
+}
+@keyframes arPulse {
+    0% { transform: scaleY(1); opacity: 0.6; }
+    100% { transform: scaleY(1.1); opacity: 1; }
+}
+

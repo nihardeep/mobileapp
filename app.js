@@ -7737,6 +7737,55 @@ function closeLocationPermission() {
     }
 }
 
+let arCameraStream = null;
+
+async function startFakeAR() {
+    triggerHaptic('heavy', 'Started AR');
+    const arContainer = document.getElementById('arViewContainer');
+    const arVideo = document.getElementById('arVideo');
+    const destNameEl = document.getElementById('arDestName');
+    
+    // Copy current destination name
+    const routeDestName = document.getElementById('routeDestName');
+    if (destNameEl && routeDestName) {
+        destNameEl.innerText = routeDestName.innerText;
+    }
+    
+    if (arContainer) {
+        arContainer.style.display = 'block';
+    }
+    
+    try {
+        arCameraStream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: 'environment' } 
+        });
+        if (arVideo) {
+            arVideo.srcObject = arCameraStream;
+        }
+    } catch (err) {
+        console.error("Camera access denied or unavailable", err);
+        showToast("Camera access required for AR view.");
+    }
+}
+
+function exitFakeAR() {
+    triggerHaptic('light', 'Exited AR');
+    const arContainer = document.getElementById('arViewContainer');
+    const arVideo = document.getElementById('arVideo');
+    
+    if (arContainer) {
+        arContainer.style.display = 'none';
+    }
+    
+    if (arCameraStream) {
+        arCameraStream.getTracks().forEach(track => track.stop());
+        arCameraStream = null;
+    }
+    if (arVideo) {
+        arVideo.srcObject = null;
+    }
+}
+
 function startIndoorNavigation() {
     closeLocationPermission();
     const mapScreen = document.getElementById('screenIndoorNav');
