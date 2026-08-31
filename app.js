@@ -7750,6 +7750,16 @@ function startIndoorNavigation() {
                 filters.style.transform = 'translateY(0)';
             }, 300);
         }
+        
+        // Auto-route for connection risk
+        if (window.currentHomeState === 'connection_risk') {
+            setTimeout(() => {
+                const gate32Pin = document.getElementById('pin-gate32');
+                if (gate32Pin) {
+                    plotRouteTo(gate32Pin, 'Gate 32');
+                }
+            }, 400); // Wait for transition
+        }
     }
     triggerHaptic('medium', 'Started Indoor Navigation');
 }
@@ -7804,6 +7814,8 @@ function plotRouteTo(poiElement, destName) {
     if (infoBar) infoBar.style.display = 'flex';
     
     const line = document.getElementById('navRouteLine');
+    const securityCheck = document.getElementById('nav-security-check');
+    
     if (line) {
         const mapArea = document.getElementById('indoorNavMapContainer');
         const w = mapArea.offsetWidth || window.innerWidth;
@@ -7821,6 +7833,14 @@ function plotRouteTo(poiElement, destName) {
         
         line.setAttribute('points', `${startX_px},${startY_px} ${midX},${midY} ${poiLeft},${poiTop}`);
         line.style.display = 'block';
+        
+        if (destName === 'Gate 32' && securityCheck) {
+            securityCheck.style.left = `${midX}px`;
+            securityCheck.style.top = `${midY}px`;
+            securityCheck.style.display = 'flex';
+        } else if (securityCheck) {
+            securityCheck.style.display = 'none';
+        }
         
         // Auto-framing logic
         // Calculate the bounding box of the route
