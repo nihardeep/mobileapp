@@ -1362,8 +1362,9 @@ function renderFlightStateCard(state) {
                 <span class="state-date">24 APRIL | 12:30 PM IST</span>
             </div>
             <p class="state-desc">Check-in closes in 1h 10m – act fast</p>
-            <div class="action-row-buttons">
-                <button class="btn-primary-action" onclick="runCheckinVerify()">Check in ➔</button>
+            <div class="action-row-buttons" style="display: flex; gap: 8px;">
+                <button class="btn-secondary-action" onclick="openLocationPermission()" style="flex: 1; justify-content: center; background: #f1f5f9; color: #0f172a;">Get Directions</button>
+                <button class="btn-primary-action" onclick="runCheckinVerify()" style="flex: 1; justify-content: center;">Check in ➔</button>
             </div>
         `;
         triggerHaptic('light', 'Companion State: Check-in Open');
@@ -7712,4 +7713,112 @@ function updatePassengerPromoBanner() {
         </div>
     `;
     bannerContainer.style.display = 'block';
+}
+
+// ==========================================
+// INDOOR NAVIGATION LOGIC
+// ==========================================
+
+function openLocationPermission() {
+    const backdrop = document.getElementById('locationPermissionBackdrop');
+    const drawer = document.getElementById('locationPermissionDrawer');
+    if (backdrop && drawer) {
+        backdrop.style.display = 'block';
+        drawer.style.transform = 'translateY(0)';
+    }
+    triggerHaptic('light', 'Location Permission Opened');
+}
+
+function closeLocationPermission() {
+    const backdrop = document.getElementById('locationPermissionBackdrop');
+    const drawer = document.getElementById('locationPermissionDrawer');
+    if (backdrop && drawer) {
+        backdrop.style.display = 'none';
+        drawer.style.transform = 'translateY(100%)';
+    }
+}
+
+function startIndoorNavigation() {
+    closeLocationPermission();
+    const mapScreen = document.getElementById('screenIndoorNav');
+    if (mapScreen) {
+        mapScreen.style.display = 'flex';
+        // Hide filters sheet initially then slide up
+        const filters = document.getElementById('navFiltersSheet');
+        if (filters) {
+            filters.style.transform = 'translateY(100%)';
+            setTimeout(() => {
+                filters.style.transform = 'translateY(0)';
+            }, 300);
+        }
+    }
+    triggerHaptic('medium', 'Started Indoor Navigation');
+}
+
+function closeIndoorNavigation() {
+    const mapScreen = document.getElementById('screenIndoorNav');
+    if (mapScreen) {
+        mapScreen.style.display = 'none';
+    }
+    endNavigation();
+    triggerHaptic('light', 'Closed Map');
+}
+
+function centerMap() {
+    triggerHaptic('light', 'Centered Map');
+    showToast("Centering on your location...");
+}
+
+function plotRouteTo(poiElement, destName) {
+    const destNameEl = document.getElementById('routeDestName');
+    const infoBar = document.getElementById('navRouteInfoBar');
+    const searchBar = document.getElementById('navSearchBar');
+    const filtersSheet = document.getElementById('navFiltersSheet');
+    
+    if (destNameEl) destNameEl.innerText = destName;
+    
+    // Hide search & filters, show route info
+    if (searchBar) searchBar.style.display = 'none';
+    if (filtersSheet) filtersSheet.style.transform = 'translateY(100%)';
+    if (infoBar) infoBar.style.display = 'flex';
+    
+    // Draw line from You (30%, 60%) to clicked POI
+    const line = document.getElementById('navRouteLine');
+    if (line) {
+        // Calculate coordinates based on container size
+        const mapArea = document.getElementById('indoorNavMapContainer');
+        const w = mapArea.offsetWidth;
+        const h = mapArea.offsetHeight;
+        
+        // You are at 30% left, 60% top
+        const startX = w * 0.3;
+        const startY = h * 0.6;
+        
+        // POI location from inline styles
+        const poiLeft = parseFloat(poiElement.style.left) / 100 * w;
+        const poiTop = parseFloat(poiElement.style.top) / 100 * h;
+        
+        // Create an elbow line to look more "indoor routing" like
+        const midX = startX;
+        const midY = poiTop;
+        
+        line.setAttribute('points', `${startX},${startY} ${midX},${midY} ${poiLeft},${poiTop}`);
+        line.style.display = 'block';
+    }
+    
+    triggerHaptic('success', 'Route Plotted');
+}
+
+function endNavigation() {
+    const infoBar = document.getElementById('navRouteInfoBar');
+    const searchBar = document.getElementById('navSearchBar');
+    const filtersSheet = document.getElementById('navFiltersSheet');
+    const line = document.getElementById('navRouteLine');
+    
+    if (infoBar) infoBar.style.display = 'none';
+    if (searchBar) searchBar.style.display = 'flex';
+    if (filtersSheet) filtersSheet.style.transform = 'translateY(0)';
+    if (line) line.style.display = 'none';
+    
+    triggerHaptic('light', 'Ended Navigation Route');
 }

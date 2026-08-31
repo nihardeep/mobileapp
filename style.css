@@ -9066,3 +9066,115 @@ input, button, select, textarea {
     box-shadow: 0 6px 12px rgba(0,0,0,0.06);
     z-index: -1;
 }
+
+/* Indoor Navigation Styles */
+.nav-pin {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.nav-pin-pulse {
+    width: 48px;
+    height: 48px;
+    background: rgba(59, 130, 246, 0.2);
+    border-radius: 50%;
+    position: absolute;
+    bottom: -24px;
+    left: 50%;
+    transform: translateX(-50%) rotateX(60deg);
+    animation: pulseMap 2s infinite;
+}
+.nav-pin-dot {
+    width: 16px;
+    height: 16px;
+    background: #3b82f6;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+}
+@keyframes pulseMap {
+    0% { transform: translateX(-50%) rotateX(60deg) scale(0.8); opacity: 1; }
+    100% { transform: translateX(-50%) rotateX(60deg) scale(2.5); opacity: 0; }
+}
+
+.nav-pin.poi .poi-icon {
+    width: 32px;
+    height: 32px;
+    background: #1e293b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.2s ease;
+}
+.nav-pin.poi:active .poi-icon {
+    transform: scale(0.9);
+}
+.nav-pin.poi::after {
+    content: '';
+    width: 2px;
+    height: 12px;
+    background: #1e293b;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.poi-label {
+    background: rgba(255,255,255,0.9);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    white-space: nowrap;
+}
+
+.nav-control-btn {
+    width: 44px;
+    height: 44px;
+    background: #1e293b;
+    color: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+
+.nav-filter-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+.nav-filter-icon {
+    width: 56px;
+    height: 56px;
+    background: #64748b;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.nav-filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0f172a;
+}
