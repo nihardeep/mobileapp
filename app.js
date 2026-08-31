@@ -1468,7 +1468,7 @@ function renderFlightStateCard(state) {
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#ef4444" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </div>
             
-            <button class="btn-primary-action" style="width: 100%; justify-content: center; background: transparent; border: 1.5px solid #ef4444; color: #ef4444; font-weight: 800; font-size: 13px;" onclick="triggerHaptic('medium', 'Directions')">Step-by-step directions</button>
+            <button class="btn-primary-action" style="width: 100%; justify-content: center; background: transparent; border: 1.5px solid #ef4444; color: #ef4444; font-weight: 800; font-size: 13px;" onclick="openLocationPermission()">Step-by-step directions</button>
         `;
         triggerHaptic('heavy', 'Companion State: Connection Risk');
         triggerDynamicIsland('Connection at risk', '55 min to reach your next gate', 'Warning');
