@@ -7769,7 +7769,6 @@ let arCameraStream = null;
 async function startFakeAR() {
     triggerHaptic('heavy', 'Started AR');
     const arContainer = document.getElementById('arViewContainer');
-    const arVideo = document.getElementById('arVideo');
     const destNameEl = document.getElementById('arDestName');
     
     // Copy current destination name
